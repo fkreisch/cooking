@@ -1,0 +1,36 @@
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+}
+
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+    display: none;
+}
+
+.logo {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 40px;
+    color: #51608c;
+    margin-left: 13px;
+    text-decoration: none;
+}
+
+.container-top {
+    padding: 0px 0px 0px 0px;
+}
+
+.container-top-right {
+    padding: 0px 200px 0px 0px;
+}
+
+.container {
+    margin: 20px;
+}
+
+.container-right {
+    margin: 20px 220px 20px 20px;
+}

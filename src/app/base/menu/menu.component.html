@@ -1,0 +1,23 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset | async)!.matches ? 'push' : 'push'" [opened]="!(isHandset | async)!.matches">
+        <img src="../../../assets/img/chef.png" alt="">
+        <span class="logo">rmcook</span>
+        <mat-nav-list>
+            <a mat-list-item href="/first-page">Home</a>
+            <a mat-list-item href="/second-page">Recipes</a>
+            <a mat-list-item href="/third-page">Links</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset | async)!.matches">
+          <mat-icon>menu</mat-icon>
+        </button>
+            <span *ngIf="(isHandset | async)!.matches">Real Man Cook</span>
+        </mat-toolbar>
+        <div [class]="(isHandset | async)!.matches ? 'container' : 'container-right'">
+            <app-recipes-admin></app-recipes-admin>
+        </div>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
