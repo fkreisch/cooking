@@ -2,43 +2,43 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Demo, DemoId } from './recipe-interface';
+import { Recipe, RecipeId } from './recipe-interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
 
-  private demoCollection: AngularFirestoreCollection<Demo>;
-  private demoDoc: AngularFirestoreDocument<Demo>;
-  private demo: Observable<DemoId[]>;
+  private recipeCollection: AngularFirestoreCollection<Recipe>;
+  private recipeDoc: AngularFirestoreDocument<Recipe>;
+  private recipe: Observable<RecipeId[]>;
 
   constructor(public afs: AngularFirestore) {
-    this.demoCollection = afs.collection<Demo>('demo');
+    this.recipeCollection = afs.collection<Recipe>('recipe', ref => ref.orderBy('name'));
   }
 
-  getDemo() {
-    this.demo = this.demoCollection.snapshotChanges().pipe(
+  getRecipe() {
+    this.recipe = this.recipeCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Demo;
+        const data = a.payload.doc.data() as Recipe;
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
     );
-    return this.demo;
+    return this.recipe;
   }
 
-  addDemo(doc: Demo) {
-    this.demoCollection.add(doc);
+  addRecipe(doc: Recipe) {
+    this.recipeCollection.add(doc);
   }
 
-  deleteDemo(id: string) {
-    this.demoDoc = this.afs.doc(`demo/${id}`);
-    this.demoDoc.delete();
+  deleteRecipe(doc: RecipeId) {
+    this.recipeDoc = this.afs.doc(`recipe/${doc.id}`);
+    this.recipeDoc.delete();
   }
 
-  updateDemo(doc: Demo, id: string) {
-    this.demoDoc = this.afs.doc(`demo/${id}`);
-    this.demoDoc.set(doc, {merge: true});
+  updateRecipe(docId: RecipeId, doc: Recipe) {
+    this.recipeDoc = this.afs.doc(`recipe/${docId.id}`);
+    this.recipeDoc.set(doc, {merge: true});
   }
 }

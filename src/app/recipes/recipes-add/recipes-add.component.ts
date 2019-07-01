@@ -1,47 +1,71 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
-import { DemoId } from '../recipe-interface';
 
 @Component({
   selector: 'app-recipes-add',
   templateUrl: './recipes-add.component.html',
   styleUrls: ['./recipes-add.component.scss']
 })
+
 export class RecipesAddComponent implements OnInit {
 
-  private myForm: FormGroup;
-  public demo: DemoId[];
+  public recipeForm: FormGroup;
 
   constructor(private fb: FormBuilder, private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.myForm = this.fb.group({
-      record: '',
-      details: '',
-      fields: this.fb.array([])
+    this.clearRecipeForm();
+  }
+
+  get stepForm() {
+    return this.recipeForm.get('steps') as FormArray;
+  }
+  get ingredientForm() {
+    return this.recipeForm.get('ingredients') as FormArray;
+  }
+
+  addStep() {
+    const step = this.fb.group({
+      step: [],
     });
-    this.addFields();
+    this.stepForm.push(step);
   }
-
-  get fieldForms() {
-    return this.myForm.get('fields') as FormArray;
-  }
-
-  addFields() {
-    const field = this.fb.group({
-      field1: [],
-      field2: [],
-      field3: [],
+  addIngredient() {
+    const ingredient = this.fb.group({
+      quanity: [],
+      ingredient: [],
     });
-    this.fieldForms.push(field);
+    this.ingredientForm.push(ingredient);
   }
 
-  deleteFields(i) {
-    this.fieldForms.removeAt(i);
+  deleteStep(i) {
+    this.stepForm.removeAt(i);
+  }
+  deleteIngredient(i) {
+    this.ingredientForm.removeAt(i);
   }
 
-  writeForms() {
-    this.recipeService.addDemo(this.myForm.value);
+  clearRecipeForm() {
+    this.recipeForm = this.fb.group({
+      name: null,
+      short: null,
+      long: null,
+      serves: null,
+      servesfor: 'személyre',
+      time: null,
+      picture: null,
+      steps: this.fb.array([]),
+      ingredients: this.fb.array([]),
+      like: null,
+      opened: null,
+    });
+    this.addStep();
+    this.addIngredient();
+  }
+
+  writeRecipeForm() {
+    this.recipeService.addRecipe(this.recipeForm.value);
+    this.clearRecipeForm();
   }
 }

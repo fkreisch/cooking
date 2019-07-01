@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
-import { DemoId } from '../recipe-interface';
+import { RecipeId } from '../recipe-interface';
 
 @Component({
   selector: 'app-recipes-modify',
@@ -11,60 +11,85 @@ import { DemoId } from '../recipe-interface';
 
 export class RecipesModifyComponent implements OnInit {
 
-  public demo: DemoId[];
+  public recipe: RecipeId[];
 
-  myForm = new FormGroup({
-    record: new FormControl(),
-    details: new FormControl(),
-    fields: new FormArray([])
+  recipeForm = new FormGroup({
+    name: new FormControl(),
+    short: new FormControl(),
+    long: new FormControl(),
+    serves: new FormControl(),
+    servesfor: new FormControl(),
+    time: new FormControl(),
+    picture: new FormControl(),
+    steps: new FormArray([]),
+    ingredients: new FormArray([])
   });
 
   constructor(private fb: FormBuilder, private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.recipeService.getDemo().subscribe(demo => {
-      this.demo = demo;
+    this.recipeService.getRecipe().subscribe(recipe => {
+      this.recipe = recipe;
     });
   }
 
   // --> Array field functions BEGIN
-  get fieldForms() {
-    return this.myForm.get('fields') as FormArray;
+  get stepForm() {
+    return this.recipeForm.get('steps') as FormArray;
+  }
+  get ingredientForm() {
+    return this.recipeForm.get('ingredients') as FormArray;
   }
 
-  fillFields(item) {
-    this.fieldForms.clear();
-    item.fields.forEach(ill => {
-      const field = this.fb.group(ill);
-      ill = this.fieldForms.push(field);
+  fillSteps(item) {
+    this.stepForm.clear();
+    item.steps.forEach(ill => {
+      const step = this.fb.group(ill);
+      ill = this.stepForm.push(step);
+    });
+  }
+  fillIngredients(item) {
+    this.ingredientForm.clear();
+    item.ingredients.forEach(ill => {
+      const ingredient = this.fb.group(ill);
+      ill = this.ingredientForm.push(ingredient);
     });
   }
 
-  deleteFields(i) {
-    this.fieldForms.removeAt(i);
+  addStep() {
+    const step = this.fb.group({
+      step: [],
+    });
+    this.stepForm.push(step);
+  }
+  addIngredient() {
+    const ingredient = this.fb.group({
+      quanity: [],
+      ingred: [],
+    });
+    this.ingredientForm.push(ingredient);
   }
 
-  addFields() {
-    const field = this.fb.group({
-      field1: [],
-      field2: [],
-      field3: [],
-    });
-    this.fieldForms.push(field);
+  deleteStep(i) {
+    this.stepForm.removeAt(i);
   }
+  deleteIngredient(i) {
+    this.ingredientForm.removeAt(i);
+  }
+
   // --> Array field functions END
 
-  editForms(event, item) {
-      this.myForm.patchValue(item);
-      this.fillFields(item);
+  editRecipe(event, item) {
+      this.recipeForm.patchValue(item);
+      this.fillSteps(item);
+      this.fillIngredients(item);
   }
 
-  deleteForms(event, id) {
-    this.recipeService.deleteDemo(id);
+  deleteForms(event, item) {
+    this.recipeService.deleteRecipe(item);
   }
 
-  updateForms(event, id) {
-    this.recipeService.updateDemo(this.myForm.value, id);
+  updateForms(event, item) {
+    this.recipeService.updateRecipe(item, this.recipeForm.value);
   }
-
 }

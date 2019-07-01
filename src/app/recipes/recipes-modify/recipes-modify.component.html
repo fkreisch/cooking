@@ -1,50 +1,107 @@
 <mat-card>
     <mat-card-title>
-        Record Collection
+        Recipe Collection
     </mat-card-title>
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let item of demo">
-            <mat-expansion-panel-header (click)="editForms($event, item)">
+        <mat-expansion-panel *ngFor="let item of recipe">
+            <mat-expansion-panel-header (click)="editRecipe($event, item)">
                 <mat-panel-title>
-                    • {{item.record}}
+                    • {{item.name}}
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-card>
-                <form [formGroup]="myForm">
-                    <mat-form-field>
-                        <input matInput placeholder="Record" formControlName="record">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input matInput placeholder="Details" formControlName="details">
-                    </mat-form-field>
-                    <mat-card>
-                        <mat-card-subtitle>
-                            Fields
-                        </mat-card-subtitle>
-                        <div formArrayName="fields">
-                            <div *ngFor="let field of fieldForms.controls; let fieldI=index; last as isLast; first as isFirst" [formGroupName]="fieldI">
-                                <mat-form-field>
-                                    <input matInput placeholder="Field 1" formControlName="field1">
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <input matInput placeholder="Field 2" formControlName="field2">
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <input matInput placeholder="Field 3" formControlName="field3">
-                                </mat-form-field>
-                                <span class="button-row">
-                                    <button mat-mini-fab color="warn" (click)="deleteFields(fieldI)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
-                                    <button mat-mini-fab color="primary" (click)="addFields()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
-                                </span>
+                <form [formGroup]="recipeForm">
+                    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="10">
+                        <mat-form-field appearance="fill" fxFlex="50%" [hideRequiredMarker]="true">
+                            <mat-label>Recipe name</mat-label>
+                            <input matInput placeholder="Recipe name" formControlName="name" required>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="50%">
+                            <mat-label>Short details</mat-label>
+                            <input matInput #input maxlength="50" placeholder="Short details" formControlName="short">
+                            <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="10">
+                        <mat-form-field appearance="fill" fxFlex="100%">
+                            <mat-label>Long details</mat-label>
+                            <textarea matTextareaAutosize matInput placeholder="Long details" formControlName="long"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                        <mat-form-field appearance="fill" fxFlex="20%">
+                            <mat-label>Serves</mat-label>
+                            <input matInput type="number" placeholder="Serves" formControlName="serves">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="40%" [hideRequiredMarker]="true">
+                            <mat-label>for</mat-label>
+                            <mat-select formControlName="servesfor" required>
+                                <mat-option value="személyre">személyre</mat-option>
+                                <mat-option value="darabhoz">darabhoz</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="40%">
+                            <mat-label>Cooking time</mat-label>
+                            <input matInput type="number" placeholder="Cooking time" formControlName="time">
+                            <span matSuffix>minutes</span>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                        <mat-form-field appearance="fill" fxFlex="100%">
+                            <mat-label>Picture URL</mat-label>
+                            <input matInput placeholder="Picture URL" formControlName="picture">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="10">
+                        <mat-card fxFlex="50%">
+                            <mat-card-subtitle>
+                                Cooking Steps
+                            </mat-card-subtitle>
+                            <div formArrayName="steps">
+                                <div *ngFor="let step of stepForm.controls; let i=index; last as isLast; first as isFirst" [formGroupName]="i">
+                                    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                                        <mat-form-field appearance="fill" fxFlex="80%">
+                                            <mat-label>Step {{i+1}}</mat-label>
+                                            <textarea matTextareaAutosize matInput placeholder="Step {{i+1}}" formControlName="step"></textarea>
+                                        </mat-form-field>
+                                        <span fxLayout="row" fxLayoutAlign="left top" fxLayoutGap="10px" fxFlex="20%">
+                                            <button mat-mini-fab color="warn" (click)="deleteStep(i)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
+                                            <button mat-mini-fab color="primary" (click)="addStep()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </mat-card>
-                    <br>
+                        </mat-card>
+                        <mat-card fxFlex="50%">
+                            <mat-card-subtitle>
+                                Ingredients
+                            </mat-card-subtitle>
+                            <div formArrayName="ingredients">
+                                <div *ngFor="let ingred of ingredientForm.controls; let ii=index; last as isLast; first as isFirst" [formGroupName]="ii">
+                                    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                                        <mat-form-field appearance="fill" fxFlex="30%">
+                                            <mat-label>Quanity</mat-label>
+                                            <input matInput placeholder="Quanity" formControlName="quanity">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="fill" fxFlex="50%">
+                                            <mat-label>Ingredient</mat-label>
+                                            <input matInput placeholder="Ingredient" formControlName="ingredient">
+                                        </mat-form-field>
+                                        <span fxLayout="row" fxLayoutAlign="left top" fxLayoutGap="10px" fxFlex="20%">
+                                            <button mat-mini-fab color="warn" (click)="deleteIngredient(ii)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
+                                            <button mat-mini-fab color="primary" (click)="addIngredient()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
                 </form>
-                <span class="button-row">
-                        <button mat-raised-button color="primary" (click)="updateForms($event, item.id)" [disabled]="myForm.invalid">Update Form</button>
-                        <button mat-raised-button color="warn" class="float-right" (click)="deleteForms($event, item.id)">Delete Form</button>
-                        </span>
+                <br>
+                <span fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="10px">
+                    <button mat-raised-button color="primary" (click)="updateForms($event, item)" [disabled]="recipeForm.invalid">Update Recipe</button>
+                    <button mat-raised-button color="warn" class="float-right" (click)="deleteForms($event, item)">Delete Recipe</button>
+                </span>
             </mat-card>
         </mat-expansion-panel>
     </mat-accordion>
