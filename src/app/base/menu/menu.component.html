@@ -1,39 +1,42 @@
+<mat-toolbar class="toolbar">
+    <mat-toolbar-row>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset | async).matches"><mat-icon>menu</mat-icon></button>
+
+        <img class="chef" src="../../../assets/img/chef.png" alt="" *ngIf="!(isHandset | async).matches">
+        <span class="logo" color="basic">rmcook</span>
+        <span class="toolbar-spacer"></span>
+
+        <button *ngIf="user" mat-mini-fab [matMenuTriggerFor]="avatarDropDown" color="basic"><span style="font-size: 2em"><i class="fa fa-user"></i></span></button>
+        <button *ngIf="!user" mat-button [matMenuTriggerFor]="avatarDropDown">Bejelentkezés <span style="font-size: 2em"><i class="fa fa-sign-in"></i></span></button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset | async)!.matches ? 'push' : 'push'" [opened]="!(isHandset | async)!.matches">
-        <img src="../../../assets/img/chef.png" alt="">
-        <span class="logo">rmcook</span>
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset | async).matches ? 'push' : 'push'" [opened]="!(isHandset | async).matches">
+        <div [class]="(isHandset | async).matches ? 'nav-spacer-mobile' : 'nav-spacer'"></div>
         <mat-nav-list>
-            <a mat-list-item href="/first-page">Home</a>
-            <a mat-list-item href="/second-page">Recipes</a>
-            <a mat-list-item href="/third-page">Links</a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item href="/first-page">Kezdőoldal</a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item href="/second-page">Receptkönyv</a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item href="/third-page">Linkek</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <div class="toolbar" [class]="(isHandset | async)!.matches ? 'container-top' : 'container-top-right'">
-            <mat-toolbar color="primary">
-                <mat-toolbar-row>
-                    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset | async)!.matches"><mat-icon>menu</mat-icon></button>
-                    <span *ngIf="(isHandset | async)!.matches">Real Man Cook</span>
-
-                    <span class="toolbar-spacer"></span>
-
-                    <button *ngIf="user" mat-mini-fab [matMenuTriggerFor]="avatarDropDown" color="primary" [ngStyle]="{ 'background-image': 'url(' + user?.photoURL + ')'}"></button>
-                    <button *ngIf="!user" mat-button [matMenuTriggerFor]="avatarDropDown">Sign In <span style="font-size: 2em"><i class="fa fa-sign-in"></i></span></button>
-                </mat-toolbar-row>
-            </mat-toolbar>
-        </div>
         <mat-menu #avatarDropDown="matMenu">
             <mat-card *ngIf="user">
                 <mat-card-header>
-                    <mat-card-title><span style="font-size: 2em"><i class="fa fa-user"></i></span> {{ user?.displayName }}</mat-card-title>
-                    <mat-card-subtitle><span style="font-size: 1em"><i class="fa fa-envelope"></i></span> {{ user?.email }}</mat-card-subtitle>
+                    <mat-card-title fxLayout="row" fxLayoutAlign="end">{{ user?.displayName }}</mat-card-title>
+                    <mat-card-subtitle fxLayout="row" fxLayoutAlign="end"><span style="font-size: 1em"><i class="fa fa-envelope"></i></span>&nbsp; {{ user?.email }}</mat-card-subtitle>
                 </mat-card-header>
             </mat-card>
-            <button *ngIf="user" mat-button (click)="logout()">Sign out <span style="font-size: 2em"><i class="fa fa-sign-out"></i></span></button>
-            <button *ngIf="!user" mat-menu-item (click)="loginGoogle()">Sign in with <span style="font-size: 1em"><i class="fa fa-google-plus"></i></span></button>
+            <div fxLayout="row" fxLayoutAlign="end">
+                <button style="margin-top: 7px; margin-right: 12px" *ngIf="user" mat-button (click)="logout()">Kijelentkezés <span style="font-size: 2em"><i class="fa fa-sign-out"></i></span></button>
+            </div>
+            <button *ngIf="!user" mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-google-plus"></i></span>&nbsp;- Google</button>
+            <button *ngIf="!user" mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-facebook"></i></span>&nbsp;- Facebook</button>
+            <button *ngIf="!user" mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-twitter"></i></span>&nbsp;- Twitter</button>
         </mat-menu>
 
-        <div [class]="(isHandset | async)!.matches ? 'container' : 'container-right'">
+        <div [class]="(isHandset | async).matches ? 'container' : 'container-right'">
             <div fxLayout fxLayout.xs="column" fxLayoutAlign="center">
                 <div fxFlex="10%"></div>
                 <div fxFlex="80%">

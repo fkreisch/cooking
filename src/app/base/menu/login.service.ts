@@ -13,7 +13,6 @@ export class LoginService {
 
   login() {
     this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
-    console.log(this.afAuth);
   }
 
   logout() {
