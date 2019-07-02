@@ -59,6 +59,7 @@ export class RecipesAddComponent implements OnInit {
       ingredients: this.fb.array([]),
       like: null,
       opened: null,
+      favourite: false,
     });
     this.addStep();
     this.addIngredient();
