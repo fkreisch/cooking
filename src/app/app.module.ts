@@ -28,6 +28,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { environment } from '../environments/environment';
 import { RecipeService } from './recipes/recipe.service';
+import { LoginService } from './base/menu/login.service';
 
 import { MenuComponent } from './base/menu/menu.component';
 import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
@@ -42,7 +43,7 @@ import { RecipesModifyComponent } from './recipes/recipes-modify/recipes-modify.
     MenuComponent,
     RecipesAdminComponent,
     RecipesAddComponent,
-    RecipesModifyComponent
+    RecipesModifyComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +70,10 @@ import { RecipesModifyComponent } from './recipes/recipes-modify/recipes-modify.
     AngularFireAuthModule,
     AngularFontAwesomeModule,
   ],
-  providers: [RecipeService],
+  providers: [
+    RecipeService,
+    LoginService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

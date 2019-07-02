@@ -8,6 +8,29 @@ mat-form-field {
 }
 
 .mat-expansion-panel-header {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+textarea.mat-input-element {
+    padding: 0;
+    margin: 0;
+}
+
+.mat-form-field {
+    line-height: normal;
+}
+
+.button-group {
+    margin: 10px;
 }

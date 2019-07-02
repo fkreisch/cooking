@@ -19,6 +19,14 @@
     text-decoration: none;
 }
 
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
 .container-top {
     padding: 0px 0px 0px 0px;
 }
@@ -28,9 +36,22 @@
 }
 
 .container {
-    margin: 20px;
+    margin: 20px 20px 20px 20px;
 }
 
 .container-right {
     margin: 20px 220px 20px 20px;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.toolbar-icon {
+    cursor: pointer;
+}
+
+.toolbar-avatar {
+    background-size: cover;
+    box-shadow: none;
 }

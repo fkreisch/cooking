@@ -1,100 +1,92 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
-            Add New Recipe
+            Új recept
         </mat-panel-title>
     </mat-expansion-panel-header>
     <form [formGroup]="recipeForm">
         <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-            <mat-form-field appearance="fill" fxFlex="50%" [hideRequiredMarker]="true">
-                <mat-label>Recipe name</mat-label>
-                <input matInput placeholder="Recipe name" formControlName="name" required>
-                <mat-hint>Must be filled</mat-hint>
+            <mat-form-field appearance="fill" fxFlex="100%" [hideRequiredMarker]="true">
+                <mat-label>Recept neve</mat-label>
+                <input matInput placeholder="Recept neve" formControlName="name" required>
+                <mat-hint>Kötelező kitölteni</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="fill" fxFlex="50%">
-                <mat-label>Short details</mat-label>
-                <input matInput #input maxlength="50" placeholder="Short details" formControlName="short">
+        </div>
+        <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+            <mat-form-field appearance="fill" fxFlex="100%">
+                <mat-label>Rövid leírás</mat-label>
+                <input matInput #input maxlength="50" placeholder="Rövid leírás" formControlName="short">
                 <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
             </mat-form-field>
         </div>
         <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
             <mat-form-field appearance="fill" fxFlex="100%">
-                <mat-label>Long details</mat-label>
-                <textarea matTextareaAutosize matInput placeholder="Long details" formControlName="long"></textarea>
+                <mat-label>Hosszabb leírás</mat-label>
+                <textarea matTextareaAutosize matInput placeholder="Hosszabb leírás" formControlName="long"></textarea>
             </mat-form-field>
         </div>
         <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-            <mat-form-field appearance="fill" fxFlex="20%">
-                <mat-label>Serves</mat-label>
-                <input matInput type="number" placeholder="Serves" formControlName="serves">
+            <mat-form-field appearance="fill" fxFlex="30%">
+                <mat-label>Teríték</mat-label>
+                <input matInput type="number" placeholder="Teríték" formControlName="serves">
             </mat-form-field>
             <mat-form-field appearance="fill" fxFlex="40%" [hideRequiredMarker]="true">
-                <mat-label>for</mat-label>
                 <mat-select formControlName="servesfor" matNativeControl required>
                     <mat-option value="személyre">személyre</mat-option>
                     <mat-option value="darabhoz">darabhoz</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field appearance="fill" fxFlex="40%">
-                <mat-label>Cooking time</mat-label>
-                <input matInput type="number" placeholder="Cooking time" formControlName="time">
-                <span matSuffix>minutes</span>
+            <mat-form-field appearance="fill" fxFlex="30%">
+                <mat-label>Elkészítés</mat-label>
+                <input matInput type="number" placeholder="Elkészítés" formControlName="time">
+                <span matSuffix>perc</span>
             </mat-form-field>
         </div>
         <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
             <mat-form-field appearance="fill" fxFlex="100%">
-                <mat-label>Picture URL</mat-label>
-                <input matInput placeholder="Picture URL" formControlName="picture">
+                <mat-label>Kép helye (URL)</mat-label>
+                <input matInput placeholder="Kép helye (URL)" formControlName="picture">
             </mat-form-field>
         </div>
-        <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-            <mat-card fxFlex="50%">
-                <mat-card-subtitle>
-                    Cooking Steps
-                </mat-card-subtitle>
-                <div formArrayName="steps">
-                    <div *ngFor="let step of stepForm.controls; let i=index; last as isLast; first as isFirst" [formGroupName]="i">
-                        <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                            <mat-form-field appearance="fill" fxFlex="80%">
-                                <mat-label>Step {{i+1}}</mat-label>
-                                <textarea matTextareaAutosize matInput placeholder="Step {{i+1}}" formControlName="step"></textarea>
-                            </mat-form-field>
-                            <span fxLayout="row" fxLayoutAlign="left top" fxLayoutGap="10px" fxFlex="20%">
-                                <button mat-mini-fab color="warn" (click)="deleteStep(i)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
-                                <button mat-mini-fab color="primary" (click)="addStep()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
-            <mat-card fxFlex="50%">
-                <mat-card-subtitle>
-                    Ingredients
-                </mat-card-subtitle>
-                <div formArrayName="ingredients">
-                    <div *ngFor="let ingred of ingredientForm.controls; let ii=index; last as isLast; first as isFirst" [formGroupName]="ii">
-                        <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                            <mat-form-field appearance="fill" fxFlex="30%">
-                                <mat-label>Quanity</mat-label>
-                                <input matInput placeholder="Quanity" formControlName="quanity">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" fxFlex="50%">
-                                <mat-label>Ingredient</mat-label>
-                                <input matInput placeholder="Ingredient" formControlName="ingredient">
-                            </mat-form-field>
-                            <span fxLayout="row" fxLayoutAlign="left top" fxLayoutGap="10px" fxFlex="20%">
-                                <button mat-mini-fab color="warn" (click)="deleteIngredient(ii)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
-                                <button mat-mini-fab color="primary" (click)="addIngredient()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </mat-card>
+
+        Elkészítés menete
+
+        <div formArrayName="steps">
+            <div *ngFor="let step of stepForm.controls; let i=index; last as isLast; first as isFirst" [formGroupName]="i" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                <mat-form-field appearance="fill" fxFlex="100%">
+                    <mat-label>{{i+1}}. lépés</mat-label>
+                    <textarea matTextareaAutosize matInput placeholder="{{i+1}}. lépés" formControlName="step"></textarea>
+                    <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom" class="button-group">
+                        <button mat-mini-fab color="basic" (click)="deleteStep(i)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
+                        <button mat-mini-fab color="basic" (click)="addStep()" *ngIf="isLast"><mat-icon>add</mat-icon></button>                    
+                    </span>
+                </mat-form-field>
+            </div>
         </div>
+
+        Hozzávalók listája
+
+        <div formArrayName="ingredients">
+            <div *ngFor="let ingred of ingredientForm.controls; let ii=index; last as isLast; first as isFirst" [formGroupName]="ii" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                <mat-form-field appearance="fill" fxFlex="30%">
+                    <mat-label>Mennyiség</mat-label>
+                    <input matInput placeholder="Mennyiség" formControlName="quanity">
+                </mat-form-field>
+                <mat-form-field appearance="fill" fxFlex="70%">
+                    <mat-label>Hozzávaló</mat-label>
+                    <input matInput placeholder="Hozzávaló" formControlName="ingredient">
+                    <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom" class="button-group">
+                        <button mat-mini-fab color="basic" (click)="deleteIngredient(ii)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
+                        <button mat-mini-fab color="basic" (click)="addIngredient()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
+                    </span>
+                </mat-form-field>
+            </div>
+        </div>
+
     </form>
     <br>
     <span fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="10px">
-        <button mat-raised-button color="primary" (click)="writeRecipeForm()" [disabled]="recipeForm.invalid">Add as New Recipe</button>
-        <button mat-raised-button color="basic" (click)="clearRecipeForm()">Clear Form</button>
+        <button mat-raised-button color="primary" (click)="writeRecipeForm()" [disabled]="recipeForm.invalid">Recept létrehozása</button>
+        <button mat-raised-button color="basic" (click)="clearRecipeForm()">Űrlap törlése</button>
     </span>
 </mat-expansion-panel>
