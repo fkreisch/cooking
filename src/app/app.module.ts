@@ -29,11 +29,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { environment } from '../environments/environment';
 import { RecipeService } from './recipes/recipe.service';
 import { LoginService } from './base/menu/login.service';
+import { SuperuserService } from './base/menu/superuser.service';
 
 import { MenuComponent } from './base/menu/menu.component';
 import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
 import { RecipesAddComponent } from './recipes/recipes-add/recipes-add.component';
 import { RecipesModifyComponent } from './recipes/recipes-modify/recipes-modify.component';
+import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
+import { HomeComponent } from './home/home.component';
+import { LinksAdminComponent } from './links/links-admin/links-admin.component';
+import { LinksAllComponent } from './links/links-all/links-all.component';
 
 
 
@@ -44,6 +49,10 @@ import { RecipesModifyComponent } from './recipes/recipes-modify/recipes-modify.
     RecipesAdminComponent,
     RecipesAddComponent,
     RecipesModifyComponent,
+    RecipesAllComponent,
+    HomeComponent,
+    LinksAdminComponent,
+    LinksAllComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +82,7 @@ import { RecipesModifyComponent } from './recipes/recipes-modify/recipes-modify.
   providers: [
     RecipeService,
     LoginService,
+    SuperuserService,
   ],
   bootstrap: [AppComponent]
 })

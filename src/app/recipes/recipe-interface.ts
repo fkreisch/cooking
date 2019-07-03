@@ -19,6 +19,7 @@ export interface Recipe {
     ingredients: [];
     like: number;
     opened: number;
+    favourite: boolean;
 }
 
 export interface RecipeId extends Recipe {

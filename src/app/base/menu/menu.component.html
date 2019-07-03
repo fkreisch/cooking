@@ -7,7 +7,7 @@
         <span class="toolbar-spacer"></span>
 
         <button *ngIf="user" mat-mini-fab [matMenuTriggerFor]="avatarDropDown" color="basic"><span style="font-size: 2em"><i class="fa fa-user"></i></span></button>
-        <button *ngIf="!user" mat-button [matMenuTriggerFor]="avatarDropDown">Bejelentkezés <span style="font-size: 2em"><i class="fa fa-sign-in"></i></span></button>
+        <button *ngIf="!user" mat-button [matMenuTriggerFor]="avatarDropDown"><span *ngIf="!(isHandset | async).matches">Bejelentkezés&nbsp;</span><span style="font-size: 2em"><i class="fa fa-sign-in"></i></span></button>
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -15,9 +15,18 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset | async).matches ? 'push' : 'push'" [opened]="!(isHandset | async).matches">
         <div [class]="(isHandset | async).matches ? 'nav-spacer-mobile' : 'nav-spacer'"></div>
         <mat-nav-list>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item href="/first-page">Kezdőoldal</a>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item href="/second-page">Receptkönyv</a>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item href="/third-page">Linkek</a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/home">
+                Kezdőoldal
+            </a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/recipes">
+                Receptkönyv
+            </a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/links">
+                Linkek
+            </a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/recipe-admin" *ngIf="isSuperUser == 'true'">
+                Szervíz
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -28,8 +37,8 @@
                     <mat-card-subtitle fxLayout="row" fxLayoutAlign="end"><span style="font-size: 1em"><i class="fa fa-envelope"></i></span>&nbsp; {{ user?.email }}</mat-card-subtitle>
                 </mat-card-header>
             </mat-card>
-            <div fxLayout="row" fxLayoutAlign="end">
-                <button style="margin-top: 7px; margin-right: 12px" *ngIf="user" mat-button (click)="logout()">Kijelentkezés <span style="font-size: 2em"><i class="fa fa-sign-out"></i></span></button>
+            <div>
+                <button fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px" mat-menu-item style="margin-top: 7px" *ngIf="user" (click)="logout()">Kijelentkezés&nbsp;<span style="font-size: 2em"><i class="fa fa-sign-out"></i></span></button>
             </div>
             <button *ngIf="!user" mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-google-plus"></i></span>&nbsp;- Google</button>
             <button *ngIf="!user" mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-facebook"></i></span>&nbsp;- Facebook</button>
@@ -40,8 +49,6 @@
             <div fxLayout fxLayout.xs="column" fxLayoutAlign="center">
                 <div fxFlex="10%"></div>
                 <div fxFlex="80%">
-                    <app-recipes-admin></app-recipes-admin>
-
                     <router-outlet></router-outlet>
                 </div>
                 <div fxFlex="10%"></div>

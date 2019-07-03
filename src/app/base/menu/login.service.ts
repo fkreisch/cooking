@@ -7,9 +7,7 @@ import { auth } from 'firebase';
 })
 export class LoginService {
 
-  constructor(
-    private afAuth: AngularFireAuth
-  ) { }
+  constructor(private afAuth: AngularFireAuth) { }
 
   login() {
     this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
