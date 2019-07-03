@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
@@ -31,16 +31,16 @@ import { RecipeService } from './recipes/recipe.service';
 import { LoginService } from './base/menu/login.service';
 import { SuperuserService } from './base/menu/superuser.service';
 
+import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './base/menu/menu.component';
 import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
 import { RecipesAddComponent } from './recipes/recipes-add/recipes-add.component';
 import { RecipesModifyComponent } from './recipes/recipes-modify/recipes-modify.component';
-import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
-import { HomeComponent } from './home/home.component';
 import { LinksAdminComponent } from './links/links-admin/links-admin.component';
 import { LinksAllComponent } from './links/links-all/links-all.component';
-
-
+import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
+import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
+import { RecipeComponent } from './recipes/recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -49,12 +49,15 @@ import { LinksAllComponent } from './links/links-all/links-all.component';
     RecipesAdminComponent,
     RecipesAddComponent,
     RecipesModifyComponent,
-    RecipesAllComponent,
     HomeComponent,
     LinksAdminComponent,
     LinksAllComponent,
+    RecipeFilterPipe,
+    RecipesAllComponent,
+    RecipeComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

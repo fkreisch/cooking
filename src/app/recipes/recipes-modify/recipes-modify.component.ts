@@ -11,7 +11,7 @@ import { RecipeId } from '../recipe-interface';
 
 export class RecipesModifyComponent implements OnInit {
 
-  public recipe: RecipeId[];
+  public recipes: RecipeId[];
 
   recipeForm = new FormGroup({
     name: new FormControl(),
@@ -28,8 +28,8 @@ export class RecipesModifyComponent implements OnInit {
   constructor(private fb: FormBuilder, private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.recipeService.getRecipe().subscribe(recipe => {
-      this.recipe = recipe;
+    this.recipeService.getRecipes().subscribe(recipes => {
+      this.recipes = recipes;
     });
   }
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipeService } from '../recipe.service';
+import { RecipeId } from '../recipe-interface';
 
 @Component({
   selector: 'app-recipes-all',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesAllComponent implements OnInit {
 
-  constructor() { }
+  public recipes: RecipeId[];
+  public rFilter: string;
+
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
+    this.recipeService.getRecipes().subscribe(recipes => {
+      this.recipes = recipes;
+    });
   }
-
 }

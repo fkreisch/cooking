@@ -42,7 +42,6 @@ export class MenuComponent implements OnInit {
         } else {
           this.isSuperUser = 'false';
         }
-        console.log('SUPERUSER:', this.superuser[0].superuser_id, this.user.uid, this.isSuperUser);
         localStorage.setItem('isSuperUser', this.isSuperUser);
       });
   }

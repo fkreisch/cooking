@@ -11,21 +11,21 @@ export class RecipeService {
 
   private recipeCollection: AngularFirestoreCollection<Recipe>;
   private recipeDoc: AngularFirestoreDocument<Recipe>;
-  private recipe: Observable<RecipeId[]>;
+  private recipes: Observable<RecipeId[]>;
 
   constructor(public afs: AngularFirestore) {
     this.recipeCollection = afs.collection<Recipe>('recipe', ref => ref.orderBy('name'));
   }
 
-  getRecipe() {
-    this.recipe = this.recipeCollection.snapshotChanges().pipe(
+  getRecipes() {
+    this.recipes = this.recipeCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Recipe;
         const id = a.payload.doc.id;
         return { id, ...data };
       }))
     );
-    return this.recipe;
+    return this.recipes;
   }
 
   addRecipe(doc: Recipe) {

@@ -1,0 +1,40 @@
+<div class="example-card" *ngFor="let recipe of recipes | recipeFilter : selectedRecipeId">
+    <div class="container">
+        <img src="{{recipe.picture}}" class="header-image" alt="Norway" style="width:100%;">
+        <div class="text-block">
+            <p class="mat-h1 name">{{recipe.name}}</p>
+        </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+        <div fxFlex="70%">
+            <div class="step-box">
+                <p class="mat-h2 short-text">{{recipe.short}}</p>
+                <p class="mat-h3">{{recipe.long}}</p>
+            </div>
+            <div *ngFor="let s of recipe.steps let i=index;">
+                <div class="step-box">
+                    <div class="step">
+                        {{i+1}}
+                    </div>
+                    <p class="mat-h3 step-text">{{s.step}}</p>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="30%">
+            <mat-card>
+                <p class="mat-h2">
+                    <span>Hozzávalók&nbsp;</span>
+                    <span class="mat-h1 orange">{{recipe.serves}}&nbsp;</span>
+                    <span>{{recipe.servesfor}}</span>
+                </p>
+                <div role="list" *ngFor="let i of recipe.ingredients">
+                    <p>
+                        <span class='orange'>{{i.quanity}}&nbsp;</span>
+                        <span>{{i.ingredient}}</span>
+                    </p>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,17 @@
-<p>recipes-all works!</p>
+<div>
+    <mat-form-field appearance="fill" fxFlex="100%" [hideRequiredMarker]="true">
+        <mat-label>Filter</mat-label>
+        <input matInput [(ngModel)]="rFilter">
+        <mat-hint>Keresés a receptekben</mat-hint>
+        <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom"><mat-icon>search</mat-icon></span>
+    </mat-form-field>
+</div>
+<a [routerLink]="['/recipe', recipe.id]" *ngFor="let recipe of recipes | recipeFilter : rFilter">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar [ngStyle]="{'background-image':'url('+recipe.picture+')'}"></div>
+            <mat-card-title> {{recipe.name}} </mat-card-title>
+            <mat-card-subtitle> {{recipe.short}} </mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+</a>

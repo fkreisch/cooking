@@ -3,10 +3,10 @@
         Receptkönyv
     </mat-card-title>
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let item of recipe">
-            <mat-expansion-panel-header (click)="editRecipe($event, item)">
+        <mat-expansion-panel *ngFor="let recipe of recipes">
+            <mat-expansion-panel-header (click)="editRecipe($event, recipe)">
                 <mat-panel-description>
-                    • {{item.name}}
+                    • {{recipe.name}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <form [formGroup]="recipeForm">
@@ -91,8 +91,8 @@
             </form>
             <br>
             <span fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="10px">
-                <button mat-raised-button color="primary" (click)="updateForms($event, item)" [disabled]="recipeForm.invalid">Frissítés</button>
-                <button mat-raised-button color="warn" class="float-right" (click)="deleteForms($event, item)">Törlés</button>
+                <button mat-raised-button color="primary" (click)="updateForms($event, recipe)" [disabled]="recipeForm.invalid">Frissítés</button>
+                <button mat-raised-button color="warn" class="float-right" (click)="deleteForms($event, recipe)">Törlés</button>
             </span>
         </mat-expansion-panel>
     </mat-accordion>

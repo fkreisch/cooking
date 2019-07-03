@@ -5,8 +5,10 @@ $accent: mat-palette($mat-blue, A400);
 $warn: mat-palette($mat-deep-orange, 600);
 $theme: mat-dark-theme($primary, $accent, $warn);
 @include angular-material-theme($theme);
-$custom-typography: mat-typography-config( $font-family: 'Mina', $headline: mat-typography-level(32px, 48px, 700), $body-1: mat-typography-level(16px, 24px, 500));
+$custom-typography: mat-typography-config( $font-family: 'Mina');
 @include angular-material-typography($custom-typography);
+@include mat-core($custom-typography);
+@include mat-base-typography($custom-typography);
 body {
     margin-top: 0px;
     margin-left: 0px;
