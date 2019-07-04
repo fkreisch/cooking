@@ -28,8 +28,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { environment } from '../environments/environment';
 import { RecipeService } from './recipes/recipe.service';
-import { LoginService } from './base/menu/login.service';
-import { SuperuserService } from './base/menu/superuser.service';
+import { LoginService } from './base/login.service';
+import { SuperuserService } from './base/superuser.service';
 
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './base/menu/menu.component';
@@ -41,6 +41,7 @@ import { LinksAllComponent } from './links/links-all/links-all.component';
 import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
 import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
+import { MenuItemsComponent } from './base/menu-items/menu-items.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { RecipeComponent } from './recipes/recipe/recipe.component';
     RecipeFilterPipe,
     RecipesAllComponent,
     RecipeComponent,
+    MenuItemsComponent,
   ],
   imports: [
     FormsModule,

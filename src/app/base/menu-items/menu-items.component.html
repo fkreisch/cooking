@@ -1,0 +1,12 @@
+<a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/home">
+    Kezdőoldal
+</a>
+<a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/recipes">
+    Receptkönyv
+</a>
+<a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/links">
+    Linkek
+</a>
+<a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/recipe-admin" *ngIf="(isSuperUser)">
+    Szervíz
+</a>

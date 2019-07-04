@@ -9,7 +9,7 @@
 }
 
 .header-image {
-    margin-left: 8vw;
+    margin-left: 16vw;
     border-radius: 8vw 2vw 4px 0;
     display: block;
     max-height: 420px;
@@ -42,8 +42,8 @@
 .name {
     padding-left: 2vw;
     font-size: calc(16px + 3vw);
-    margin-top: 5vw;
-    margin-bottom: 5vw;
+    margin-top: calc(16px + 2vw);
+    margin-bottom: calc(16px + 2vw);
 }
 
 .orange {
@@ -67,7 +67,7 @@
 
 .short-text {
     margin-top: 20px;
-    font-size: calc(16px + 1vw);
+    font-size: calc(18px + 0.7vw);
 }
 
 .step-box {

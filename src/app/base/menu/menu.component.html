@@ -1,33 +1,28 @@
 <mat-toolbar class="toolbar">
     <mat-toolbar-row>
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset | async).matches"><mat-icon>menu</mat-icon></button>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="(isHandset)"><mat-icon>menu</mat-icon></button>
 
-        <img class="chef" src="../../../assets/img/chef.png" alt="" *ngIf="!(isHandset | async).matches">
+        <img class="chef" src="../../../assets/img/chef.png" alt="" *ngIf="!(isHandset)">
         <span class="logo" color="basic">rmcook</span>
         <span class="toolbar-spacer"></span>
 
         <button *ngIf="user" mat-mini-fab [matMenuTriggerFor]="avatarDropDown" color="basic"><span style="font-size: 2em"><i class="fa fa-user"></i></span></button>
-        <button *ngIf="!user" mat-button [matMenuTriggerFor]="avatarDropDown"><span *ngIf="!(isHandset | async).matches">Bejelentkezés&nbsp;</span><span style="font-size: 2em"><i class="fa fa-sign-in"></i></span></button>
+        <button *ngIf="!user" mat-button [matMenuTriggerFor]="avatarDropDown"><span *ngIf="!(isHandset)">Bejelentkezés&nbsp;</span><span style="font-size: 2em"><i class="fa fa-sign-in"></i></span></button>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset | async).matches ? 'push' : 'push'" [opened]="!(isHandset | async).matches">
-        <div [class]="(isHandset | async).matches ? 'nav-spacer-mobile' : 'nav-spacer'"></div>
-        <mat-nav-list>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/home">
-                Kezdőoldal
-            </a>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/recipes">
-                Receptkönyv
-            </a>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/links">
-                Linkek
-            </a>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/recipe-admin" *ngIf="isSuperUser == 'true'">
-                Szervíz
-            </a>
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset) ? 'push' : 'push'" [opened]="!(isHandset)">
+        <div [class]="(isHandset) ? 'nav-spacer-mobile' : 'nav-spacer'"></div>
+        <mat-nav-list (click)="drawer.toggle()" *ngIf="(isHandset)">
+            <app-menu-items></app-menu-items>
         </mat-nav-list>
+        <mat-nav-list *ngIf="!(isHandset)">
+            <app-menu-items></app-menu-items>
+        </mat-nav-list>
+        <div class="chef-mobile" *ngIf="(isHandset)">
+            <img class="chef" src="../../../assets/img/chef.png" alt="">
+        </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-menu #avatarDropDown="matMenu">
@@ -45,7 +40,7 @@
             <button *ngIf="!user" mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-twitter"></i></span>&nbsp;- Twitter</button>
         </mat-menu>
 
-        <div [class]="(isHandset | async).matches ? 'container' : 'container-right'">
+        <div [class]="(isHandset) ? 'container' : 'container-right'">
             <div fxLayout fxLayout.xs="column" fxLayoutAlign="center">
                 <div fxFlex="10%"></div>
                 <div fxFlex="80%">

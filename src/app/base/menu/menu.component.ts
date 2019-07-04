@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { LoginService } from './login.service';
-import { SuperuserService } from './superuser.service';
-import { Observable } from 'rxjs';
+import { LoginService } from '../login.service';
+import { SuperuserService } from '../superuser.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,10 +11,9 @@ import { Observable } from 'rxjs';
 
 export class MenuComponent implements OnInit {
 
-  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
+  isHandset: boolean;
   public user: firebase.User;
-  public superuser: any;
-  public isSuperUser: string;
+  public isSuperUser: boolean;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -29,20 +27,21 @@ export class MenuComponent implements OnInit {
   // var my_object = JSON.parse(localStorage.getItem('my_item'));
 
   ngOnInit() {
+    // mobile view check: BreakpointObserver
+    this.breakpointObserver
+      .observe([Breakpoints.Handset])
+      .subscribe((state: BreakpointState) => {
+        this.isHandset = state.matches ? true : false;
+      });
+
     this.loginService.getLoggedInUser()
       .subscribe(user => {
         this.user = user;
-        localStorage.setItem('user', JSON.stringify(this.user));
       });
+
     this.superuserService.getSuperuser()
       .subscribe(superuser => {
-        this.superuser = superuser;
-        if (this.superuser[0].superuser_id === this.user.uid) {
-          this.isSuperUser = 'true';
-        } else {
-          this.isSuperUser = 'false';
-        }
-        localStorage.setItem('isSuperUser', this.isSuperUser);
+        this.isSuperUser = superuser[0].superuser_id === this.user.uid ? true : false;
       });
   }
 
@@ -52,8 +51,5 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.loginService.logout();
-    localStorage.removeItem('isSuperUser');
-    localStorage.removeItem('user');
-    this.isSuperUser = 'false';
   }
 }

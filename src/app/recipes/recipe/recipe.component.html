@@ -1,15 +1,15 @@
 <div class="example-card" *ngFor="let recipe of recipes | recipeFilter : selectedRecipeId">
     <div class="container">
-        <img src="{{recipe.picture}}" class="header-image" alt="Norway" style="width:100%;">
+        <img src="{{recipe.picture}}" class="header-image" alt="" style="width:100%;">
         <div class="text-block">
             <p class="mat-h1 name">{{recipe.name}}</p>
         </div>
     </div>
-
+    <p class="mat-h2 short-text">{{recipe.short}}</p>
     <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
         <div fxFlex="70%">
             <div class="step-box">
-                <p class="mat-h2 short-text">{{recipe.short}}</p>
+
                 <p class="mat-h3">{{recipe.long}}</p>
             </div>
             <div *ngFor="let s of recipe.steps let i=index;">
@@ -24,13 +24,13 @@
         <div fxFlex="30%">
             <mat-card>
                 <p class="mat-h2">
-                    <span>Hozzávalók&nbsp;</span>
-                    <span class="mat-h1 orange">{{recipe.serves}}&nbsp;</span>
+                    <span>Hozzávalók&#32;</span>
+                    <span class="mat-h1 orange">{{recipe.serves}}&#160;</span>
                     <span>{{recipe.servesfor}}</span>
                 </p>
                 <div role="list" *ngFor="let i of recipe.ingredients">
                     <p>
-                        <span class='orange'>{{i.quanity}}&nbsp;</span>
+                        <span class='orange'>{{i.quanity}}&#32;</span>
                         <span>{{i.ingredient}}</span>
                     </p>
                 </div>
