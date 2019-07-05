@@ -54,11 +54,11 @@ export class RecipesAddComponent implements OnInit {
       serves: null,
       servesfor: 'személyre',
       time: null,
-      picture: null,
+      picture: 'https://firebasestorage.googleapis.com/v0/b/rmcook-b0a1e.appspot.com/o/foods%2Fplaceholder.jpg?alt=media&token=6122b317-10a2-459e-9c83-ea8db9e098f1',
       steps: this.fb.array([]),
       ingredients: this.fb.array([]),
-      like: null,
-      opened: null,
+      like: 0,
+      opened: 0,
       favourite: false,
     });
     this.addStep();

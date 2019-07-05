@@ -25,3 +25,7 @@ export interface Recipe {
 export interface RecipeId extends Recipe {
     id: string;
 }
+
+export interface Id {
+    id: string;
+}

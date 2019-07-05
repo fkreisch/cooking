@@ -1,3 +1,5 @@
-Ha nincs kép feltöltéskor szétesik a receptoldal. (felcsúszik)
-Recept oldalon szabványosítani a képméretet. vagy változzon a kép bal margója?
-admin TABULÁTOROK. enterre adjon hozzé új elemet. Most franc se tudja melyik gombon van az enter.
+* DONE Ha nincs kép feltöltéskor szétesik a receptoldal. (felcsúszik)
+- LOW Recept oldalon szabványosítani a képméretet. vagy változzon a kép bal margója?
+- IMP admin TABULÁTOROK. enterre adjon hozzé új elemet. Most franc se tudja melyik gombon van az enter.
+- LOW recept hozzáadása: csukódjon fel send után.
+* DONE összehozni a receptlistában a filter a paginatorral. https://stackblitz.com/angular/dnbermjydavk?file=app%2Ftable-overview-example.ts

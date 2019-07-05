@@ -1,17 +1,28 @@
-<div>
-    <mat-form-field appearance="fill" fxFlex="100%" [hideRequiredMarker]="true">
-        <mat-label>Filter</mat-label>
-        <input matInput [(ngModel)]="rFilter">
-        <mat-hint>Keresés a receptekben</mat-hint>
+<div class="example-header">
+    <span fxFlex="100%"></span>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Szűrés" fxFlex="100%">
         <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom"><mat-icon>search</mat-icon></span>
     </mat-form-field>
 </div>
-<a [routerLink]="['/recipe', recipe.id]" *ngFor="let recipe of recipes | recipeFilter : rFilter">
-    <mat-card class="example-card">
-        <mat-card-header>
-            <div mat-card-avatar [ngStyle]="{'background-image':'url('+recipe.picture+')'}"></div>
-            <mat-card-title> {{recipe.name}} </mat-card-title>
-            <mat-card-subtitle> {{recipe.short}} </mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
-</a>
+<div class="mat-paginator"></div>
+<mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Sorbarendezés név szerint</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <a [routerLink]="['/recipe', row.id]">
+                <div class="card">
+                    <div class="avatar" [ngStyle]="{'background-image':'url('+row.picture+')'}"></div>
+                    <div>
+                        <div class="title">{{row.name}}</div>
+                        <div class="subtitle">{{row.short}}</div>
+                    </div>
+                </div>
+            </a>
+        </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

@@ -86,10 +86,10 @@ export class RecipesModifyComponent implements OnInit {
   }
 
   deleteForms(event, item) {
-    this.recipeService.deleteRecipe(item);
+    this.recipeService.deleteRecipe(item.id);
   }
 
   updateForms(event, item) {
-    this.recipeService.updateRecipe(item, this.recipeForm.value);
+    this.recipeService.updateRecipe(item.id, this.recipeForm.value);
   }
 }

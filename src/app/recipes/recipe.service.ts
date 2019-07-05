@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Recipe, RecipeId } from './recipe-interface';
+import { Recipe, RecipeId, Id } from './recipe-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,13 +32,13 @@ export class RecipeService {
     this.recipeCollection.add(doc);
   }
 
-  deleteRecipe(doc: RecipeId) {
-    this.recipeDoc = this.afs.doc(`recipe/${doc.id}`);
+  deleteRecipe(id: Id) {
+    this.recipeDoc = this.afs.doc(`recipe/${id}`);
     this.recipeDoc.delete();
   }
 
-  updateRecipe(docId: RecipeId, doc: Recipe) {
-    this.recipeDoc = this.afs.doc(`recipe/${docId.id}`);
+  updateRecipe(id: Id, doc: Recipe) {
+    this.recipeDoc = this.afs.doc(`recipe/${id}`);
     this.recipeDoc.set(doc, {merge: true});
   }
 }

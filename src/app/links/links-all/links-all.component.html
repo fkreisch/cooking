@@ -1,1 +1,36 @@
-<p>links-all works!</p>
+<div class="example-header">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Szűrés">
+        <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom"><mat-icon>search</mat-icon></span>
+    </mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sorbarendezés </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+
+                <a [routerLink]="['/recipe', row.id]">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar [ngStyle]="{'background-image':'url('+row.picture+')'}"></div>
+                            <mat-card-title> {{row.name}} </mat-card-title>
+                            <mat-card-subtitle> {{row.short}} </mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+                </a>
+
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

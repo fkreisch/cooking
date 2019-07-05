@@ -1,15 +1,18 @@
+// CORE
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-import { AppComponent } from './app.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { FlexLayoutModule } from '@angular/flex-layout';
+// FIRESTORE
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+// MATERIAL
 import {
   MatSelectModule,
   MatChipsModule,
@@ -22,15 +25,18 @@ import {
   MatMenuModule,
   MatExpansionModule,
   MatListModule,
-  MatInputModule } from '@angular/material';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { FlexLayoutModule } from '@angular/flex-layout';
-
+  MatInputModule,
+  MatPaginatorModule,
+  MatToolbarModule,
+  MatSortModule,
+  MatTableModule,
+} from '@angular/material';
+// SERVICE
 import { environment } from '../environments/environment';
 import { RecipeService } from './recipes/recipe.service';
 import { LoginService } from './base/login.service';
 import { SuperuserService } from './base/superuser.service';
-
+// COMPONENT
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './base/menu/menu.component';
 import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
@@ -59,11 +65,17 @@ import { MenuItemsComponent } from './base/menu-items/menu-items.component';
     MenuItemsComponent,
   ],
   imports: [
-    FormsModule,
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
+    AngularFontAwesomeModule,
+    FlexLayoutModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
@@ -76,13 +88,10 @@ import { MenuItemsComponent } from './base/menu-items/menu-items.component';
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
-    FlexLayoutModule,
+    MatPaginatorModule,
     MatDividerModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    AngularFireAuthModule,
-    AngularFontAwesomeModule,
+    MatSortModule,
+    MatTableModule,
   ],
   providers: [
     RecipeService,

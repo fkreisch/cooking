@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { RecipeId } from '../recipe-interface';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe',
@@ -13,18 +13,25 @@ import { Location } from '@angular/common';
 export class RecipeComponent implements OnInit {
 
   public recipes: RecipeId[];
-public selectedRecipeId: string;
+  public recipe: RecipeId[];
+  public selectedRecipeId: string;
 
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute,
-    private location: Location
   ) { }
 
   ngOnInit() {
     this.selectedRecipeId = this.route.snapshot.paramMap.get('id');
-    this.recipeService.getRecipes().subscribe(recipes => {
+    this.recipeService.getRecipes().pipe(take(1)).subscribe(recipes => {
       this.recipes = recipes;
+      this.recipe = this.recipes.filter(recipe => recipe.id === this.selectedRecipeId);
+      const opened = { opened: this.recipe[0].opened + 1 };
+      this.writeOpened(this.selectedRecipeId, opened);
     });
+  }
+
+  writeOpened(selectedRecipeId, opened) {
+    this.recipeService.updateRecipe(selectedRecipeId, opened);
   }
 }

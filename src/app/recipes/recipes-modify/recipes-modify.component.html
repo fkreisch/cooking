@@ -13,15 +13,15 @@
                 <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
                     <mat-form-field appearance="fill" fxFlex="100%" [hideRequiredMarker]="true">
                         <mat-label>Recept neve</mat-label>
-                        <input matInput placeholder="Recept neve" formControlName="name" required>
-                        <mat-hint>Kötelező kitölteni</mat-hint>
+                        <input matInput #name maxlength="20" placeholder="Recept neve" formControlName="name" required>
+                        <mat-hint align="end">{{name.value?.length || 0}}/20</mat-hint>
                     </mat-form-field>
                 </div>
                 <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
                     <mat-form-field appearance="fill" fxFlex="100%">
                         <mat-label>Rövid leírás</mat-label>
-                        <input matInput #input maxlength="50" placeholder="Rövid leírás" formControlName="short">
-                        <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+                        <input matInput #short maxlength="50" placeholder="Rövid leírás" formControlName="short">
+                        <mat-hint align="end">{{short.value?.length || 0}}/50</mat-hint>
                     </mat-form-field>
                 </div>
                 <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
