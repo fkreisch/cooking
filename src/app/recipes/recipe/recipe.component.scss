@@ -76,3 +76,25 @@
     text-justify: inter-word;
     margin-right: 1vw;
 }
+
+.statbox {
+    font-family: Mina;
+    word-wrap: break-word;
+    margin: 20px 0 0 0;
+}
+
+.favourite-no {
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.favourite-yes {
+    font-size: 30px;
+    color: #f4511e;
+    cursor: pointer;
+}
+
+::ng-deep .mat-tooltip {
+    font-size: 14px!important;
+}

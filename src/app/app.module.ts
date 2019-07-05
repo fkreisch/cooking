@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BarRatingModule } from '../../node_modules/ngx-bar-rating';
 // FIRESTORE
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -30,6 +31,7 @@ import {
   MatToolbarModule,
   MatSortModule,
   MatTableModule,
+  MatTooltipModule,
 } from '@angular/material';
 // SERVICE
 import { environment } from '../environments/environment';
@@ -72,6 +74,7 @@ import { MenuItemsComponent } from './base/menu-items/menu-items.component';
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     FlexLayoutModule,
+    BarRatingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
@@ -92,6 +95,7 @@ import { MenuItemsComponent } from './base/menu-items/menu-items.component';
     MatDividerModule,
     MatSortModule,
     MatTableModule,
+    MatTooltipModule,
   ],
   providers: [
     RecipeService,

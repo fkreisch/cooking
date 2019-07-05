@@ -35,6 +35,23 @@
                     </p>
                 </div>
             </mat-card>
+            <div class="statbox">
+                <span>Megtekintve:&#32;</span>
+                <span class='orange'>{{recipe.opened}}&#160;</span>
+                <span>alkalommal</span>
+                <form #form="ngForm">
+                    <bar-rating name="rating" [theme]="'stars'" [(ngModel)]="ertek" [max]="5" required></bar-rating>
+                </form>
+                <pre>A te értékelésed: {{ ertek }}</pre>
+                <div>
+                    <span class="favourite-yes" *ngIf="recipe.favourite === true">
+                        <i class="fa fa-heart" matTooltip="Eltávolítás a kedvencekből."
+                        (click)="togleFavourites(recipe.id, false)"></i></span>
+                    <span class="favourite-no" *ngIf="recipe.favourite === false">
+                        <i class="fa fa-heart" matTooltip="Tedd a kedvenceid közé!"
+                        (click)="togleFavourites(recipe.id, true)"></i></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

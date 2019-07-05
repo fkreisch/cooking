@@ -3,3 +3,5 @@
 - IMP admin TABULÁTOROK. enterre adjon hozzé új elemet. Most franc se tudja melyik gombon van az enter.
 - LOW recept hozzáadása: csukódjon fel send után.
 * DONE összehozni a receptlistában a filter a paginatorral. https://stackblitz.com/angular/dnbermjydavk?file=app%2Ftable-overview-example.ts
+- IMP Rating stars...
+* DONE Favourite check. 

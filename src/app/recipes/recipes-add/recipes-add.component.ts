@@ -57,7 +57,7 @@ export class RecipesAddComponent implements OnInit {
       picture: 'https://firebasestorage.googleapis.com/v0/b/rmcook-b0a1e.appspot.com/o/foods%2Fplaceholder.jpg?alt=media&token=6122b317-10a2-459e-9c83-ea8db9e098f1',
       steps: this.fb.array([]),
       ingredients: this.fb.array([]),
-      like: 0,
+      like: [],
       opened: 0,
       favourite: false,
     });

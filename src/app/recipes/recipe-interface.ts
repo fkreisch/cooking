@@ -17,7 +17,7 @@ export interface Recipe {
     picture: string;
     steps: [];
     ingredients: [];
-    like: number;
+    like: [];
     opened: number;
     favourite: boolean;
 }

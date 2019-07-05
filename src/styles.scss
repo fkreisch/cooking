@@ -16,3 +16,9 @@ body {
     margin-bottom: 0px;
     background-color: #303030;
 }
+
+::ng-deep .mat-tooltip {
+    font-size: 14px!important;
+}
+
+@import '~ngx-bar-rating/themes/br-stars-theme';
