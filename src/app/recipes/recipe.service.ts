@@ -22,6 +22,7 @@ export class RecipeService {
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Recipe;
         const id = a.payload.doc.id;
+        // console.log('(recipe.service) FIREBASE GET:', id, data);
         return { id, ...data };
       }))
     );
@@ -29,15 +30,18 @@ export class RecipeService {
   }
 
   addRecipe(doc: Recipe) {
+    console.log('(recipe.service) FIREBASE ADD --', doc);
     this.recipeCollection.add(doc);
   }
 
   deleteRecipe(id: Id) {
+    console.log('(recipe.service) FIREBASE DELETE --', id);
     this.recipeDoc = this.afs.doc(`recipe/${id}`);
     this.recipeDoc.delete();
   }
 
   updateRecipe(id: Id, doc: Recipe) {
+    console.log('(recipe.service) FIREBASE UPDATE --', doc);
     this.recipeDoc = this.afs.doc(`recipe/${id}`);
     this.recipeDoc.set(doc, {merge: true});
   }

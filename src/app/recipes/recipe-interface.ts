@@ -29,3 +29,8 @@ export interface RecipeId extends Recipe {
 export interface Id {
     id: string;
 }
+
+export interface Like {
+    id: string;
+    score: number;
+}

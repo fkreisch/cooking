@@ -91,5 +91,6 @@ export class RecipesModifyComponent implements OnInit {
 
   updateForms(event, item) {
     this.recipeService.updateRecipe(item.id, this.recipeForm.value);
+    console.log(item.id);
   }
 }
