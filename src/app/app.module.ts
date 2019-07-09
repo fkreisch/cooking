@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { BarRatingModule } from '../../node_modules/ngx-bar-rating';
 import { StarRatingModule } from 'angular-star-rating';
 // FIRESTORE
 import { AngularFireModule } from '@angular/fire';
@@ -76,7 +75,6 @@ import { MenuItemsComponent } from './base/menu-items/menu-items.component';
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     FlexLayoutModule,
-    BarRatingModule,
     StarRatingModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

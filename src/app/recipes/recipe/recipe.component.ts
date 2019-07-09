@@ -18,7 +18,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
   public recipes: RecipeId[];
   public recipe: RecipeId[];
   public recipesrates: RateId[]; // minden rate Id-vel
-  public reciperate: RateId[]; // a kiválasztott recepthez tartozó összes rate Id-vel
+  public reciperates: RateId[]; // a kiválasztott recepthez tartozó összes rate Id-vel
   public ratesotherusers: any[]; // minden más rate ami nem a belogolt useré
   public ratesallusers: any[]; // minden rate recept Id nélkül.
 
@@ -49,10 +49,10 @@ export class RecipeComponent implements OnInit, OnDestroy {
     // Recipe rating
     this.recipeRateService.getRecipesRates().pipe(take(1)).subscribe(recipesrates => {
       this.recipesrates = recipesrates;
-      this.reciperate = this.recipesrates.filter(reciperate => reciperate.id === this.selectedRecipeId);
-      if (this.reciperate.length > 0) {
-        this.ratesotherusers = this.reciperate[0].rate.filter(rr => rr.uid !== this.loggedInUser.uid);
-        this.ratesallusers = this.reciperate[0].rate;
+      this.reciperates = this.recipesrates.filter(reciperates => reciperates.id === this.selectedRecipeId);
+      if (this.reciperates.length > 0) {
+        this.ratesotherusers = this.reciperates[0].rate.filter(rr => rr.uid !== this.loggedInUser.uid);
+        this.ratesallusers = this.reciperates[0].rate;
       } else {
         this.ratesotherusers = [];
         this.ratesallusers = [];

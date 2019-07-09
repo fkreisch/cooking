@@ -21,7 +21,6 @@ export interface Recipe {
     picture: string;
     steps: [];
     ingredients: [];
-    like: [];
     opened: number;
     favourite: boolean;
 }
@@ -36,6 +35,7 @@ export interface Rate {
             score: number;
         }
     ];
+
 }
 export interface RateId extends Rate {
     id: string;
