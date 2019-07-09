@@ -8,6 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BarRatingModule } from '../../node_modules/ngx-bar-rating';
+import { StarRatingModule } from 'angular-star-rating';
 // FIRESTORE
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -36,6 +37,7 @@ import {
 // SERVICE
 import { environment } from '../environments/environment';
 import { RecipeService } from './recipes/recipe.service';
+import { RecipeRateService } from './recipes/recipe-rate.service';
 import { LoginService } from './base/login.service';
 import { SuperuserService } from './base/superuser.service';
 // COMPONENT
@@ -75,6 +77,7 @@ import { MenuItemsComponent } from './base/menu-items/menu-items.component';
     AngularFontAwesomeModule,
     FlexLayoutModule,
     BarRatingModule,
+    StarRatingModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
@@ -99,6 +102,7 @@ import { MenuItemsComponent } from './base/menu-items/menu-items.component';
   ],
   providers: [
     RecipeService,
+    RecipeRateService,
     LoginService,
     SuperuserService,
   ],

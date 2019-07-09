@@ -7,6 +7,10 @@ export interface DemoId extends Demo {
     id: string;
 }
 
+export interface Id {
+    id: string;
+}
+
 export interface Recipe {
     name: string;
     short: string;
@@ -21,16 +25,18 @@ export interface Recipe {
     opened: number;
     favourite: boolean;
 }
-
 export interface RecipeId extends Recipe {
     id: string;
 }
 
-export interface Id {
-    id: string;
+export interface Rate {
+    rate: [
+        {
+            uid: string;
+            score: number;
+        }
+    ];
 }
-
-export interface Like {
+export interface RateId extends Rate {
     id: string;
-    score: number;
 }

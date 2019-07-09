@@ -1,7 +1,7 @@
-import { Like } from './../recipe-interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from '../recipe.service';
-import { RecipeId } from '../recipe-interface';
+import { RecipeRateService } from '../recipe-rate.service';
+import { RecipeId, RateId, Rate } from '../recipe-interface';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 
@@ -12,63 +12,79 @@ import { take } from 'rxjs/operators';
 })
 
 export class RecipeComponent implements OnInit, OnDestroy {
-
-  public loggedInUser = localStorage.getItem('loggedInUser');
+  // Get User ID from browser
+  public loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
   public recipes: RecipeId[];
   public recipe: RecipeId[];
+  public recipesrates: RateId[]; // minden rate Id-vel
+  public reciperate: RateId[]; // a kiválasztott recepthez tartozó összes rate Id-vel
+  public ratesotherusers: any[]; // minden más rate ami nem a belogolt useré
+  public ratesallusers: any[]; // minden rate recept Id nélkül.
 
   public selectedRecipeId: any;
   public favourite: boolean;
   public opened: number;
-  public likes: [Like];
-  public like: number;
-  public likeaverage: number;
-
+  public rate = 0;
+  public rateaverage = 0;
   labelPosition = 'before';
-  ertek = 2;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute) { }
+  constructor(
+    private recipeService: RecipeService,
+    private recipeRateService: RecipeRateService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.selectedRecipeId = this.route.snapshot.paramMap.get('id'); // Get ID from browser
-    // SUBSCRIBE RECIPE -- ONLY ONCE
+    // Get Recipe ID from browser
+    this.selectedRecipeId = this.route.snapshot.paramMap.get('id');
+    // Recipe
     this.recipeService.getRecipes().pipe(take(1)).subscribe(recipes => {
       this.recipes = recipes;
       this.recipe = this.recipes.filter(recipe => recipe.id === this.selectedRecipeId);
-      // SUBSCRIBE RECIPE
-      // this.recipeService.getRecipes().subscribe(recipes => {
-      //   this.recipes = recipes;
-      //   this.recipe = this.recipes.filter(recipe => recipe.id === this.selectedRecipeId);
-      this.favourite = this.recipe[0].favourite;
       this.opened = this.recipe[0].opened;
-      this.likes = this.recipe[0].like;
-      const test = this.likes.map(sc => sc.score).reduce((a, b) => a + b);
-      const db = this.likes.map(sc => sc.score).filter(sc => sc > 0).length;
-      const ll = this.likes.map(sc => sc.id).filter(sci => sci === this.loggedInUser);
-
-
-      this.likeaverage = test / db;
-      console.log('test', ll, 'Sum:', test, 'Db:', db, 'Avg:', this.likeaverage, 'Yours:', this.like);
+      // Kiszervezni:
+      this.favourite = this.recipe[0].favourite;
+    });
+    // Recipe rating
+    this.recipeRateService.getRecipesRates().pipe(take(1)).subscribe(recipesrates => {
+      this.recipesrates = recipesrates;
+      this.reciperate = this.recipesrates.filter(reciperate => reciperate.id === this.selectedRecipeId);
+      if (this.reciperate.length > 0) {
+        this.ratesotherusers = this.reciperate[0].rate.filter(rr => rr.uid !== this.loggedInUser.uid);
+        this.ratesallusers = this.reciperate[0].rate;
+      } else {
+        this.ratesotherusers = [];
+        this.ratesallusers = [];
+      }
+      if (this.ratesallusers.length > 0) {
+        this.rateaverage = this.ratesallusers.map(sc => sc.score).reduce((a, b) => a + b) /
+          this.ratesallusers.map(sc => sc.score).filter(sc => sc > 0).length;
+      }
+      if (this.ratesallusers.filter(sc => sc.uid === this.loggedInUser.uid).length > 0) {
+        this.rate = this.ratesallusers.filter(sc => sc.uid === this.loggedInUser.uid).map(sc => sc.score).reduce((a, b) => a + b);
+      }
     });
   }
 
   ngOnDestroy() {
     this.opened = this.recipe[0].opened + 1;
-    const write: any = {
+    const writerecipe: any = {
       favourite: this.favourite,
-      opened: this.opened,
-      // like: [{ id: this.loggedInUser, score: this.like }]
+      opened: this.opened
     };
-    this.recipeService.updateRecipe(this.selectedRecipeId, write);
+    const writerate: any = {
+      rate: [{ uid: this.loggedInUser.uid, score: this.rate }, ...this.ratesotherusers]
+    };
+    this.recipeService.updateRecipe(this.selectedRecipeId, writerecipe);
+    this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
   }
 
-  togleFavourites(fav) {
+  toggleFavourites(fav) {
     this.favourite = fav;
   }
 
-  togleLike(lik) {
-    this.like = this.likeaverage;
-
+  toggleRate(ev) {
+    this.rate = ev.rating;
   }
 }

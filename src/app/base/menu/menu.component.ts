@@ -37,8 +37,8 @@ export class MenuComponent implements OnInit {
     this.loginService.getLoggedInUser()
       .subscribe(user => {
         this.user = user;
-        console.log('(menu.component) User logged in: ', this.user.uid);
-        localStorage.setItem('loggedInUser', this.user.uid);
+        // console.log('(menu.component) User logged in: ', JSON.stringify(this.user));
+        localStorage.setItem('loggedInUser', JSON.stringify(this.user));
       });
 
     this.superuserService.getSuperuser()
