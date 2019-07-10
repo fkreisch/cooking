@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { LoginService } from '../login.service';
-import { SuperuserService } from '../superuser.service';
+import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -14,11 +15,15 @@ export class MenuComponent implements OnInit {
   isHandset: boolean;
   public user: firebase.User;
   public isSuperUser: boolean;
+  private users: any[];
+  private loggedInUserData: any;
+  public loggedInUserId: string;
+  public loggedInSupervisor = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private loginService: LoginService,
-    private superuserService: SuperuserService,
+    private router: Router,
   ) { }
 
   // store like this:
@@ -34,17 +39,38 @@ export class MenuComponent implements OnInit {
         this.isHandset = state.matches ? true : false;
       });
 
-    this.loginService.getLoggedInUser()
+    this.loginService.getLoggedInUser().pipe(take(1))
       .subscribe(user => {
         this.user = user;
-        // console.log('(menu.component) User logged in: ', JSON.stringify(this.user));
-        localStorage.setItem('loggedInUser', JSON.stringify(this.user));
-      });
+        if (this.user !== null) {
 
-    this.superuserService.getSuperuser()
-      .subscribe(superuser => {
-        this.isSuperUser = superuser[0].superuser_id === this.user.uid ? true : false;
+          this.readUser(this.user.uid);
+          // this.loginService.updateUser(this.user.uid, userdata);
+        }
       });
+  }
+
+  readUser(id: string) {
+    this.loginService.getUser(id).pipe(take(1)).subscribe(user => {
+      this.loggedInUserData = user;
+      this.loggedInUserId = this.loggedInUserData[0].id;
+      this.loggedInSupervisor = this.loggedInUserData[0].supervisor;
+    });
+  }
+
+  writeUser() {
+    if (this.user !== null) {
+      const userdata = {
+        uid: this.user.uid,
+        displayName: this.user.displayName,
+        email: this.user.email,
+        phoneNumber: this.user.phoneNumber,
+        photoURL: this.user.photoURL,
+        emailVerified: this.user.emailVerified,
+        lastLogin: new Date(),
+        supervisor: true
+      };
+    }
   }
 
   loginGoogle() {
@@ -52,6 +78,9 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
+    this.loggedInSupervisor = false;
+    this.loggedInUserId = 'Undefinied';
+    this.loggedInUserData = null;
     this.loginService.logout();
   }
 }

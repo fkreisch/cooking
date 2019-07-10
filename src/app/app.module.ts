@@ -50,7 +50,6 @@ import { LinksAllComponent } from './links/links-all/links-all.component';
 import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
 import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
-import { MenuItemsComponent } from './base/menu-items/menu-items.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +64,6 @@ import { MenuItemsComponent } from './base/menu-items/menu-items.component';
     RecipeFilterPipe,
     RecipesAllComponent,
     RecipeComponent,
-    MenuItemsComponent,
   ],
   imports: [
     AppRoutingModule,

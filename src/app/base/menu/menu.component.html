@@ -15,10 +15,20 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset) ? 'push' : 'push'" [opened]="!(isHandset)">
         <div [class]="(isHandset) ? 'nav-spacer-mobile' : 'nav-spacer'"></div>
         <mat-nav-list (click)="drawer.toggle()" *ngIf="(isHandset)">
-            <app-menu-items></app-menu-items>
         </mat-nav-list>
         <mat-nav-list *ngIf="!(isHandset)">
-            <app-menu-items></app-menu-items>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/home">
+                Kezdőoldal
+            </a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item [routerLink]="['/recipes']">
+                Receptkönyv
+            </a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/links">
+                Linkek
+            </a>
+            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/recipe-admin" *ngIf="(loggedInSupervisor)">
+                Szervíz
+            </a>
         </mat-nav-list>
         <div class="chef-mobile" *ngIf="(isHandset)">
             <img class="chef" src="../../../assets/img/chef.png" alt="">

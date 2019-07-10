@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { RecipeService } from '../../recipes/recipe.service';
 import { RecipeId } from '../../recipes/recipe-interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipes-all',
@@ -15,11 +16,12 @@ export class RecipesAllComponent implements OnInit {
   displayedColumns = ['name'];
   private recipes: RecipeId[];
   dataSource: MatTableDataSource<RecipeId>;
+  public loggedInUserId: string;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
