@@ -1,12 +1,3 @@
-export interface Demo {
-    record: string;
-    details: string;
-    fields: [];
-}
-export interface DemoId extends Demo {
-    id: string;
-}
-
 export interface Id {
     id: string;
 }
@@ -27,7 +18,6 @@ export interface Recipe {
         quanity: string;
     }];
     opened: number;
-    favourite: boolean;
 }
 export interface RecipeId extends Recipe {
     id: string;

@@ -22,12 +22,14 @@ export class RecipeComponent implements OnInit, OnDestroy {
   // Recipe variables
   private reciperates: Rate;
   private ratesotherusers: any;
+  private loggedInUserFavouritesOther: any;
+  private loggedInUserFavouritesThis: any;
 
   // page variables
   public loggedInUserId: string;
   public selectedRecipeId: any;
   public recipe: Recipe;
-  public favourite: boolean;
+  public favourite = false;
   public opened: number;
   public rate = 0;
   public rateaverage = 0;
@@ -56,8 +58,13 @@ export class RecipeComponent implements OnInit, OnDestroy {
         this.loggedInUserId = user.uid;
         this.loginService.getUser(this.user.uid).subscribe(udata => {
           this.loggedInUserData = udata;
-          this.loggedInUserFavourites = this.loggedInUserData.favourites;
-          // Recipe rating
+          // Favourite display
+          this.loggedInUserFavouritesOther = this.loggedInUserData.favourites.filter(rr => rr.recipeid !== this.selectedRecipeId);
+          this.loggedInUserFavouritesThis = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
+          if (this.loggedInUserFavouritesThis.length !== 0) {
+            this.toggleFavourites();
+          }
+          // Recipe rating display
           this.recipeRateService.getRecipeRates(this.selectedRecipeId).subscribe(recipesrates => {
             this.reciperates = recipesrates;
             if (this.reciperates) {
@@ -84,13 +91,24 @@ export class RecipeComponent implements OnInit, OnDestroy {
       const writerate: any = {
         rate: [{ uid: this.loggedInUserId, score: this.rate }, ...this.ratesotherusers]
       };
+      if (this.favourite) {
+        const writefavourite: any = {
+          favourites: [{ recipeid: this.selectedRecipeId }, ...this.loggedInUserFavouritesOther]
+        };
+        this.loginService.updateUser(this.loggedInUserId, writefavourite);
+      } else {
+        const writefavourite: any = {
+          favourites: [...this.loggedInUserFavouritesOther]
+        };
+        this.loginService.updateUser(this.loggedInUserId, writefavourite);
+      }
       this.recipeService.updateRecipe(this.selectedRecipeId, writerecipe);
       this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
     }
   }
 
-  toggleFavourites(fav: boolean) {
-    this.favourite = fav;
+  toggleFavourites() {
+    this.favourite = !this.favourite;
   }
 
   toggleRate(ev: any) {

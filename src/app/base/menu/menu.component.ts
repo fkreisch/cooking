@@ -38,7 +38,8 @@ export class MenuComponent implements OnInit {
         this.loggedInSupervisor = getuser.supervisor;
       } else {
         const writeuser: any = {
-          supervisor: false
+          supervisor: false,
+          favourites: []
         };
         this.loginService.updateUser(id, writeuser);
       }

@@ -103,3 +103,7 @@
     outline: none;
     justify-content: left;
 }
+
+::ng-deep .star-container {
+    margin: 0;
+}

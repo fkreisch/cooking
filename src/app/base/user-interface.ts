@@ -7,7 +7,9 @@ export interface User {
     phoneNumber: string;
     photoURL: string;
     supervisor: boolean;
-    favourites: [];
+    favourites: [{
+        recipeid: string;
+    }];
 }
 export interface UserId extends User {
     id: string;
