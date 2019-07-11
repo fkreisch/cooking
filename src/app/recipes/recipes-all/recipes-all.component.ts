@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RecipesAllComponent implements OnInit {
 
   displayedColumns = ['name'];
-  private recipes: RecipeId[];
+  public recipes: RecipeId[];
   dataSource: MatTableDataSource<RecipeId>;
   public loggedInUserId: string;
 

@@ -23,6 +23,13 @@ export interface RecipeId extends Recipe {
     id: string;
 }
 
+export interface RecipeDisplay {
+    name: string;
+    short: string;
+    picture: string;
+    id: string;
+}
+
 export interface Rate {
     rate: [
         {

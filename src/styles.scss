@@ -23,3 +23,11 @@ body {
 
 @import '~ngx-bar-rating/themes/br-stars-theme';
 @import "~css-star-rating/css/star-rating.min.css";
+.spinner {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: stretch center;
+    align-items: stretch;
+    padding-top: 100px;
+}

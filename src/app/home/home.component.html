@@ -1,1 +1,57 @@
-<p>home works!</p>
+<div class="spinner" *ngIf="!avatars">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="avatars">
+    <div class="heart">
+        <i class="fa fa-heart" matTooltip="Tedd a kedvenceid közé!"></i>
+    </div>
+    <div class="heart-title">
+        <span>Kedvencek</span>
+    </div>
+
+    <ngx-hm-carousel [(ngModel)]="currentIndex" show-num="auto" [breakpoint]="breakpoint" [autoplay]=true [autoplay-speed]="3000" [between-delay]="100" [infinite]="infinite" [drag-many]="true" [aniTime]="100" [mourse-enable]=true [data]="avatars" class="carousel c-accent"
+        *ngIf="avatars">
+        <!-- [autoplay]=true -->
+        <section ngx-hm-carousel-container class="content">
+            <article class="item cursor-pointer" ngx-hm-carousel-item *ngFor="let avatar of avatars; let i = index" [ngClass]="{'visible': currentIndex===i}">
+                <div class="img d-flex justify-content-center align-items-center" (click)="click(avatar.id)" [style.backgroundImage]="'url('+avatar.picture+')'">
+                    <div class="title">
+                        <span>{{avatar.name}}</span>
+                    </div>
+                </div>
+            </article>
+            <ng-template #infiniteContainer></ng-template>
+        </section>
+
+        <ng-template #carouselContent let-avatar let-i="index">
+            <article class="item cursor-pointer" [ngClass]="{'visible': currentIndex===i}">
+                <div class="img d-flex justify-content-center align-items-center" (click)="click(avatar.id)" [style.backgroundImage]="'url('+avatar.picture+')'">
+                    <div class="title">
+                        <span>{{avatar.name}}</span>
+                    </div>
+
+                </div>
+            </article>
+        </ng-template>
+
+        <ng-template #carouselPrev>
+            <div class="click-area">
+                <i class="material-icons">keyboard_arrow_left</i>
+            </div>
+        </ng-template>
+        <ng-template #carouselNext>
+            <div class="click-area">
+                <i class="material-icons">keyboard_arrow_right</i>
+            </div>
+        </ng-template>
+
+        <ng-template #carouselDot let-model>
+            <div class="ball bg-accent" [class.visible]="model.index === model.currentIndex"></div>
+        </ng-template>
+
+        <ng-template #carouselProgress let-progress>
+            <div class="progress"></div>
+        </ng-template>
+
+    </ngx-hm-carousel>
+</div>

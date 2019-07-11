@@ -9,10 +9,11 @@
 }
 
 .header-image {
-    margin-left: 16vw;
     border-radius: 8vw 2vw 4px 0;
     display: block;
     max-height: 420px;
+    position: relative;
+    float: right;
 }
 
 .title-box {

@@ -20,7 +20,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
   private loggedInUserFavourites: [];
 
   // Recipe variables
-  private reciperates: Rate;
+  public reciperates: Rate;
   private ratesotherusers: any;
   private loggedInUserFavouritesOther: any;
   private loggedInUserFavouritesThis: any;
@@ -32,7 +32,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
   public favourite = false;
   public opened: number;
   public rate = 0;
-  public rateaverage = 0;
+  public rateaverage: number;
   public labelPosition = 'before';
 
   constructor(
@@ -88,9 +88,17 @@ export class RecipeComponent implements OnInit, OnDestroy {
       const writerecipe: any = {
         opened: this.opened
       };
-      const writerate: any = {
-        rate: [{ uid: this.loggedInUserId, score: this.rate }, ...this.ratesotherusers]
-      };
+      if (this.ratesotherusers) {
+        const writerate: any = {
+          rate: [{ uid: this.loggedInUserId, score: this.rate }, ...this.ratesotherusers]
+        };
+        this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
+      } else {
+        const writerate: any = {
+          rate: [{ uid: this.loggedInUserId, score: this.rate }]
+        };
+        this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
+      }
       if (this.favourite) {
         const writefavourite: any = {
           favourites: [{ recipeid: this.selectedRecipeId }, ...this.loggedInUserFavouritesOther]
@@ -103,7 +111,6 @@ export class RecipeComponent implements OnInit, OnDestroy {
         this.loginService.updateUser(this.loggedInUserId, writefavourite);
       }
       this.recipeService.updateRecipe(this.selectedRecipeId, writerecipe);
-      this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
     }
   }
 

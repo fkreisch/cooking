@@ -1,4 +1,10 @@
 // CORE
+import 'hammerjs';
+
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { NgxHmCarouselModule } from 'ngx-hm-carousel';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -32,6 +38,7 @@ import {
   MatSortModule,
   MatTableModule,
   MatTooltipModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 // SERVICE
 import { environment } from '../environments/environment';
@@ -95,6 +102,8 @@ import { RecipeComponent } from './recipes/recipe/recipe.component';
     MatSortModule,
     MatTableModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
+    NgxHmCarouselModule,
   ],
   providers: [
     RecipeService,

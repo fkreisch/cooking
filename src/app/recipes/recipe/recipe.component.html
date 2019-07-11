@@ -1,6 +1,13 @@
+<div class="spinner" *ngIf="!recipe">
+    <mat-spinner></mat-spinner>
+</div>
 <div class="example-card" *ngIf="recipe">
-    <div class="container">
-        <img src="{{recipe.picture}}" class="header-image" alt="" style="width:100%;">
+    <div class="container" fxLayout.xs="column" fxLayoutAlign="right">
+        <div fxFlex="30%"></div>
+        <div fxFlex="70%">
+
+            <img src="{{recipe.picture}}" class="header-image" alt="" style="width:100%;">
+        </div>
         <div class="text-block">
             <p class="mat-h1 name">{{recipe.name}}</p>
         </div>
@@ -39,8 +46,10 @@
                 <span>Megtekintve:&#32;</span>
                 <span class='orange'>{{ opened }}&#160;</span>
                 <span>alkalommal</span>
-                <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [rating]="rateaverage" (starClickChange)="toggleRate($event)">
-                </star-rating>
+                <div>
+                    <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [rating]="rateaverage" (starClickChange)="toggleRate($event)">
+                    </star-rating>
+                </div>
                 <div>
                     <span class="favourite-yes" *ngIf="favourite === true">
                         <i class="fa fa-heart" matTooltip="Eltávolítás a kedvencekből."
