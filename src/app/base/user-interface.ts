@@ -7,6 +7,7 @@ export interface User {
     phoneNumber: string;
     photoURL: string;
     supervisor: boolean;
+    favourites: [];
 }
 export interface UserId extends User {
     id: string;

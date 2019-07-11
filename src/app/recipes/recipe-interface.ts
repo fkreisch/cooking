@@ -19,8 +19,13 @@ export interface Recipe {
     servesfor: string;
     time: number;
     picture: string;
-    steps: [];
-    ingredients: [];
+    steps: [{
+        step: string;
+    }];
+    ingredients: [{
+        ingredient: string;
+        quanity: string;
+    }];
     opened: number;
     favourite: boolean;
 }

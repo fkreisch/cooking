@@ -1,4 +1,4 @@
-<div class="example-card" *ngFor="let recipe of recipe">
+<div class="example-card" *ngIf="recipe">
     <div class="container">
         <img src="{{recipe.picture}}" class="header-image" alt="" style="width:100%;">
         <div class="text-block">
@@ -35,7 +35,7 @@
                     </p>
                 </div>
             </mat-card>
-            <div class="statbox">
+            <div class="statbox" *ngIf="loggedInUserId">
                 <span>Megtekintve:&#32;</span>
                 <span class='orange'>{{ opened }}&#160;</span>
                 <span>alkalommal</span>

@@ -12,12 +12,12 @@ export class RecipeService {
   private recipeCollection: AngularFirestoreCollection<Recipe>;
   private recipeDoc: AngularFirestoreDocument<Recipe>;
   private recipes: Observable<RecipeId[]>;
+  private recipe: Observable<Recipe>;
 
-  constructor(public afs: AngularFirestore) {
-    this.recipeCollection = afs.collection<Recipe>('recipe', ref => ref.orderBy('name'));
-  }
+  constructor(public afs: AngularFirestore) { }
 
   getRecipes() {
+    this.recipeCollection = this.afs.collection<Recipe>('recipe', ref => ref.orderBy('name'));
     this.recipes = this.recipeCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Recipe;
@@ -29,6 +29,12 @@ export class RecipeService {
     return this.recipes;
   }
 
+  getRecipe(id: Id) {
+    this.recipeDoc = this.afs.doc<Recipe>(`recipe/${id}`);
+    this.recipe = this.recipeDoc.valueChanges();
+    return this.recipe;
+  }
+
   addRecipe(doc: Recipe) {
     console.log('(recipe.service) FIREBASE ADD --', doc);
     this.recipeCollection.add(doc);
@@ -36,13 +42,13 @@ export class RecipeService {
 
   deleteRecipe(id: Id) {
     console.log('(recipe.service) FIREBASE DELETE --', id);
-    this.recipeDoc = this.afs.doc(`recipe/${id}`);
+    this.recipeDoc = this.afs.doc<Recipe>(`recipe/${id}`);
     this.recipeDoc.delete();
   }
 
   updateRecipe(id: Id, doc: Recipe) {
     console.log('(recipe.service) FIREBASE UPDATE --', doc);
-    this.recipeDoc = this.afs.doc(`recipe/${id}`);
-    this.recipeDoc.set(doc, {merge: true});
+    this.recipeDoc = this.afs.doc<Recipe>(`recipe/${id}`);
+    this.recipeDoc.set(doc, { merge: true });
   }
 }

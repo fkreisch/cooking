@@ -1,10 +1,10 @@
+import { User } from './../../base/user-interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoginService } from '../../base/login.service';
 import { RecipeService } from '../recipe.service';
 import { RecipeRateService } from '../recipe-rate.service';
-import { RecipeId, RateId, Rate } from '../recipe-interface';
+import { Rate, Recipe } from '../recipe-interface';
 import { ActivatedRoute } from '@angular/router';
-import { take } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -14,25 +14,24 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 
 export class RecipeComponent implements OnInit, OnDestroy {
-  // Get User ID from browser
+  // User variables
   private user: firebase.User;
-  public loggedInUserData: any;
-  private loggedInUserId: string;
-  public loggedInSupervisor = false;
+  private loggedInUserData: User;
+  private loggedInUserFavourites: [];
 
-  public recipes: RecipeId[];
-  public recipe: RecipeId[];
-  public recipesrates: RateId[]; // minden rate Id-vel
-  public reciperates: RateId[]; // a kiválasztott recepthez tartozó összes rate Id-vel
-  public ratesotherusers: any[]; // minden más rate ami nem a belogolt useré
-  public ratesallusers: any[]; // minden rate recept Id nélkül.
+  // Recipe variables
+  private reciperates: Rate;
+  private ratesotherusers: any;
 
+  // page variables
+  public loggedInUserId: string;
   public selectedRecipeId: any;
+  public recipe: Recipe;
   public favourite: boolean;
   public opened: number;
   public rate = 0;
   public rateaverage = 0;
-  labelPosition = 'before';
+  public labelPosition = 'before';
 
   constructor(
     private loginService: LoginService,
@@ -46,76 +45,55 @@ export class RecipeComponent implements OnInit, OnDestroy {
     // Get Recipe ID from browser
     this.selectedRecipeId = this.route.snapshot.paramMap.get('id');
     // Recipe
-    this.recipeService.getRecipes().pipe(take(1)).subscribe(recipes => {
-      this.recipes = recipes;
-      this.recipe = this.recipes.filter(recipe => recipe.id === this.selectedRecipeId);
-      this.opened = this.recipe[0].opened;
-      // Kiszervezni:
-      this.favourite = this.recipe[0].favourite;
+    this.recipeService.getRecipe(this.selectedRecipeId).subscribe(recipe => {
+      this.recipe = recipe;
+      this.opened = this.recipe.opened;
     });
-    // Get LoggedInUserData
-    this.loginService.getLoggedInUser().pipe(take(1))
-      .subscribe(user => {
-        this.user = user;
-        console.log('null vagy?', this.user);
-        if (this.user !== null) {
-          this.loginService.getUser(this.user.uid).pipe(take(1))
-            .subscribe(uu => {
-              this.loggedInUserData = uu;
-              this.loggedInUserId = this.loggedInUserData[0].id;
-              this.loggedInSupervisor = this.loggedInUserData[0].supervisor;
-              // Recipe rating
-              this.recipeRateService.getRecipesRates().pipe(take(1))
-                .subscribe(recipesrates => {
-                  this.recipesrates = recipesrates;
-                  this.reciperates = this.recipesrates.filter(reciperates => reciperates.id === this.selectedRecipeId);
-                  if (this.reciperates.length > 0) {
-                    this.ratesotherusers = this.reciperates[0].rate.filter(rr => rr.uid !== this.loggedInUserId);
-                    this.ratesallusers = this.reciperates[0].rate;
-                  } else {
-                    this.ratesotherusers = [];
-                    this.ratesallusers = [];
-                  }
-                  if (this.ratesallusers.length > 0) {
-                    this.rateaverage = this.ratesallusers.map(sc => sc.score).reduce((a, b) => a + b) /
-                      this.ratesallusers.map(sc => sc.score).filter(sc => sc > 0).length;
-                  }
-                  if (this.ratesallusers.filter(sc => sc.uid === this.loggedInUserId).length > 0) {
-                    this.rate = this.ratesallusers.filter(sc => sc.uid === this.loggedInUserId).map(sc => sc.score).reduce((a, b) => a + b);
-                  }
-                });
-            });
-        }
-      });
+    // for now all things for registered users only.
+    this.loginService.getLoggedInUser().subscribe(user => {
+      this.user = user;
+      if (this.user) {
+        this.loggedInUserId = user.uid;
+        this.loginService.getUser(this.user.uid).subscribe(udata => {
+          this.loggedInUserData = udata;
+          this.loggedInUserFavourites = this.loggedInUserData.favourites;
+          // Recipe rating
+          this.recipeRateService.getRecipeRates(this.selectedRecipeId).subscribe(recipesrates => {
+            this.reciperates = recipesrates;
+            if (this.reciperates) {
+              this.ratesotherusers = this.reciperates.rate.filter(rr => rr.uid !== this.loggedInUserId);
+              const ratesallusers = this.reciperates.rate;
+              this.rateaverage = ratesallusers.map(sc => sc.score).reduce((a, b) => a + b) /
+                ratesallusers.map(sc => sc.score).length;
+              if (ratesallusers.filter(sc => sc.uid === this.loggedInUserId).length > 0) {
+                this.rate = ratesallusers.filter(sc => sc.uid === this.loggedInUserId).map(sc => sc.score).reduce((a, b) => a + b);
+              }
+            }
+          });
+        });
+      }
+    });
   }
 
   ngOnDestroy() {
-    this.opened = this.recipe[0].opened + 1;
-    const writerecipe: any = {
-      favourite: this.favourite,
-      opened: this.opened
-    };
-    this.recipeService.updateRecipe(this.selectedRecipeId, writerecipe);
-
-    // const writerate: any = {
-    //   rate: [{ uid: this.loggedInUserId, score: this.rate }, ...this.ratesotherusers]
-    // };
-    // this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
+    if (this.loggedInUserId) {
+      this.opened = this.recipe.opened + 1;
+      const writerecipe: any = {
+        opened: this.opened
+      };
+      const writerate: any = {
+        rate: [{ uid: this.loggedInUserId, score: this.rate }, ...this.ratesotherusers]
+      };
+      this.recipeService.updateRecipe(this.selectedRecipeId, writerecipe);
+      this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
+    }
   }
 
-  readUser(id: string) {
-    this.loginService.getUser(id).pipe(take(1)).subscribe(user => {
-      this.loggedInUserData = user;
-      this.loggedInUserId = this.loggedInUserData[0].id;
-      this.loggedInSupervisor = this.loggedInUserData[0].supervisor;
-    });
-  }
-
-  toggleFavourites(fav) {
+  toggleFavourites(fav: boolean) {
     this.favourite = fav;
   }
 
-  toggleRate(ev) {
+  toggleRate(ev: any) {
     this.rate = ev.rating;
   }
 }

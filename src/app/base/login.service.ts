@@ -3,7 +3,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { User, UserId } from './user-interface';
 
 @Injectable({
@@ -11,9 +10,8 @@ import { User, UserId } from './user-interface';
 })
 export class LoginService {
 
-  private usersCollection: AngularFirestoreCollection<any>;
-  private usersDoc: AngularFirestoreDocument<any>;
-  private users: Observable<any[]>;
+  private userDoc: AngularFirestoreDocument<any>;
+  private user: Observable<User>;
 
   constructor(
     private afAuth: AngularFireAuth, private afs: AngularFirestore) { }
@@ -30,22 +28,15 @@ export class LoginService {
     return this.afAuth.authState;
   }
 
-  getUser(idd: string) {
-    this.usersCollection = this.afs.collection<any>('user', ref => ref.where('uid', '==', idd));
-    this.users = this.usersCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as User;
-        const id = a.payload.doc.id;
-        // console.log('(login.service) FIREBASE USER GET:', id, data);
-        return { id, ...data };
-      }))
-    );
-    return this.users;
+  getUser(id: string) {
+    this.userDoc = this.afs.doc<User>(`user/${id}`);
+    this.user = this.userDoc.valueChanges();
+    return this.user;
   }
 
   updateUser(id: any, doc: any) {
     console.log('(login.service) FIREBASE USER UPDATE --', id, doc);
-    this.usersDoc = this.afs.doc(`user/${id}`);
-    this.usersDoc.set(doc, { merge: true });
+    this.userDoc = this.afs.doc(`user/${id}`);
+    this.userDoc.set(doc, { merge: true });
   }
 }

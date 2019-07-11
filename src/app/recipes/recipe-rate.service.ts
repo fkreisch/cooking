@@ -10,24 +10,17 @@ import { Rate, RateId, Id } from './recipe-interface';
 export class RecipeRateService {
 
   private recipeRateCollection: AngularFirestoreCollection<Rate>;
-  private recipeRateDoc: AngularFirestoreDocument<Rate>;
-  private recipesrates: Observable<RateId[]>;
+  private recipeRatesDoc: AngularFirestoreDocument<Rate>;
+  private recipeRates: Observable<Rate>;
 
-  constructor(public afs: AngularFirestore) {
-    this.recipeRateCollection = afs.collection<Rate>('recipe-rate');
-  }
+  constructor(public afs: AngularFirestore) {}
 
-  getRecipesRates() {
-    this.recipesrates = this.recipeRateCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Rate;
-        const id = a.payload.doc.id;
-        // console.log('(recipe-rate.service) FIREBASE GET:', id, data);
-        return { id, ...data };
-      }))
-    );
-    return this.recipesrates;
-  }
+  getRecipeRates(id: Id) {
+    this.recipeRatesDoc = this.afs.doc<Rate>(`recipe-rate/${id}`);
+    this.recipeRates = this.recipeRatesDoc.valueChanges();
+    // console.log('(recipe-rate.service) FIREBASE GET:', id);
+    return this.recipeRates;
+    }
 
   addRecipeRate(doc: Rate) {
     console.log('(recipe-rate.service) FIREBASE ADD --', doc);
@@ -36,13 +29,13 @@ export class RecipeRateService {
 
   deleteRecipeRate(id: Id) {
     console.log('(recipe-rate.service) FIREBASE DELETE --', id);
-    this.recipeRateDoc = this.afs.doc(`recipe-rate/${id}`);
-    this.recipeRateDoc.delete();
+    this.recipeRatesDoc = this.afs.doc(`recipe-rate/${id}`);
+    this.recipeRatesDoc.delete();
   }
 
   updateRecipeRate(id: Id, doc: Rate) {
     console.log('(recipe-rate.service) FIREBASE UPDATE --', doc);
-    this.recipeRateDoc = this.afs.doc(`recipe-rate/${id}`);
-    this.recipeRateDoc.set(doc, {merge: true});
+    this.recipeRatesDoc = this.afs.doc(`recipe-rate/${id}`);
+    this.recipeRatesDoc.set(doc, {merge: true});
   }
 }
