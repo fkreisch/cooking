@@ -27,7 +27,40 @@
                     <p class="mat-h3 step-text">{{s.step}}</p>
                 </div>
             </div>
+
+            <div class="clear-both">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>HOZZÁSZÓLÁSOK</mat-panel-title>
+                            <mat-panel-description></mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <mat-form-field appearance="fill" fxFlex="100%">
+                                <mat-label>Hozzászólás</mat-label>
+                                <textarea matTextareaAutosize matInput placeholder="" [(ngModel)]="comment"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-raised-button color="primary" (click)="addComment()">Hozzáadás</button>
+                        </div>
+                        <div>
+                            <mat-list>
+                                <mat-list-item *ngFor="let comm of comments">
+                                    <mat-icon mat-list-icon>note</mat-icon>
+                                    <h4 mat-line>{{comm.uid}}</h4>
+                                    <h4 mat-line>{{comm.comment}}</h4>
+                                    <!-- <p mat-line> {{comm.updated | date}} </p> -->
+                                    <mat-divider></mat-divider>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
         </div>
+
+
         <div fxFlex="30%">
             <mat-card>
                 <p class="mat-h2">
@@ -59,10 +92,10 @@
                 <div class="favourite-box">
                     <span class="favourite-yes" *ngIf="favourite === true">
                         <i class="fa fa-heart"
-                        (click)="toggleFavourites()"> Hozzáadás a kedvencekhez</i></span>
+                        (click)="toggleFavourites()"> Eltávolítás a kedvencekből</i></span>
                     <span class="favourite-no" *ngIf="favourite === false">
                         <i class="fa fa-heart"
-                        (click)="toggleFavourites()"> Eltávolítás a kedvencekből</i></span>
+                        (click)="toggleFavourites()"> Hozzáadás a kedvencekhez</i></span>
                 </div>
             </div>
         </div>

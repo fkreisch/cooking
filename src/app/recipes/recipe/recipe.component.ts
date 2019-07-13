@@ -26,6 +26,9 @@ export class RecipeComponent implements OnInit {
   public ratecount = 0;
   public rateUser = 0;
 
+  public comment: string;
+  public comments: [{ uid: string; comment: string; commentdate: Date; }];
+
   public loggedInUserId: string;
   public selectedRecipeId: any;
 
@@ -63,11 +66,13 @@ export class RecipeComponent implements OnInit {
         });
         this.recipeDataService.getRecipeData(this.selectedRecipeId).pipe(take(1)).subscribe(recipedata => {
           this.recipedata = recipedata;
-          if (this.recipedata.rate.length > 0) {
+          if (this.recipedata) {
             this.ratecount = recipedata.ratecount;
             this.rateaverage = recipedata.rateaverage;
+            this.comments = recipedata.comments;
           }
         });
+        this.showComments();
       }
     });
   }
@@ -85,7 +90,8 @@ export class RecipeComponent implements OnInit {
           opened: 1,
           rateaverage: 0,
           ratecount: 0,
-          rate: []
+          rate: [],
+          comments: []
         };
         this.recipeDataService.updateRecipeData(this.selectedRecipeId, writeopened);
       }
@@ -142,5 +148,20 @@ export class RecipeComponent implements OnInit {
         }
       });
     }
+  }
+  showComments() {
+    this.recipeDataService.getRecipeData(this.selectedRecipeId).subscribe(recipedata => {
+      this.recipedata = recipedata;
+      if (this.recipedata) {
+        this.comments = this.recipedata.comments;
+      }
+    });
+  }
+  addComment() {
+    const writerecipecomment: any = {
+      comments: [{ uid: this.loggedInUserId, comment: this.comment }, ...this.comments ]
+    };
+    this.recipeDataService.updateRecipeData(this.selectedRecipeId, writerecipecomment);
+    this.comment = null;
   }
 }

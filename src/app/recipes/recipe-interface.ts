@@ -32,6 +32,13 @@ export interface Data {
             score: number;
         }
     ];
+    comments: [
+        {
+            uid: string;
+            comment: string;
+            commentdate: Date;
+        }
+    ];
 }
 export interface DataId extends Data {
     id: string;
