@@ -32,6 +32,7 @@ export class RecipeService {
   getRecipe(id: Id) {
     this.recipeDoc = this.afs.doc<Recipe>(`recipe/${id}`);
     this.recipe = this.recipeDoc.valueChanges();
+    console.log('(recipe.service) FIREBASE GET:', id, this.recipe);
     return this.recipe;
   }
 

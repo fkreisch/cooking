@@ -17,28 +17,22 @@ export interface Recipe {
         ingredient: string;
         quanity: string;
     }];
-    opened: number;
 }
 export interface RecipeId extends Recipe {
     id: string;
 }
 
-export interface RecipeDisplay {
-    name: string;
-    short: string;
-    picture: string;
-    id: string;
-}
-
-export interface Rate {
+export interface Data {
+    opened: number;
+    rateaverage: number;
+    ratecount: number;
     rate: [
         {
             uid: string;
             score: number;
         }
     ];
-
 }
-export interface RateId extends Rate {
+export interface DataId extends Data {
     id: string;
 }

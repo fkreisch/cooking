@@ -42,21 +42,27 @@
                     </p>
                 </div>
             </mat-card>
-            <div class="statbox" *ngIf="loggedInUserId">
+            <div class="statbox" *ngIf="recipedata">
                 <span>Megtekintve:&#32;</span>
-                <span class='orange'>{{ opened }}&#160;</span>
+                <span class='orange'>{{ recipedata.opened }}&#160;</span>
                 <span>alkalommal</span>
                 <div>
-                    <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [rating]="rateaverage" (starClickChange)="toggleRate($event)">
-                    </star-rating>
+                    <div class="stars-box">
+                        <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [showHalfStars]="true" [rating]="rateaverage" (starClickChange)="toggleRate($event)" labelText="({{ratecount}})" labelPosition="right">
+                        </star-rating>
+                    </div>
+
                 </div>
-                <div>
+
+                <star-rating [hoverEnabled]="false" speed="noticable" staticColor="ok" [starType]="'svg'" size="medium" [numOfStars]="rateUser" [rating]="5" labelText="A te értékelésed:" labelPosition="left" [disabled]="true" [readOnly]="true" *ngIf="rateUser">
+                </star-rating>
+                <div class="favourite-box">
                     <span class="favourite-yes" *ngIf="favourite === true">
-                        <i class="fa fa-heart" matTooltip="Eltávolítás a kedvencekből."
-                        (click)="toggleFavourites(false)"></i></span>
+                        <i class="fa fa-heart"
+                        (click)="toggleFavourites()"> Hozzáadás a kedvencekhez</i></span>
                     <span class="favourite-no" *ngIf="favourite === false">
-                        <i class="fa fa-heart" matTooltip="Tedd a kedvenceid közé!"
-                        (click)="toggleFavourites(true)"></i></span>
+                        <i class="fa fa-heart"
+                        (click)="toggleFavourites()"> Eltávolítás a kedvencekből</i></span>
                 </div>
             </div>
         </div>

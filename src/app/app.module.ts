@@ -43,9 +43,9 @@ import {
 // SERVICE
 import { environment } from '../environments/environment';
 import { RecipeService } from './recipes/recipe.service';
-import { RecipeRateService } from './recipes/recipe-rate.service';
+import { RecipeDataService } from './recipes/recipe-data.service';
 import { LoginService } from './base/login.service';
-import { SuperuserService } from './base/superuser.service';
+
 // COMPONENT
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './base/menu/menu.component';
@@ -107,9 +107,8 @@ import { RecipeComponent } from './recipes/recipe/recipe.component';
   ],
   providers: [
     RecipeService,
-    RecipeRateService,
+    RecipeDataService,
     LoginService,
-    SuperuserService,
   ],
   bootstrap: [AppComponent]
 })

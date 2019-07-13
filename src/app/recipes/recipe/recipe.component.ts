@@ -2,10 +2,11 @@ import { User } from './../../base/user-interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoginService } from '../../base/login.service';
 import { RecipeService } from '../recipe.service';
-import { RecipeRateService } from '../recipe-rate.service';
-import { Rate, Recipe } from '../recipe-interface';
+import { RecipeDataService } from '../recipe-data.service';
+import { Data, Recipe } from '../recipe-interface';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe',
@@ -13,112 +14,133 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./recipe.component.scss']
 })
 
-export class RecipeComponent implements OnInit, OnDestroy {
-  // User variables
+export class RecipeComponent implements OnInit {
+
+  private rate = 0;
+
   private user: firebase.User;
   private loggedInUserData: User;
-  private loggedInUserFavourites: [];
 
-  // Recipe variables
-  public reciperates: Rate;
-  private ratesotherusers: any;
-  private loggedInUserFavouritesOther: any;
-  private loggedInUserFavouritesThis: any;
+  public favourite = false;
+  public rateaverage = 0;
+  public ratecount = 0;
+  public rateUser = 0;
 
-  // page variables
   public loggedInUserId: string;
   public selectedRecipeId: any;
+
   public recipe: Recipe;
-  public favourite = false;
-  public opened: number;
-  public rate = 0;
-  public rateaverage: number;
+  public recipedata: Data;
+
   public labelPosition = 'before';
 
   constructor(
     private loginService: LoginService,
     private recipeService: RecipeService,
-    private recipeRateService: RecipeRateService,
+    private recipeDataService: RecipeDataService,
     private route: ActivatedRoute,
     public afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
-    // Get Recipe ID from browser
     this.selectedRecipeId = this.route.snapshot.paramMap.get('id');
-    // Recipe
     this.recipeService.getRecipe(this.selectedRecipeId).subscribe(recipe => {
       this.recipe = recipe;
-      this.opened = this.recipe.opened;
     });
-    // for now all things for registered users only.
     this.loginService.getLoggedInUser().subscribe(user => {
       this.user = user;
       if (this.user) {
         this.loggedInUserId = user.uid;
-        this.loginService.getUser(this.user.uid).subscribe(udata => {
-          this.loggedInUserData = udata;
-          // Favourite display
-          this.loggedInUserFavouritesOther = this.loggedInUserData.favourites.filter(rr => rr.recipeid !== this.selectedRecipeId);
-          this.loggedInUserFavouritesThis = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
-          if (this.loggedInUserFavouritesThis.length !== 0) {
-            this.toggleFavourites();
-          }
-          // Recipe rating display
-          this.recipeRateService.getRecipeRates(this.selectedRecipeId).subscribe(recipesrates => {
-            this.reciperates = recipesrates;
-            if (this.reciperates) {
-              this.ratesotherusers = this.reciperates.rate.filter(rr => rr.uid !== this.loggedInUserId);
-              const ratesallusers = this.reciperates.rate;
-              this.rateaverage = ratesallusers.map(sc => sc.score).reduce((a, b) => a + b) /
-                ratesallusers.map(sc => sc.score).length;
-              if (ratesallusers.filter(sc => sc.uid === this.loggedInUserId).length > 0) {
-                this.rate = ratesallusers.filter(sc => sc.uid === this.loggedInUserId).map(sc => sc.score).reduce((a, b) => a + b);
-              }
+        this.writeOpened();
+        this.loginService.getUser(this.loggedInUserId).subscribe(userdata => {
+          this.loggedInUserData = userdata;
+          if (this.loggedInUserData) {
+            const favouriteUser = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
+            if (favouriteUser.length !== 0) {
+              this.favourite = true;
             }
-          });
+          }
+        });
+        this.recipeDataService.getRecipeData(this.selectedRecipeId).pipe(take(1)).subscribe(recipedata => {
+          this.recipedata = recipedata;
+          if (this.recipedata.rate.length > 0) {
+            this.ratecount = recipedata.ratecount;
+            this.rateaverage = recipedata.rateaverage;
+          }
         });
       }
     });
   }
 
-  ngOnDestroy() {
-    if (this.loggedInUserId) {
-      this.opened = this.recipe.opened + 1;
-      const writerecipe: any = {
-        opened: this.opened
-      };
-      if (this.ratesotherusers) {
-        const writerate: any = {
-          rate: [{ uid: this.loggedInUserId, score: this.rate }, ...this.ratesotherusers]
+  writeOpened() {
+    this.recipeDataService.getRecipeData(this.selectedRecipeId).pipe(take(1)).subscribe(recipedata => {
+      this.recipedata = recipedata;
+      if (this.recipedata) {
+        const writeopened: any = {
+          opened: recipedata.opened + 1,
         };
-        this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
+        this.recipeDataService.updateRecipeData(this.selectedRecipeId, writeopened);
       } else {
-        const writerate: any = {
-          rate: [{ uid: this.loggedInUserId, score: this.rate }]
+        const writeopened: any = {
+          opened: 1,
+          rateaverage: 0,
+          ratecount: 0,
+          rate: []
         };
-        this.recipeRateService.updateRecipeRate(this.selectedRecipeId, writerate);
+        this.recipeDataService.updateRecipeData(this.selectedRecipeId, writeopened);
       }
-      if (this.favourite) {
-        const writefavourite: any = {
-          favourites: [{ recipeid: this.selectedRecipeId }, ...this.loggedInUserFavouritesOther]
-        };
-        this.loginService.updateUser(this.loggedInUserId, writefavourite);
-      } else {
-        const writefavourite: any = {
-          favourites: [...this.loggedInUserFavouritesOther]
-        };
-        this.loginService.updateUser(this.loggedInUserId, writefavourite);
-      }
-      this.recipeService.updateRecipe(this.selectedRecipeId, writerecipe);
-    }
+    });
   }
 
   toggleFavourites() {
     this.favourite = !this.favourite;
+    this.loginService.getUser(this.loggedInUserId).pipe(take(1)).subscribe(userdata => {
+      this.loggedInUserData = userdata;
+      if (this.loggedInUserData) {
+        const favouritesOther = this.loggedInUserData.favourites.filter(rr => rr.recipeid !== this.selectedRecipeId);
+        const favouriteUser = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
+        if (favouriteUser.length === 0) {
+          const writefavourite: any = {
+            favourites: [{ recipeid: this.selectedRecipeId }, ...favouritesOther]
+          };
+          this.loginService.updateUser(this.loggedInUserId, writefavourite);
+        } else {
+          const writefavourite: any = {
+            favourites: [...favouritesOther]
+          };
+          this.loginService.updateUser(this.loggedInUserId, writefavourite);
+        }
+      }
+    });
   }
 
-  toggleRate(ev: any) {
-    this.rate = ev.rating;
+  toggleRate(data: any) {
+    this.rateUser = data.rating;
+    if (this.rateUser > 0) {
+      this.recipeDataService.getRecipeData(this.selectedRecipeId).pipe(take(1)).subscribe(recipedata => {
+        this.recipedata = recipedata;
+        const ratesallusers = this.recipedata.rate;
+        const otherrates = ratesallusers.filter(sc => sc.uid !== this.loggedInUserId);
+        if (otherrates.length > 0) {
+          this.ratecount = otherrates.map(sc => sc.score).length + 1;
+          this.rateaverage = (otherrates.map(sc => sc.score).reduce((a, b) => a + b) + this.rateUser) / this.ratecount;
+          const writerecipedata: any = {
+            rateaverage: this.rateaverage,
+            ratecount: this.ratecount,
+            rate: [{ uid: this.loggedInUserId, score: this.rateUser }, ...otherrates]
+          };
+          this.recipeDataService.updateRecipeData(this.selectedRecipeId, writerecipedata);
+        } else {
+          this.rateaverage = this.rateUser;
+          this.ratecount = 1;
+          const writerecipedata: any = {
+            rateaverage: this.rateaverage,
+            ratecount: this.ratecount,
+            rate: [{ uid: this.loggedInUserId, score: this.rateUser }]
+          };
+          this.recipeDataService.updateRecipeData(this.selectedRecipeId, writerecipedata);
+        }
+      });
+    }
   }
 }
