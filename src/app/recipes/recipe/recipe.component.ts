@@ -72,6 +72,7 @@ export class RecipeComponent implements OnInit {
             this.comments = recipedata.comments;
           }
         });
+        this.showComments();
       }
     });
   }
@@ -148,7 +149,14 @@ export class RecipeComponent implements OnInit {
       });
     }
   }
-
+  showComments() {
+    this.recipeDataService.getRecipeData(this.selectedRecipeId).subscribe(recipedata => {
+      if (recipedata) {
+        this.recipedata = recipedata;
+        this.comments = this.recipedata.comments;
+      }
+    });
+  }
   addComment() {
     const writerecipecomment: any = {
       comments: [{

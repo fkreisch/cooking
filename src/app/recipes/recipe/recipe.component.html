@@ -53,14 +53,16 @@
                             <mat-panel-title>HOZZÁSZÓLÁSOK</mat-panel-title>
                             <mat-panel-description></mat-panel-description>
                         </mat-expansion-panel-header>
-                        <div>
+                        <div *ngIf="loggedInUserId">
                             <mat-form-field appearance="fill" fxFlex="100%">
                                 <mat-label>Szólj hozzá...</mat-label>
                                 <textarea matTextareaAutosize matInput placeholder="" [(ngModel)]="comment"></textarea>
-                                <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom">
-                                        <button mat-mini-fab color="basic" (click)="addComment()" *ngIf="comment" class="add"><mat-icon>add</mat-icon></button>                    
-                                    </span>
                             </mat-form-field>
+                            <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom">
+                                <button mat-mini-fab color="basic" (click)="addComment()" [disabled]="!comment" class="add">
+                                        <i class="fa fa-paper-plane"></i>
+                                </button>                    
+                            </span>
                         </div>
                         <app-recipe-comments></app-recipe-comments>
                     </mat-expansion-panel>

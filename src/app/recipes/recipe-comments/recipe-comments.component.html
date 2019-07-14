@@ -9,7 +9,7 @@
     </div>
 </div>
 <div class="container mat-elevation-z8">
-    <mat-table [dataSource]="dataSource" matSort>
+    <mat-table [dataSource]="dataSource" matSort *ngIf="dataSource">
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
             <mat-cell *matCellDef="let row">
