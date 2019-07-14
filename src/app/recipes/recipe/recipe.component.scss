@@ -71,6 +71,10 @@
     font-size: calc(18px + 0.7vw);
 }
 
+.spacer {
+    margin-bottom: 20px;
+}
+
 .step-box {
     clear: both;
     text-align: justify;
@@ -100,11 +104,17 @@
     cursor: pointer;
 }
 
-// .stars-box {
-//     float: left;
-// }
+.favourite-title {
+    font-family: Mina;
+    font-size: 16px;
+}
+
 .rate-average {
     padding-top: 12px;
+}
+
+.add {
+    margin-bottom: 10px;
 }
 
 ::ng-deep .mat-tooltip {
@@ -123,4 +133,8 @@
 ::ng-deep .label-value {
     margin-top: 6px;
     font-size: 10px;
+}
+
+.mat-expansion-panel-header-title {
+    font-size: 24px;
 }

@@ -57,6 +57,7 @@ import { LinksAllComponent } from './links/links-all/links-all.component';
 import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
 import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
+import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-comments.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { RecipeComponent } from './recipes/recipe/recipe.component';
     RecipeFilterPipe,
     RecipesAllComponent,
     RecipeComponent,
+    RecipeCommentsComponent,
   ],
   imports: [
     AppRoutingModule,

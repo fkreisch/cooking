@@ -1,5 +1,5 @@
 import { User } from './../../base/user-interface';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../base/login.service';
 import { RecipeService } from '../recipe.service';
 import { RecipeDataService } from '../recipe-data.service';
@@ -159,7 +159,13 @@ export class RecipeComponent implements OnInit {
   }
   addComment() {
     const writerecipecomment: any = {
-      comments: [{ uid: this.loggedInUserId, comment: this.comment }, ...this.comments ]
+      comments: [{
+        uid: this.loggedInUserId,
+        name: this.user.displayName,
+        avatar: this.user.photoURL,
+        commentdate: new Date(),
+        comment: this.comment,
+      }, ...this.comments]
     };
     this.recipeDataService.updateRecipeData(this.selectedRecipeId, writerecipecomment);
     this.comment = null;

@@ -14,15 +14,14 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Sorbarendezés </mat-header-cell>
             <mat-cell *matCellDef="let row">
 
-                <a [routerLink]="['/recipe', row.id]">
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <div mat-card-avatar [ngStyle]="{'background-image':'url('+row.picture+')'}"></div>
-                            <mat-card-title> {{row.name}} </mat-card-title>
-                            <mat-card-subtitle> {{row.short}} </mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card>
-                </a>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar [ngStyle]="{'background-image':'url('+row.avatar+')'}"></div>
+                        <mat-card-title> {{row.name}} </mat-card-title>
+                        <mat-card-subtitle> {{row.commentdate.toDate() | date: 'yyyy.MM.dd - hh:mm'}}</mat-card-subtitle>
+                        <span> {{row.comment}} </span>
+                    </mat-card-header>
+                </mat-card>
 
             </mat-cell>
         </ng-container>
@@ -33,4 +32,3 @@
     </mat-table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-</div>

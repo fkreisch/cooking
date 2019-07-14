@@ -16,7 +16,6 @@
     <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
         <div fxFlex="70%">
             <div class="step-box">
-
                 <p class="mat-h3">{{recipe.long}}</p>
             </div>
             <div *ngFor="let s of recipe.steps let i=index;">
@@ -27,8 +26,8 @@
                     <p class="mat-h3 step-text">{{s.step}}</p>
                 </div>
             </div>
-
-            <div class="clear-both">
+            <div class="spacer clear-both"></div>
+            <div>
                 <mat-accordion>
                     <mat-expansion-panel>
                         <mat-expansion-panel-header>
@@ -37,24 +36,14 @@
                         </mat-expansion-panel-header>
                         <div>
                             <mat-form-field appearance="fill" fxFlex="100%">
-                                <mat-label>Hozzászólás</mat-label>
+                                <mat-label>Szólj hozzá...</mat-label>
                                 <textarea matTextareaAutosize matInput placeholder="" [(ngModel)]="comment"></textarea>
+                                <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom">
+                                        <button mat-mini-fab color="basic" (click)="addComment()" *ngIf="comment" class="add"><mat-icon>add</mat-icon></button>                    
+                                    </span>
                             </mat-form-field>
                         </div>
-                        <div>
-                            <button mat-raised-button color="primary" (click)="addComment()">Hozzáadás</button>
-                        </div>
-                        <div>
-                            <mat-list>
-                                <mat-list-item *ngFor="let comm of comments">
-                                    <mat-icon mat-list-icon>note</mat-icon>
-                                    <h4 mat-line>{{comm.uid}}</h4>
-                                    <h4 mat-line>{{comm.comment}}</h4>
-                                    <!-- <p mat-line> {{comm.updated | date}} </p> -->
-                                    <mat-divider></mat-divider>
-                                </mat-list-item>
-                            </mat-list>
-                        </div>
+                        <app-recipe-comments></app-recipe-comments>
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
@@ -92,10 +81,12 @@
                 <div class="favourite-box">
                     <span class="favourite-yes" *ngIf="favourite === true">
                         <i class="fa fa-heart"
-                        (click)="toggleFavourites()"> Eltávolítás a kedvencekből</i></span>
+                        (click)="toggleFavourites()"><span class="favourite-title"> Eltávolítás a kedvencekből</span></i>
+                    </span>
                     <span class="favourite-no" *ngIf="favourite === false">
                         <i class="fa fa-heart"
-                        (click)="toggleFavourites()"> Hozzáadás a kedvencekhez</i></span>
+                        (click)="toggleFavourites()"><span class="favourite-title"> Hozzáadás a kedvencekhez</span></i>
+                    </span>
                 </div>
             </div>
         </div>

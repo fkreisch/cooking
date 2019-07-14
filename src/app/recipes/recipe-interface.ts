@@ -35,8 +35,10 @@ export interface Data {
     comments: [
         {
             uid: string;
-            comment: string;
+            name: string;
+            avatar: string;
             commentdate: Date;
+            comment: string;
         }
     ];
 }

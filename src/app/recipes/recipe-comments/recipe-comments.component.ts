@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { RecipeDataService } from '../../recipes/recipe-data.service';
-import { RecipeId, Data } from '../../recipes/recipe-interface';
+import { Data } from '../../recipes/recipe-interface';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-links-all',
-  templateUrl: './links-all.component.html',
-  styleUrls: ['./links-all.component.scss']
+  selector: 'app-recipe-comments',
+  templateUrl: './recipe-comments.component.html',
+  styleUrls: ['./recipe-comments.component.scss']
 })
-export class LinksAllComponent implements OnInit {
+export class RecipeCommentsComponent implements OnInit {
 
   public selectedRecipeId: any;
   public displayedColumns = ['name'];
@@ -25,14 +25,16 @@ export class LinksAllComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.paginator._intl.itemsPerPageLabel = '';
     this.selectedRecipeId = this.route.snapshot.paramMap.get('id');
     this.recipeDataService.getRecipeData(this.selectedRecipeId).subscribe(recipedata => {
-      this.comments = recipedata.comments;
-      if (this.comments) {
-        this.dataSource = new MatTableDataSource(this.comments);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+      if (recipedata) {
+        this.comments = recipedata.comments;
       }
+      this.dataSource = new MatTableDataSource(this.comments);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
     });
   }
 
@@ -42,4 +44,3 @@ export class LinksAllComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 }
-
