@@ -27,7 +27,7 @@ export class RecipeComponent implements OnInit {
   public rateUser = 0;
 
   public comment: string;
-  public comments: [{ uid: string; comment: string; commentdate: Date; }];
+  public comments: Data['comments'];
 
   public loggedInUserId: string;
   public selectedRecipeId: any;
@@ -72,7 +72,6 @@ export class RecipeComponent implements OnInit {
             this.comments = recipedata.comments;
           }
         });
-        this.showComments();
       }
     });
   }
@@ -149,14 +148,7 @@ export class RecipeComponent implements OnInit {
       });
     }
   }
-  showComments() {
-    this.recipeDataService.getRecipeData(this.selectedRecipeId).subscribe(recipedata => {
-      this.recipedata = recipedata;
-      if (this.recipedata) {
-        this.comments = this.recipedata.comments;
-      }
-    });
-  }
+
   addComment() {
     const writerecipecomment: any = {
       comments: [{

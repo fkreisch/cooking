@@ -72,7 +72,7 @@
 }
 
 .spacer {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .step-box {
@@ -137,4 +137,17 @@
 
 .mat-expansion-panel-header-title {
     font-size: 24px;
+}
+
+.icon {
+    height: 70px;
+    display: flex;
+}
+
+.opened-icon {
+    font-size: 30px;
+}
+
+.opened-text {
+    font-size: 26px;
 }

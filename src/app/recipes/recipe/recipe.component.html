@@ -5,7 +5,6 @@
     <div class="container" fxLayout.xs="column" fxLayoutAlign="right">
         <div fxFlex="30%"></div>
         <div fxFlex="70%">
-
             <img src="{{recipe.picture}}" class="header-image" alt="" style="width:100%;">
         </div>
         <div class="text-block">
@@ -27,6 +26,26 @@
                 </div>
             </div>
             <div class="spacer clear-both"></div>
+            <div class="container" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" *ngIf="recipedata">
+                <div class="icon">
+                    <mat-card>
+                        <span class="favourite-yes" *ngIf="favourite === true">
+                                            <i class="fa fa-heart"
+                                            (click)="toggleFavourites()"></i>
+                                        </span>
+                        <span class="favourite-no" *ngIf="favourite === false">
+                                            <i class="fa fa-heart"
+                                            (click)="toggleFavourites()"></i>
+                                        </span>
+                    </mat-card>
+                </div>
+                <div class="icon">
+                    <mat-card>
+                        <i class="fa fa-eye opened-icon"></i><span class='orange opened-text'>&#32;{{ recipedata.opened }}</span>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="spacer"></div>
             <div>
                 <mat-accordion>
                     <mat-expansion-panel>
@@ -48,8 +67,6 @@
                 </mat-accordion>
             </div>
         </div>
-
-
         <div fxFlex="30%">
             <mat-card>
                 <p class="mat-h2">
@@ -65,29 +82,12 @@
                 </div>
             </mat-card>
             <div class="statbox" *ngIf="recipedata">
-                <span>Megtekintve:&#32;</span>
-                <span class='orange'>{{ recipedata.opened }}&#160;</span>
-                <span>alkalommal</span>
-                <div>
-                    <div class="stars-box">
-                        <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [showHalfStars]="true" [rating]="rateaverage" (starClickChange)="toggleRate($event)" labelText="({{ratecount}})" labelPosition="right">
-                        </star-rating>
-                    </div>
-
+                <div class="stars-box">
+                    <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [showHalfStars]="true" [rating]="rateaverage" (starClickChange)="toggleRate($event)" labelText="({{ratecount}})" labelPosition="right">
+                    </star-rating>
                 </div>
-
                 <star-rating [hoverEnabled]="false" speed="noticable" staticColor="ok" [starType]="'svg'" size="medium" [numOfStars]="rateUser" [rating]="5" labelText="A te értékelésed:" labelPosition="left" [disabled]="true" [readOnly]="true" *ngIf="rateUser">
                 </star-rating>
-                <div class="favourite-box">
-                    <span class="favourite-yes" *ngIf="favourite === true">
-                        <i class="fa fa-heart"
-                        (click)="toggleFavourites()"><span class="favourite-title"> Eltávolítás a kedvencekből</span></i>
-                    </span>
-                    <span class="favourite-no" *ngIf="favourite === false">
-                        <i class="fa fa-heart"
-                        (click)="toggleFavourites()"><span class="favourite-title"> Hozzáadás a kedvencekhez</span></i>
-                    </span>
-                </div>
             </div>
         </div>
     </div>
