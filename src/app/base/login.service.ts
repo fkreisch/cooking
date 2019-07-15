@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import { Observable } from 'rxjs';
-import { User, UserId } from './user-interface';
+import { User } from './user-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,30 @@ export class LoginService {
   private user: Observable<User>;
 
   constructor(
-    private afAuth: AngularFireAuth, private afs: AngularFirestore) { }
+    private afAuth: AngularFireAuth, private afs: AngularFirestore) {
 
-  login() {
-    this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
+  }
+
+  registerEmail(value) {
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
+        .then(res => {
+          resolve(res);
+        }, err => reject(err));
+    });
+  }
+
+  loginEmail(value) {
+    this.afAuth.auth.signInWithEmailAndPassword(value.email, value.password);
+  }
+
+  loginGoogle() {
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider())
+        .then(res => {
+          resolve(res);
+        }, err => reject(err));
+    });
   }
 
   logout() {

@@ -1,12 +1,8 @@
-<div fxFill fxLayout="row" fxLayoutAlign="end center" class="header">
-    <div fxFill></div>
-    <div>
-        <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Szűrés">
-            <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom"><mat-icon>search</mat-icon></span>
-        </mat-form-field>
-
-    </div>
+<div fxLayout="row" fxLayoutAlign="end center" class="header">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Szűrés">
+        <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom"><mat-icon>search</mat-icon></span>
+    </mat-form-field>
 </div>
 <div class="container mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort *ngIf="dataSource">

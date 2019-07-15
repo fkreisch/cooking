@@ -160,9 +160,9 @@ export class RecipeComponent implements OnInit {
   addComment() {
     const writerecipecomment: any = {
       comments: [{
-        uid: this.loggedInUserId,
-        name: this.user.displayName,
-        avatar: this.user.photoURL,
+        uid: this.loggedInUserData.uid,
+        name: this.loggedInUserData.name,
+        avatar: this.loggedInUserData.photoURL,
         commentdate: new Date(),
         comment: this.comment,
       }, ...this.comments]

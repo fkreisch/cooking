@@ -1,6 +1,5 @@
 // CORE
 import 'hammerjs';
-
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxHmCarouselModule } from 'ngx-hm-carousel';
@@ -39,6 +38,7 @@ import {
   MatTableModule,
   MatTooltipModule,
   MatProgressSpinnerModule,
+  MatTabsModule,
 } from '@angular/material';
 // SERVICE
 import { environment } from '../environments/environment';
@@ -105,6 +105,7 @@ import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-commen
     MatTableModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    MatTabsModule,
     NgxHmCarouselModule,
   ],
   providers: [

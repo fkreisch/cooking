@@ -114,9 +114,7 @@
 }
 
 .add {
-    margin-bottom: 0px;
-    margin-top: 6px;
-    margin-left: 10px;
+    margin-bottom: 12px;
     font-size: 20px;
 }
 
@@ -133,9 +131,13 @@
     margin: 0;
 }
 
-::ng-deep .label-value {
+::ng-deep .rating.large .label-value {
     margin-top: 6px;
-    font-size: 10px;
+    font-size: 26px;
+}
+
+::ng-deep .label-value {
+    margin-top: 8px;
 }
 
 .mat-expansion-panel-header-title {

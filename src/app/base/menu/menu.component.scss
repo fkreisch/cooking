@@ -7,6 +7,10 @@
     box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
 }
 
+.example-container>* {
+    width: 100%;
+}
+
 ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
     display: none;
 }
@@ -59,8 +63,8 @@ mat-icon {
     -o-border-radius: 50%;
     -ms-border-radius: 50%;
     border-radius: 50%;
-    float: left;
     height: 36px;
+    float: left;
     line-height: 36px;
     margin: 5px;
     padding: 0;
@@ -92,4 +96,20 @@ mat-icon {
 .toolbar-avatar {
     background-size: cover;
     box-shadow: none;
+}
+
+.login-form-box {
+    padding: 16px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.mat-input-element {
+    color: white;
+}
+
+.login-icon {
+    color: #212121;
 }

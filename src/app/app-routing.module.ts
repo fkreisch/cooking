@@ -1,4 +1,3 @@
-import { Recipe } from './recipes/recipe-interface';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';

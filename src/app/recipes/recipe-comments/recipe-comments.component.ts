@@ -34,7 +34,6 @@ export class RecipeCommentsComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.comments);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
     });
   }
 

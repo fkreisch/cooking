@@ -1,10 +1,8 @@
 export interface User {
     uid: string;
-    displayName: string;
+    name: string;
     email: string;
-    emailVerified: string;
     lastLogin: Date;
-    phoneNumber: string;
     photoURL: string;
     supervisor: boolean;
     favourites: [{
