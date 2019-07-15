@@ -63,6 +63,7 @@ export class MenuComponent implements OnInit {
         };
         this.loginService.updateUser(this.user.uid, writeuser);
       } else {
+        // ez egy űtmeneti megoldás. redirect miatt nem lehet máshogy, egyenlore.
         const writeuser: any = {
           uid: this.user.uid,
           name: this.user.displayName,
@@ -73,6 +74,7 @@ export class MenuComponent implements OnInit {
           favourites: []
         };
         this.loginService.updateUser(this.user.uid, writeuser);
+        this.loggedInUserData = writeuser;
       }
     });
   }

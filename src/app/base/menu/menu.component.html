@@ -62,7 +62,6 @@
                     <div class="login-icon">
                         <span style="font-size: 6em"><i class="fa fa-user"></i></span>
                     </div>
-
                 </div>
                 <div>
                     <mat-tab-group (click)="$event.stopPropagation()">
@@ -87,7 +86,11 @@
                                 <div fxLayout="row">
                                     <button mat-menu-item type="submit" (click)="loginEmail(loginForm.value)" class="btn btn-default" [disabled]="!loginForm.valid"><span fxLayoutAlign="center">Bejelentkezés</span></button>
                                 </div>
-                                <button mat-menu-item (click)="loginGoogle()"><div fxLayoutAlign="center"><span class="social"><i class="fa fa-google-plus"></i></span></div></button>
+                                <div fxLayout="row" fxLayoutAlign="center center">
+                                    <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-google-plus"></i></span></button>
+                                    <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-facebook"></i></span></button>
+                                    <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-twitter"></i></span></button>
+                                </div>
                             </form>
                         </mat-tab>
                         <mat-tab label="Regisztráció">
