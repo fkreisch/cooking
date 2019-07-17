@@ -1,9 +1,9 @@
-import { User } from './../../base/user-interface';
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../base/login.service';
-import { RecipeService } from '../recipe.service';
-import { RecipeDataService } from '../recipe-data.service';
-import { Data, Recipe } from '../recipe-interface';
+import { LoginService } from '../../_services/login.service';
+import { UserService } from '../../_services/user.service';
+import { RecipeService } from '../../_services/recipe.service';
+import { RecipeDataService } from '../../_services/recipe-data.service';
+import { Data, Recipe, User } from '../../_interfaces/interface';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { take } from 'rxjs/operators';
@@ -39,6 +39,7 @@ export class RecipeComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
+    private userService: UserService,
     private recipeService: RecipeService,
     private recipeDataService: RecipeDataService,
     private route: ActivatedRoute,
@@ -55,7 +56,7 @@ export class RecipeComponent implements OnInit {
       if (this.user) {
         this.loggedInUserId = user.uid;
         this.writeOpened();
-        this.loginService.getUser(this.loggedInUserId).subscribe(userdata => {
+        this.userService.getUser(this.loggedInUserId).subscribe(userdata => {
           this.loggedInUserData = userdata;
           if (this.loggedInUserData) {
             const favouriteUser = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
@@ -100,7 +101,7 @@ export class RecipeComponent implements OnInit {
 
   toggleFavourites() {
     this.favourite = !this.favourite;
-    this.loginService.getUser(this.loggedInUserId).pipe(take(1)).subscribe(userdata => {
+    this.userService.getUser(this.loggedInUserId).pipe(take(1)).subscribe(userdata => {
       this.loggedInUserData = userdata;
       if (this.loggedInUserData) {
         const favouritesOther = this.loggedInUserData.favourites.filter(rr => rr.recipeid !== this.selectedRecipeId);
@@ -109,12 +110,12 @@ export class RecipeComponent implements OnInit {
           const writefavourite: any = {
             favourites: [{ recipeid: this.selectedRecipeId }, ...favouritesOther]
           };
-          this.loginService.updateUser(this.loggedInUserId, writefavourite);
+          this.userService.updateUser(this.loggedInUserId, writefavourite);
         } else {
           const writefavourite: any = {
             favourites: [...favouritesOther]
           };
-          this.loginService.updateUser(this.loggedInUserId, writefavourite);
+          this.userService.updateUser(this.loggedInUserId, writefavourite);
         }
       }
     });
@@ -160,9 +161,9 @@ export class RecipeComponent implements OnInit {
   addComment() {
     const writerecipecomment: any = {
       comments: [{
-        uid: this.loggedInUserData.uid,
-        name: this.loggedInUserData.name,
-        avatar: this.loggedInUserData.photoURL,
+        // name: this.loggedInUserData.name,
+        // photoURL: this.loggedInUserData.photoURL,
+        uid: this.loggedInUserId,
         commentdate: new Date(),
         comment: this.comment,
       }, ...this.comments]

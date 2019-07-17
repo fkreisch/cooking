@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
-import { RecipeDataService } from '../../recipes/recipe-data.service';
-import { RecipeId, Data } from '../../recipes/recipe-interface';
+import { RecipeDataService } from '../../_services/recipe-data.service';
+import { Data } from '../../_interfaces/interface';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

@@ -35,13 +35,36 @@ export interface Data {
     comments: [
         {
             uid: string;
-            name: string;
-            avatar: string;
+            name?: string;
+            photoUrl?: string;
             commentdate: Date;
             comment: string;
         }
     ];
 }
-export interface DataId extends Data {
+export interface DataComments extends Data {
     id: string;
 }
+export interface Comments {
+    uid: string;
+    name?: string;
+    photoUrl?: string;
+    commentdate: Date;
+    comment: string;
+}
+
+export interface User {
+    name: string;
+    email: string;
+    lastLogin: Date;
+    photoURL: string;
+    supervisor: boolean;
+    favourites: [{
+        recipeid: string;
+    }];
+}
+export interface UserId extends User {
+    id: string;
+}
+
+

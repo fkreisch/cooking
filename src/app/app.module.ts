@@ -42,12 +42,13 @@ import {
 } from '@angular/material';
 // SERVICE
 import { environment } from '../environments/environment';
-import { RecipeService } from './recipes/recipe.service';
-import { RecipeDataService } from './recipes/recipe-data.service';
-import { LoginService } from './base/login.service';
+import { RecipeService } from './_services/recipe.service';
+import { RecipeDataService } from './_services/recipe-data.service';
+import { LoginService } from './_services/login.service';
+import { UserService } from './_services/user.service';
 
 // COMPONENT
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './base/home/home.component';
 import { MenuComponent } from './base/menu/menu.component';
 import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
 import { RecipesAddComponent } from './recipes/recipes-add/recipes-add.component';
@@ -112,6 +113,7 @@ import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-commen
     RecipeService,
     RecipeDataService,
     LoginService,
+    UserService,
   ],
   bootstrap: [AppComponent]
 })

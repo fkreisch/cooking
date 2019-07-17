@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
-import { RecipeService } from '../../recipes/recipe.service';
-import { RecipeId } from '../../recipes/recipe-interface';
+import { RecipeService } from '../../_services/recipe.service';
+import { RecipeId } from '../../_interfaces/interface';
 
 @Component({
   selector: 'app-links-admin',

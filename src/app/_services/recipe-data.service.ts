@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { Data, Id } from './recipe-interface';
+import { Observable} from 'rxjs'
+import { Data, Id } from '../_interfaces/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +12,16 @@ export class RecipeDataService {
   private recipeDatasDoc: AngularFirestoreDocument<Data>;
   private recipeData: Observable<Data>;
 
-  constructor(public afs: AngularFirestore) {}
+  private joined: Observable<any>;
+
+  constructor(public afs: AngularFirestore) { }
 
   getRecipeData(id: Id) {
     this.recipeDatasDoc = this.afs.doc<Data>(`recipe-data/${id}`);
     this.recipeData = this.recipeDatasDoc.valueChanges();
     // console.log('(recipe-Data.service) FIREBASE GET:', id, this.recipeData);
     return this.recipeData;
-    }
+  }
 
   addRecipeData(doc: Data) {
     console.log('(recipe-data.service) FIREBASE ADD --', doc);
@@ -35,6 +37,6 @@ export class RecipeDataService {
   updateRecipeData(id: Id, doc: Data) {
     console.log('(recipe-data.service) FIREBASE UPDATE --', doc);
     this.recipeDatasDoc = this.afs.doc(`recipe-data/${id}`);
-    this.recipeDatasDoc.set(doc, {merge: true});
+    this.recipeDatasDoc.set(doc, { merge: true });
   }
 }

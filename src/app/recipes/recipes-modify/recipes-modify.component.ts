@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { RecipeService } from '../recipe.service';
-import { RecipeId } from '../recipe-interface';
+import { RecipeService } from '../../_services/recipe.service';
+import { RecipeId } from '../../_interfaces/interface';
 
 @Component({
   selector: 'app-recipes-modify',

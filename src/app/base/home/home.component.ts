@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgxHmCarouselBreakPointUp } from 'ngx-hm-carousel';
-import { RecipeService } from '../recipes/recipe.service';
-import { RecipeId } from '../recipes/recipe-interface';
+import { RecipeService } from '../../_services/recipe.service';
+import { RecipeId } from '../../_interfaces/interface';
 
 @Component({
   selector: 'app-home',

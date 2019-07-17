@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { RecipeService } from '../recipe.service';
+import { RecipeService } from '../../_services/recipe.service';
 
 @Component({
   selector: 'app-recipes-add',

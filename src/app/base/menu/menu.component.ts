@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { LoginService } from '../login.service';
+import { LoginService } from '../../_services/login.service';
+import { UserService } from '../../_services/user.service';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
-import { User } from '../user-interface';
+import { User } from '../../_interfaces/interface';
 
 @Component({
   selector: 'app-menu',
@@ -25,6 +26,7 @@ export class MenuComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private loginService: LoginService,
+    private userService: UserService,
     private fb: FormBuilder) {
 
     this.loginForm = this.fb.group({
@@ -55,17 +57,16 @@ export class MenuComponent implements OnInit {
   }
 
   readUser(id: string) {
-    this.loginService.getUser(id).pipe(take(1)).subscribe(getuser => {
+    this.userService.getUser(id).pipe(take(1)).subscribe(getuser => {
       if (getuser) {
         this.loggedInUserData = getuser;
         const writeuser: any = {
           lastLogin: Date(),
         };
-        this.loginService.updateUser(this.user.uid, writeuser);
+        this.userService.updateUser(this.user.uid, writeuser);
       } else {
         // ez egy űtmeneti megoldás. redirect miatt nem lehet máshogy, egyenlore.
         const writeuser: any = {
-          uid: this.user.uid,
           name: this.user.displayName,
           email: this.user.email,
           lastLogin: Date(),
@@ -73,7 +74,7 @@ export class MenuComponent implements OnInit {
           supervisor: false,
           favourites: []
         };
-        this.loginService.updateUser(this.user.uid, writeuser);
+        this.userService.updateUser(this.user.uid, writeuser);
         this.loggedInUserData = writeuser;
       }
     });
@@ -85,7 +86,6 @@ export class MenuComponent implements OnInit {
         this.loginService.getLoggedInUser().pipe(take(1)).subscribe(user => {
           this.user = user;
           const writeuser: any = {
-            uid: this.user.uid,
             name: value.name,
             email: value.email,
             lastLogin: Date(),
@@ -94,7 +94,7 @@ export class MenuComponent implements OnInit {
             supervisor: false,
             favourites: [],
           };
-          this.loginService.updateUser(this.user.uid, writeuser);
+          this.userService.updateUser(this.user.uid, writeuser);
         });
       }, err => {
         console.log(err);
