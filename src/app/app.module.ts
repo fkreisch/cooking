@@ -39,6 +39,7 @@ import {
   MatTooltipModule,
   MatProgressSpinnerModule,
   MatTabsModule,
+  MatStepperModule,
 } from '@angular/material';
 // SERVICE
 import { environment } from '../environments/environment';
@@ -59,6 +60,7 @@ import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
 import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
 import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-comments.component';
+import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-commen
     RecipesAllComponent,
     RecipeComponent,
     RecipeCommentsComponent,
+    RecipeSendComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -107,6 +110,7 @@ import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-commen
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+    MatStepperModule,
     NgxHmCarouselModule,
   ],
   providers: [

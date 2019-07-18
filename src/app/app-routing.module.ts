@@ -5,6 +5,8 @@ import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component
 import { HomeComponent } from './base/home/home.component';
 import { LinksAllComponent } from './links/links-all/links-all.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
+import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +18,10 @@ const routes: Routes = [
   {
     path: 'recipes',
     component: RecipesAllComponent
+  },
+  {
+    path: 'recipe-send',
+    component: RecipeSendComponent
   },
   {
     path: 'links',

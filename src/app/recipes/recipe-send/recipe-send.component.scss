@@ -1,0 +1,88 @@
+.addbutton {
+    margin: auto 0 18px 0;
+}
+
+.pager {
+    margin-top: 20px;
+    margin-bottom: -22px;
+}
+
+.click-area {
+    width: 42px;
+    height: 42px;
+    background-color: #303030;
+    margin: 0 10px 0 10px;
+    text-align: center;
+    color: #a7a7a7;
+    font-size: 3em;
+}
+
+.click-area-left {
+    border-radius: 4px 50% 4px 4px;
+}
+
+.click-area-right {
+    border-radius: 50% 4px 4px 4px;
+}
+
+.button-label {
+    margin-top: 4px;
+    font-size: 16px;
+}
+
+.left {
+    left: -48px;
+    color: #a7a7a7;
+}
+
+.right {
+    right: -48px;
+    color: #a7a7a7;
+}
+
+.pager-icon-left {
+    margin-left: -6px;
+}
+
+.pager-icon-right {
+    margin-left: -10px;
+}
+
+.title {
+    padding: 0 20px;
+    background: #303030;
+    border-radius: 4px;
+    margin: -22px -22px 22px -22px;
+    display: block;
+}
+
+.page5 {
+    margin: 24px;
+}
+
+::ng-deep .mat-step-label {
+    display: none !important;
+}
+
+ ::ng-deep .mat-horizontal-stepper-header .mat-step-icon {
+    margin-right: 0 !important;
+}
+
+ ::ng-deep .mat-button {
+    min-width: 0;
+    padding: 0 8px;
+}
+
+ ::ng-deep .mat-stepper-horizontal {
+    background: none !important;
+}
+
+ ::ng-deep .mat-horizontal-stepper-header-container {
+    background: none !important;
+}
+
+ ::ng-deep .mat-horizontal-content-container {
+    background: #424242 !important;
+    border-radius: 4px;
+    padding: 24px !important;
+}

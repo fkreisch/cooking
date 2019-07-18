@@ -9,10 +9,10 @@ import { Recipe, RecipeId, Id } from '../_interfaces/interface';
 })
 export class RecipeService {
 
-  private recipeCollection: AngularFirestoreCollection<Recipe>;
-  private recipeDoc: AngularFirestoreDocument<Recipe>;
-  private recipes: Observable<RecipeId[]>;
-  private recipe: Observable<Recipe>;
+   recipeCollection: AngularFirestoreCollection<Recipe>;
+   recipeDoc: AngularFirestoreDocument<Recipe>;
+   recipes: Observable<RecipeId[]>;
+   recipe: Observable<Recipe>;
 
   constructor(public afs: AngularFirestore) { }
 
@@ -37,6 +37,7 @@ export class RecipeService {
   }
 
   addRecipe(doc: Recipe) {
+    this.recipeCollection = this.afs.collection<Recipe>('recipe');
     console.log('(recipe.service) FIREBASE ADD --', doc);
     this.recipeCollection.add(doc);
   }

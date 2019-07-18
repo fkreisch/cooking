@@ -17,6 +17,11 @@ export interface Recipe {
         ingredient: string;
         quanity: string;
     }];
+    senderId: string;
+    senderPhotoURL: string;
+    senderName: string;
+    sendingDate: Date;
+    share: boolean;
 }
 export interface RecipeId extends Recipe {
     id: string;
