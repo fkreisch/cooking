@@ -1,7 +1,7 @@
 export interface Id {
     id: string;
 }
-
+// RECIPE
 export interface Recipe {
     name: string;
     short: string;
@@ -21,7 +21,7 @@ export interface Recipe {
 export interface RecipeId extends Recipe {
     id: string;
 }
-
+// RECIPE-DATA
 export interface Data {
     opened: number;
     rateaverage: number;
@@ -36,7 +36,7 @@ export interface Data {
         {
             uid: string;
             name?: string;
-            photoUrl?: string;
+            photoURL?: string;
             commentdate: Date;
             comment: string;
         }
@@ -48,11 +48,11 @@ export interface DataComments extends Data {
 export interface Comments {
     uid: string;
     name?: string;
-    photoUrl?: string;
+    photoURL?: string;
     commentdate: Date;
     comment: string;
 }
-
+// USER
 export interface User {
     name: string;
     email: string;

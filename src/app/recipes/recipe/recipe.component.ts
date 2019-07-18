@@ -164,6 +164,8 @@ export class RecipeComponent implements OnInit {
         // name: this.loggedInUserData.name,
         // photoURL: this.loggedInUserData.photoURL,
         uid: this.loggedInUserId,
+        name: this.loggedInUserData.name,
+        photoURL: this.loggedInUserData.photoURL,
         commentdate: new Date(),
         comment: this.comment,
       }, ...this.comments]
