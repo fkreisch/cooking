@@ -3,33 +3,40 @@
         <div class="title">Alap adatok</div>
         <form [formGroup]="FormGroup1">
             <ng-template matStepLabel></ng-template>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+            <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%" [hideRequiredMarker]="true">
                     <input matInput #name maxlength="20" placeholder="Recept neve" formControlName="name" required>
                     <mat-hint align="end">{{name.value?.length || 0}}/20</mat-hint>
                 </mat-form-field>
             </div>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+            <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%">
                     <input matInput #short maxlength="50" placeholder="Rövid leírás" formControlName="short">
                     <mat-hint align="end">{{short.value?.length || 0}}/50</mat-hint>
                 </mat-form-field>
             </div>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+            <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%">
-                    <textarea matTextareaAutosize matInput placeholder="Hosszabb leírás" formControlName="long"></textarea>
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="Hosszabb leírás" formControlName="long"></textarea>
                 </mat-form-field>
             </div>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+            <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%">
                     <input matInput placeholder="Kép helye (URL)" formControlName="picture">
+                    <input class="ng-hide" id="input-file-id" type="file" (change)="uploadFile($event)" />
+                    <label matSuffix for="input-file-id">
+                            <i class="fa fa-upload upload-icon"></i>
+                    </label>
                 </mat-form-field>
             </div>
+            <mat-progress-bar mode="determinate" color="accent" value="{{uploadPercent | async}}" *ngIf="uploadPercent"></mat-progress-bar>
+
             <div fxLayout="row" fxLayoutAlign="start" class="pager">
                 <div fxFlex="100%" fxLayoutAlign="end">
                     <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
                 </div>
             </div>
+
         </form>
     </mat-step>
     <mat-step [stepControl]="FormGroup2">
@@ -68,7 +75,7 @@
             <div formArrayName="steps">
                 <div *ngFor="let step of stepForm.controls; let i=index; last as isLast; first as isFirst" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
                     <mat-form-field hideRequiredMarker fxFlex="100%">
-                        <textarea matTextareaAutosize matInput placeholder="{{i+1}}. lépés" formControlName="step" required></textarea>
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="{{i+1}}. lépés" formControlName="step" required></textarea>
                         <button matSuffix mat-button (click)="deleteStep(i)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
                     </mat-form-field>
                     <div fxFlex="40px" class="addbutton">
@@ -124,14 +131,14 @@
             <ng-template matStepLabel></ng-template>
             <mat-checkbox formControlName="share">Közzéteszem a receptet</mat-checkbox>
             <div class="page5">
-                A fenti opcióval közzéteheted a receptedet. Amennyiben ezt megteszed, az mindenki számára láthatóvá válik. A késóbbiekben ezt az opciót nem tudod módosítani. Ha az elküld gombra kattintasz, a recepted a kedvenceid közé is bekerül.
+                A fenti opcióval közzéteheted a receptedet. Amennyiben ezt megteszed, az mindenki számára láthatóvá válik. A késóbbiekben ezt az opciót nem tudod módosítani.
             </div>
             <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
                 <div fxFlex="100px" fxLayoutAlign="end">
-                    <button mat-button (click)="writeRecipeForm()">Elküldés</button>
+                    <button mat-flat-button color="basic" (click)="stepper.reset()">Mégsem</button>
                 </div>
                 <div fxFlex="100px" fxLayoutAlign="end">
-                    <button mat-button (click)="stepper.reset()">Mégsem</button>
+                    <button mat-flat-button color="primary" (click)="writeRecipeForm();stepper.reset()" [disabled]="!FormGroup1.valid || !FormGroup2.valid || !FormGroup3.valid || !FormGroup4.valid || !FormGroup5.valid">Elküldés</button>
                 </div>
             </div>
             <div fxLayout="row" fxLayoutAlign="start" class="pager">

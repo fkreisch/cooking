@@ -1,7 +1,4 @@
-* DONE Ha nincs kép feltöltéskor szétesik a receptoldal. (felcsúszik)
-- LOW Recept oldalon szabványosítani a képméretet. vagy változzon a kép bal margója?
-- IMP admin TABULÁTOROK. enterre adjon hozzé új elemet. Most franc se tudja melyik gombon van az enter.
-- LOW recept hozzáadása: csukódjon fel send után.
-* DONE összehozni a receptlistában a filter a paginatorral. https://stackblitz.com/angular/dnbermjydavk?file=app%2Ftable-overview-example.ts
-- IMP Rating stars...
-* DONE Favourite check. 
+Hosszabb leíás nem nyőlik lefele
+csak reg user árhesse el a menut: rec beküldés
+összetevok bevitelekor ne taboljon a törlésre.
+hozzáadásnál a köv mezö legyen aktív.

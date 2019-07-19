@@ -20,7 +20,7 @@ export interface Recipe {
     senderId: string;
     senderPhotoURL: string;
     senderName: string;
-    sendingDate: Date;
+    sendingDate: any;
     share: boolean;
 }
 export interface RecipeId extends Recipe {
@@ -42,7 +42,7 @@ export interface Data {
             uid: string;
             name?: string;
             photoURL?: string;
-            commentdate: Date;
+            commentdate: any;
             comment: string;
         }
     ];

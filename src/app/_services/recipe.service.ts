@@ -9,10 +9,10 @@ import { Recipe, RecipeId, Id } from '../_interfaces/interface';
 })
 export class RecipeService {
 
-   recipeCollection: AngularFirestoreCollection<Recipe>;
-   recipeDoc: AngularFirestoreDocument<Recipe>;
-   recipes: Observable<RecipeId[]>;
-   recipe: Observable<Recipe>;
+  recipeCollection: AngularFirestoreCollection<Recipe>;
+  recipeDoc: AngularFirestoreDocument<Recipe>;
+  recipes: Observable<RecipeId[]>;
+  recipe: Observable<Recipe>;
 
   constructor(public afs: AngularFirestore) { }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { LoginService } from '../../_services/login.service';
 import { UserService } from '../../_services/user.service';
 import { RecipeService } from '../../_services/recipe.service';
@@ -22,6 +23,7 @@ export class RecipeComponent implements OnInit {
   private loggedInUserData: User;
 
   public favourite = false;
+  public sendingDate: any;
   public rateaverage = 0;
   public ratecount = 0;
   public rateUser = 0;
@@ -43,38 +45,44 @@ export class RecipeComponent implements OnInit {
     private recipeService: RecipeService,
     private recipeDataService: RecipeDataService,
     private route: ActivatedRoute,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private ngZone: NgZone
   ) { }
+
+  @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
+  triggerResize() {
+    this.ngZone.onStable.pipe(take(1))
+      .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
 
   ngOnInit() {
     this.selectedRecipeId = this.route.snapshot.paramMap.get('id');
     this.recipeService.getRecipe(this.selectedRecipeId).subscribe(recipe => {
       this.recipe = recipe;
+      if (!this.recipe) { return; }
+      this.sendingDate = recipe.sendingDate.seconds * 1000;
     });
     this.loginService.getLoggedInUser().subscribe(user => {
       this.user = user;
-      if (this.user) {
-        this.loggedInUserId = user.uid;
-        this.writeOpened();
-        this.userService.getUser(this.loggedInUserId).subscribe(userdata => {
-          this.loggedInUserData = userdata;
-          if (this.loggedInUserData) {
-            const favouriteUser = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
-            if (favouriteUser.length !== 0) {
-              this.favourite = true;
-            }
-          }
-        });
-        this.recipeDataService.getRecipeData(this.selectedRecipeId).pipe(take(1)).subscribe(recipedata => {
-          this.recipedata = recipedata;
-          if (this.recipedata) {
-            this.ratecount = recipedata.ratecount;
-            this.rateaverage = recipedata.rateaverage;
-            this.comments = recipedata.comments;
-          }
-        });
-        this.showComments();
-      }
+      if (!this.user) { return; }
+      this.loggedInUserId = user.uid;
+      this.writeOpened();
+      this.userService.getUser(this.loggedInUserId).subscribe(userdata => {
+        this.loggedInUserData = userdata;
+        if (!this.loggedInUserData) { return; }
+        const favouriteUser = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
+        if (favouriteUser.length !== 0) {
+          this.favourite = true;
+        }
+      });
+      this.recipeDataService.getRecipeData(this.selectedRecipeId).pipe(take(1)).subscribe(recipedata => {
+        this.recipedata = recipedata;
+        if (!this.recipedata) { return; }
+        this.ratecount = recipedata.ratecount;
+        this.rateaverage = recipedata.rateaverage;
+        this.comments = recipedata.comments;
+      });
+      this.showComments();
     });
   }
 
@@ -103,20 +111,19 @@ export class RecipeComponent implements OnInit {
     this.favourite = !this.favourite;
     this.userService.getUser(this.loggedInUserId).pipe(take(1)).subscribe(userdata => {
       this.loggedInUserData = userdata;
-      if (this.loggedInUserData) {
-        const favouritesOther = this.loggedInUserData.favourites.filter(rr => rr.recipeid !== this.selectedRecipeId);
-        const favouriteUser = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
-        if (favouriteUser.length === 0) {
-          const writefavourite: any = {
-            favourites: [{ recipeid: this.selectedRecipeId }, ...favouritesOther]
-          };
-          this.userService.updateUser(this.loggedInUserId, writefavourite);
-        } else {
-          const writefavourite: any = {
-            favourites: [...favouritesOther]
-          };
-          this.userService.updateUser(this.loggedInUserId, writefavourite);
-        }
+      if (!this.loggedInUserData) { return; }
+      const favouritesOther = this.loggedInUserData.favourites.filter(rr => rr.recipeid !== this.selectedRecipeId);
+      const favouriteUser = this.loggedInUserData.favourites.filter(rr => rr.recipeid === this.selectedRecipeId);
+      if (favouriteUser.length === 0) {
+        const writefavourite: any = {
+          favourites: [{ recipeid: this.selectedRecipeId }, ...favouritesOther]
+        };
+        this.userService.updateUser(this.loggedInUserId, writefavourite);
+      } else {
+        const writefavourite: any = {
+          favourites: [...favouritesOther]
+        };
+        this.userService.updateUser(this.loggedInUserId, writefavourite);
       }
     });
   }
@@ -152,17 +159,14 @@ export class RecipeComponent implements OnInit {
   }
   showComments() {
     this.recipeDataService.getRecipeData(this.selectedRecipeId).subscribe(recipedata => {
-      if (recipedata) {
-        this.recipedata = recipedata;
-        this.comments = this.recipedata.comments;
-      }
+      if (!recipedata) { return; }
+      this.recipedata = recipedata;
+      this.comments = this.recipedata.comments;
     });
   }
   addComment() {
     const writerecipecomment: any = {
       comments: [{
-        // name: this.loggedInUserData.name,
-        // photoURL: this.loggedInUserData.photoURL,
         uid: this.loggedInUserId,
         name: this.loggedInUserData.name,
         photoURL: this.loggedInUserData.photoURL,

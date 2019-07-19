@@ -26,17 +26,32 @@
                 </div>
             </div>
             <div class="spacer clear-both"></div>
+
+            <div fxLayout="row" fxLayoutAlign="end center" class="box box-0">
+                <div class="box box-1" fxFlexOrder="2">
+                    <div mat-card-avatar class="avatar" [ngStyle]="{'background-image':'url('+recipe.senderPhotoURL+')'}"></div>
+                </div>
+                <div fxLayout="column" class="box box-2" fxFlex="100%" fxFlexOrder="1">
+                    <div class="box box-3" fxLayoutAlign="end" fxFlex="100%">
+                        &nbsp;{{recipe.senderName}}
+                    </div>
+                    <div class="box box-4" fxFlex="100%">
+                        {{sendingDate | date: 'yyyy.MM.dd - HH:mm'}}
+                    </div>
+                </div>
+            </div>
+
+
             <div class="container" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" *ngIf="recipedata">
                 <div class="icon">
-                    <mat-card>
-                        <span class="favourite-yes" *ngIf="favourite === true">
-                                            <i class="fa fa-heart"
-                                            (click)="toggleFavourites()"></i>
-                                        </span>
-                        <span class="favourite-no" *ngIf="favourite === false">
-                                            <i class="fa fa-heart"
-                                            (click)="toggleFavourites()"></i>
-                                        </span>
+                    <mat-card *ngIf="loggedInUserId === recipe.senderId" (click)="toggleFavourites()">
+                        <i class="fa fa-heart fa-edit edit-icon"></i>
+                    </mat-card>
+                </div>
+                <div class="icon">
+                    <mat-card (click)="toggleFavourites()">
+                        <span class="favourite-yes" *ngIf="favourite === true"><i class="fa fa-heart"></i></span>
+                        <span class="favourite-no" *ngIf="favourite === false"><i class="fa fa-heart"></i></span>
                     </mat-card>
                 </div>
                 <div class="icon">
@@ -56,12 +71,8 @@
                         <div *ngIf="loggedInUserId">
                             <mat-form-field appearance="fill" fxFlex="100%">
                                 <mat-label>Szólj hozzá...</mat-label>
-                                <textarea matTextareaAutosize matInput placeholder="" [(ngModel)]="comment"></textarea>
-                                <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom" *ngIf="comment">
-                                    <button mat-mini-fab color="basic" (click)="addComment()" class="add">
-                                            <i class="fa fa-paper-plane"></i>
-                                    </button>                    
-                                </span>
+                                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="" [(ngModel)]="comment"></textarea>
+                                <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom" *ngIf="comment"><button mat-mini-fab color="basic" (click)="addComment()" class="add"><i class="fa fa-paper-plane"></i></button></span>
                             </mat-form-field>
                         </div>
                         <app-recipe-comments></app-recipe-comments>

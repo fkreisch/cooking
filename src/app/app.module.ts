@@ -38,6 +38,7 @@ import {
   MatTableModule,
   MatTooltipModule,
   MatProgressSpinnerModule,
+  MatProgressBarModule,
   MatTabsModule,
   MatStepperModule,
 } from '@angular/material';
@@ -109,6 +110,7 @@ import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component
     MatTableModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatTabsModule,
     MatStepperModule,
     NgxHmCarouselModule,

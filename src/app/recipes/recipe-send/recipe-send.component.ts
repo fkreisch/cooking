@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { RecipeService } from '../../_services/recipe.service';
 import { LoginService } from '../../_services/login.service';
 import { UserService } from '../../_services/user.service';
 import { User } from '../../_interfaces/interface';
+import { finalize, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-recipe-send',
@@ -14,6 +18,7 @@ import { User } from '../../_interfaces/interface';
     provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
   }]
 })
+
 export class RecipeSendComponent implements OnInit {
 
   FormGroup1: FormGroup;
@@ -22,15 +27,27 @@ export class RecipeSendComponent implements OnInit {
   FormGroup4: FormGroup;
   FormGroup5: FormGroup;
 
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
+
   private user: firebase.User;
   private loggedInUserData: User;
   public loggedInUserId: string;
+
 
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipeService,
     private loginService: LoginService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private storage: AngularFireStorage,
+    private ngZone: NgZone) { }
+
+  @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
+  triggerResize() {
+    this.ngZone.onStable.pipe(take(1))
+      .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
 
   ngOnInit() {
     this.clearRecipeForm();
@@ -52,7 +69,6 @@ export class RecipeSendComponent implements OnInit {
       });
     });
   }
-
 
   get stepForm() {
     return this.FormGroup3.get('steps') as FormArray;
@@ -87,8 +103,7 @@ export class RecipeSendComponent implements OnInit {
       name: ['', Validators.required],
       short: ['', Validators.required],
       long: ['', Validators.required],
-      // tslint:disable-next-line: max-line-length
-      picture: ['https://firebasestorage.googleapis.com/v0/b/rmcook-b0a1e.appspot.com/o/foods%2Fplaceholder.jpg?alt=media&token=6122b317-10a2-459e-9c83-ea8db9e098f1', Validators.required],
+      picture: ['', Validators.required],
     });
     this.FormGroup2 = this.fb.group({
       serves: ['', Validators.required],
@@ -118,6 +133,27 @@ export class RecipeSendComponent implements OnInit {
     };
     this.recipeService.addRecipe(sendForm);
     this.clearRecipeForm();
-    console.log('recipeforms:', sendForm);
+  }
+
+  uploadFile(event) {
+    const file = event.target.files[0];
+    const filePath = 'foods/' + Math.random().toString(36).substring(7) + '-' + event.target.files[0].name;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    this.uploadPercent = task.percentageChanges();
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe((url) => {
+          if (!url) { return; }
+          this.downloadURL = url;
+          this.FormGroup1.patchValue({
+            picture: this.downloadURL
+          });
+          this.uploadPercent = null;
+        });
+      })
+    )
+      .subscribe();
+
   }
 }

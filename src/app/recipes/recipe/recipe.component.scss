@@ -64,6 +64,8 @@
 
 .step-text {
     padding-top: calc(0px + 0.5vw);
+    word-break: break-word;
+    white-space: pre-wrap;
 }
 
 .short-text {
@@ -147,6 +149,12 @@
 .icon {
     height: 70px;
     display: flex;
+    cursor: pointer;
+}
+
+.edit-icon {
+    font-size: 30px;
+    margin: 4px 0 0 4px !important;
 }
 
 .opened-icon {
@@ -155,4 +163,36 @@
 
 .opened-text {
     font-size: 26px;
+}
+
+.box {
+    margin: 5px 5px 5px 0px;
+}
+
+.box-0 {
+    margin: 5px 0 5px 5px;
+}
+
+.box-1 {
+    margin: 10px 0 5px 2px;
+}
+
+.box-3 {
+    border-bottom: 1px solid #51608c;
+    margin: 6px 4px 0 0;
+    font-family: Mina;
+    color: #a7a7a7
+}
+
+.box-4 {
+    display: block;
+    font-size: 10px;
+    margin: 4px 0 0 0;
+    color: #51608c
+}
+
+.avatar {
+    background-size: cover;
+    overflow: hidden;
+    border: 1px solid #51608c;
 }
