@@ -41,6 +41,7 @@ import {
   MatProgressBarModule,
   MatTabsModule,
   MatStepperModule,
+  MatSnackBarModule,
 } from '@angular/material';
 // SERVICE
 import { environment } from '../environments/environment';
@@ -63,6 +64,7 @@ import { RecipeComponent } from './recipes/recipe/recipe.component';
 import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-comments.component';
 import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { SnackComponent } from './base/snack/snack.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,10 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     RecipeCommentsComponent,
     RecipeSendComponent,
     RecipeEditComponent,
+    SnackComponent,
+  ],
+  entryComponents: [
+    SnackComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -115,6 +121,7 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     MatProgressBarModule,
     MatTabsModule,
     MatStepperModule,
+    MatSnackBarModule,
     NgxHmCarouselModule,
   ],
   providers: [

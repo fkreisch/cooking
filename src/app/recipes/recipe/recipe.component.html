@@ -54,7 +54,7 @@
                     </mat-card>
                 </div>
                 <div class="icon">
-                    <mat-card>
+                    <mat-card (click)="openSnackBar('Ezt a receptet eddig ennyien nézték meg: ' + recipedata.opened)">
                         <i class="fa fa-eye opened-icon"></i><span class='orange opened-text'>&#32;{{ recipedata.opened }}</span>
                     </mat-card>
                 </div>
@@ -97,7 +97,7 @@
                 </div>
             </mat-card>
             <div class="statbox" *ngIf="recipedata">
-                <div class="stars-box">
+                <div class="stars-box" (click)="openSnackBar('Köszönjük, hogy értékelted a receptet!')">
                     <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [showHalfStars]="true" [rating]="rateaverage" (starClickChange)="toggleRate($event)" labelText="({{ratecount}})" labelPosition="right">
                     </star-rating>
                 </div>

@@ -10,6 +10,8 @@ import { finalize, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../../base/snack/snack.component';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -43,6 +45,7 @@ export class RecipeEditComponent implements OnInit {
     private loginService: LoginService,
     private userService: UserService,
     private storage: AngularFireStorage,
+    private snackBar: MatSnackBar,
     private ngZone: NgZone,
     private route: ActivatedRoute) { }
 
@@ -50,6 +53,13 @@ export class RecipeEditComponent implements OnInit {
   triggerResize() {
     this.ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.openFromComponent(SnackComponent, {
+      duration: 3000,
+      data: message
+    });
   }
 
   ngOnInit() {
@@ -147,6 +157,7 @@ export class RecipeEditComponent implements OnInit {
       ...this.FormGroup4.value
     };
     this.recipeService.updateRecipe(this.selectedRecipeId, sendForm);
+    this.openSnackBar('A kiválasztott receptet módosítottuk.');
   }
 
   uploadFile(event) {
@@ -164,6 +175,7 @@ export class RecipeEditComponent implements OnInit {
             picture: this.downloadURL
           });
           this.uploadPercent = null;
+          this.openSnackBar('A kiválasztott fájlt feltöltöttük és beállítottuk.');
         });
       })
     )

@@ -1,0 +1,31 @@
+.bottom-sheet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    background-color: #212121;
+    padding: 10px 10px 10px 20px;
+}
+
+.bottom-sheet div {
+    font-family: Mina;
+    color: #a7a7a7;
+}
+
+button {
+    margin-left: 5px;
+    color: #51608c !important;
+}
+
+::ng-deep .mat-snack-bar-container {
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    margin: 0px !important;
+    max-width: 33vw;
+    min-width: 344px;
+    padding: 5px 5px;
+    min-height: 48px;
+    transform-origin: center;
+    background-color: #212121 !important;
+}

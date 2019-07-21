@@ -8,6 +8,8 @@ import { Data, Recipe, User } from '../../_interfaces/interface';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { take } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../../base/snack/snack.component';
 
 @Component({
   selector: 'app-recipe',
@@ -44,6 +46,7 @@ export class RecipeComponent implements OnInit {
     private recipeService: RecipeService,
     private recipeDataService: RecipeDataService,
     private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
     public afAuth: AngularFireAuth,
     private ngZone: NgZone
   ) { }
@@ -52,6 +55,13 @@ export class RecipeComponent implements OnInit {
   triggerResize() {
     this.ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.openFromComponent(SnackComponent, {
+      duration: 3000,
+      data: message
+    });
   }
 
   ngOnInit() {
@@ -118,10 +128,12 @@ export class RecipeComponent implements OnInit {
           favourites: [{ recipeid: this.selectedRecipeId }, ...favouritesOther]
         };
         this.userService.updateUser(this.loggedInUserId, writefavourite);
+        this.openSnackBar('A recept sikeresen bekerült a kedvencid közé.');
       } else {
         const writefavourite: any = {
           favourites: [...favouritesOther]
         };
+        this.openSnackBar('A receptet sikeresen eltávolítottad a kedvenceid közül.');
         this.userService.updateUser(this.loggedInUserId, writefavourite);
       }
     });

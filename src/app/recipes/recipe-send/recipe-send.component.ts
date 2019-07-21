@@ -9,6 +9,8 @@ import { User } from '../../_interfaces/interface';
 import { finalize, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../../base/snack/snack.component';
 
 @Component({
   selector: 'app-recipe-send',
@@ -41,12 +43,20 @@ export class RecipeSendComponent implements OnInit {
     private loginService: LoginService,
     private userService: UserService,
     private storage: AngularFireStorage,
+    private snackBar: MatSnackBar,
     private ngZone: NgZone) { }
 
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
   triggerResize() {
     this.ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.openFromComponent(SnackComponent, {
+      duration: 3000,
+      data: message
+    });
   }
 
   ngOnInit() {
@@ -133,6 +143,7 @@ export class RecipeSendComponent implements OnInit {
     };
     this.recipeService.addRecipe(sendForm);
     this.clearRecipeForm();
+    this.openSnackBar('Sikeresen beküldted a receptet.');
   }
 
   uploadFile(event) {
@@ -150,6 +161,7 @@ export class RecipeSendComponent implements OnInit {
             picture: this.downloadURL
           });
           this.uploadPercent = null;
+          this.openSnackBar('A kiválasztott fájlt feltöltöttük és beállítottuk.');
         });
       })
     )
