@@ -26,7 +26,6 @@
                 </div>
             </div>
             <div class="spacer clear-both"></div>
-
             <div fxLayout="row" fxLayoutAlign="end center" class="box box-0">
                 <div class="box box-1" fxFlexOrder="2">
                     <div mat-card-avatar class="avatar" [ngStyle]="{'background-image':'url('+recipe.senderPhotoURL+')'}"></div>
@@ -40,14 +39,14 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="container" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" *ngIf="recipedata">
-                <div class="icon">
-                    <mat-card *ngIf="loggedInUserId === recipe.senderId" (click)="toggleFavourites()">
-                        <i class="fa fa-heart fa-edit edit-icon"></i>
-                    </mat-card>
-                </div>
+                <a [routerLink]="['/recipe-edit', selectedRecipeId]" *ngIf="loggedInUserId === recipe.senderId || loggedInUserData.supervisor">
+                    <div class="icon">
+                        <mat-card>
+                            <i class="fa fa-heart fa-edit edit-icon"></i>
+                        </mat-card>
+                    </div>
+                </a>
                 <div class="icon">
                     <mat-card (click)="toggleFavourites()">
                         <span class="favourite-yes" *ngIf="favourite === true"><i class="fa fa-heart"></i></span>
@@ -68,6 +67,9 @@
                             <mat-panel-title>HOZZÁSZÓLÁSOK</mat-panel-title>
                             <mat-panel-description></mat-panel-description>
                         </mat-expansion-panel-header>
+                        <div *ngIf="!loggedInUserId">
+                            Hozzászólást csak regisztrált felhasználók írhatnak.
+                        </div>
                         <div *ngIf="loggedInUserId">
                             <mat-form-field appearance="fill" fxFlex="100%">
                                 <mat-label>Szólj hozzá...</mat-label>

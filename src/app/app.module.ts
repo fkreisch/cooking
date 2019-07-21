@@ -62,6 +62,7 @@ import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component
 import { RecipeComponent } from './recipes/recipe/recipe.component';
 import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-comments.component';
 import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component
     RecipeComponent,
     RecipeCommentsComponent,
     RecipeSendComponent,
+    RecipeEditComponent,
   ],
   imports: [
     AppRoutingModule,

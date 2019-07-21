@@ -26,7 +26,7 @@ export class RecipesAllComponent implements OnInit {
 
   ngOnInit() {
     this.paginator._intl.itemsPerPageLabel = '';
-    this.recipeService.getRecipes().subscribe(recipes => {
+    this.recipeService.getSharedRecipes().subscribe(recipes => {
       this.recipes = recipes;
       this.dataSource = new MatTableDataSource(recipes);
       this.dataSource.paginator = this.paginator;

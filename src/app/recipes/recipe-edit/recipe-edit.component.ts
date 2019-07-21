@@ -5,21 +5,22 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { RecipeService } from '../../_services/recipe.service';
 import { LoginService } from '../../_services/login.service';
 import { UserService } from '../../_services/user.service';
-import { User } from '../../_interfaces/interface';
+import { User, Recipe } from '../../_interfaces/interface';
 import { finalize, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-recipe-send',
-  templateUrl: './recipe-send.component.html',
-  styleUrls: ['./recipe-send.component.scss'],
+  selector: 'app-recipe-edit',
+  templateUrl: './recipe-edit.component.html',
+  styleUrls: ['./recipe-edit.component.scss'],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
   }]
 })
 
-export class RecipeSendComponent implements OnInit {
+export class RecipeEditComponent implements OnInit {
 
   FormGroup1: FormGroup;
   FormGroup2: FormGroup;
@@ -33,7 +34,8 @@ export class RecipeSendComponent implements OnInit {
   private user: firebase.User;
   private loggedInUserData: User;
   public loggedInUserId: string;
-
+  public recipe: Recipe;
+  public selectedRecipeId: any;
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +43,8 @@ export class RecipeSendComponent implements OnInit {
     private loginService: LoginService,
     private userService: UserService,
     private storage: AngularFireStorage,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone,
+    private route: ActivatedRoute) { }
 
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
   triggerResize() {
@@ -50,7 +53,7 @@ export class RecipeSendComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.clearRecipeForm();
+    this.selectedRecipeId = this.route.snapshot.paramMap.get('id');
     this.loginService.getLoggedInUser().subscribe(user => {
       if (!user) { return; }
       this.user = user;
@@ -58,15 +61,12 @@ export class RecipeSendComponent implements OnInit {
       this.userService.getUser(this.loggedInUserId).subscribe(userdata => {
         if (!userdata) { return; }
         this.loggedInUserData = userdata;
-        this.FormGroup5 = this.fb.group({
-          share: [false, Validators.required],
-          opened: 0,
-          senderId: this.loggedInUserId,
-          senderPhotoURL: this.loggedInUserData.photoURL,
-          senderName: this.loggedInUserData.name,
-          sendingDate: new Date()
-        });
       });
+    });
+    this.recipeService.getRecipe(this.selectedRecipeId).subscribe(recipe => {
+      this.recipe = recipe;
+      if (!this.recipe) { return; }
+      this.clearRecipeForm(this.recipe);
     });
   }
 
@@ -91,6 +91,22 @@ export class RecipeSendComponent implements OnInit {
     this.ingredientForm.push(ingredient);
   }
 
+  fillSteps(item) {
+    this.stepForm.clear();
+    item.forEach(ill => {
+      const step = this.fb.group(ill);
+      ill = this.stepForm.push(step);
+    });
+  }
+
+  fillIngredients(item) {
+    this.ingredientForm.clear();
+    item.forEach(ill => {
+      const ingredient = this.fb.group(ill);
+      ill = this.ingredientForm.push(ingredient);
+    });
+  }
+
   deleteStep(i) {
     this.stepForm.removeAt(i);
   }
@@ -98,17 +114,17 @@ export class RecipeSendComponent implements OnInit {
     this.ingredientForm.removeAt(i);
   }
 
-  clearRecipeForm() {
+  clearRecipeForm(item: Recipe) {
     this.FormGroup1 = this.fb.group({
-      name: ['', Validators.required],
-      short: ['', Validators.required],
-      long: ['', Validators.required],
-      picture: ['', Validators.required],
+      name: [item.name, Validators.required],
+      short: [item.short, Validators.required],
+      long: [item.long, Validators.required],
+      picture: [item.picture, Validators.required],
     });
     this.FormGroup2 = this.fb.group({
-      serves: ['', Validators.required],
-      servesfor: ['személyre', Validators.required],
-      time: ['', Validators.required],
+      serves: [item.serves, Validators.required],
+      servesfor: [item.servesfor, Validators.required],
+      time: [item.time, Validators.required],
     });
     this.FormGroup3 = this.fb.group({
       steps: this.fb.array([]),
@@ -117,10 +133,10 @@ export class RecipeSendComponent implements OnInit {
       ingredients: this.fb.array([]),
     });
     this.FormGroup5 = this.fb.group({
-      share: [false, Validators.required],
+      space: ''
     });
-    this.addStep();
-    this.addIngredient();
+    this.fillSteps(item.steps);
+    this.fillIngredients(item.ingredients);
   }
 
   writeRecipeForm() {
@@ -128,11 +144,9 @@ export class RecipeSendComponent implements OnInit {
       ...this.FormGroup1.value,
       ...this.FormGroup2.value,
       ...this.FormGroup3.value,
-      ...this.FormGroup4.value,
-      ...this.FormGroup5.value
+      ...this.FormGroup4.value
     };
-    this.recipeService.addRecipe(sendForm);
-    this.clearRecipeForm();
+    this.recipeService.updateRecipe(this.selectedRecipeId, sendForm);
   }
 
   uploadFile(event) {

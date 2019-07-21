@@ -1,7 +1,10 @@
 <div class="font-mina" *ngIf="!loggedInUserId">
     Receptet csak regisztrált felhasználók küldhetnek be.
 </div>
-<mat-horizontal-stepper labelPosition="bottom" [linear]="false" #stepper *ngIf="loggedInUserId">
+<div class="spinner" *ngIf="!recipe && loggedInUserId">
+    <mat-spinner></mat-spinner>
+</div>
+<mat-horizontal-stepper labelPosition="bottom" [linear]="false" #stepper *ngIf="loggedInUserId && recipe">
     <mat-step [stepControl]="FormGroup1">
         <div class="title">Alap adatok</div>
         <form [formGroup]="FormGroup1">
@@ -28,8 +31,8 @@
                     <input matInput placeholder="Kép helye (URL)" formControlName="picture">
                     <input class="ng-hide" id="input-file-id" type="file" (change)="uploadFile($event)" />
                     <label matSuffix for="input-file-id">
-                            <i class="fa fa-upload upload-icon"></i>
-                    </label>
+                                <i class="fa fa-upload upload-icon"></i>
+                        </label>
                 </mat-form-field>
             </div>
             <mat-progress-bar mode="determinate" color="accent" value="{{uploadPercent | async}}" *ngIf="uploadPercent"></mat-progress-bar>
@@ -132,16 +135,17 @@
         <div class="title">Véglegesítés</div>
         <form [formGroup]="FormGroup5">
             <ng-template matStepLabel></ng-template>
-            <mat-checkbox formControlName="share">Közzéteszem a receptet</mat-checkbox>
             <div class="page5">
-                A fenti opcióval közzéteheted a receptedet. Amennyiben ezt megteszed, az mindenki számára láthatóvá válik. A késóbbiekben ezt az opciót nem tudod módosítani.
+                Véglegesítsd a változtatásaidat az elküld gombbal.
             </div>
             <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
                 <div fxFlex="100px" fxLayoutAlign="end">
                     <button mat-flat-button color="basic" (click)="stepper.reset()">Mégsem</button>
                 </div>
                 <div fxFlex="100px" fxLayoutAlign="end">
-                    <button mat-flat-button color="primary" (click)="writeRecipeForm();stepper.reset()" [disabled]="!FormGroup1.valid || !FormGroup2.valid || !FormGroup3.valid || !FormGroup4.valid || !FormGroup5.valid">Elküldés</button>
+                    <a [routerLink]="['/recipe', selectedRecipeId]">
+                        <button mat-flat-button color="primary" (click)="writeRecipeForm();stepper.reset()" [disabled]="!FormGroup1.valid || !FormGroup2.valid || !FormGroup3.valid || !FormGroup4.valid || !FormGroup5.valid">Elküldés</button>
+                    </a>
                 </div>
             </div>
             <div fxLayout="row" fxLayoutAlign="start" class="pager">

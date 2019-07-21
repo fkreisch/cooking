@@ -29,6 +29,19 @@ export class RecipeService {
     return this.recipes;
   }
 
+  getSharedRecipes() {
+    this.recipeCollection = this.afs.collection<Recipe>('recipe', ref => ref.where('share', '==', true).orderBy('name'));
+    this.recipes = this.recipeCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Recipe;
+        const id = a.payload.doc.id;
+        // console.log('(recipe.service) FIREBASE GET (only shared recipes):', id, data);
+        return { id, ...data };
+      }))
+    );
+    return this.recipes;
+  }
+
   getRecipe(id: Id) {
     this.recipeDoc = this.afs.doc<Recipe>(`recipe/${id}`);
     this.recipe = this.recipeDoc.valueChanges();

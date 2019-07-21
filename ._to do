@@ -1,4 +1,6 @@
-Hosszabb leíás nem nyőlik lefele
-csak reg user árhesse el a menut: rec beküldés
-összetevok bevitelekor ne taboljon a törlésre.
-hozzáadásnál a köv mezö legyen aktív.
+TODO - Snackbar messages mindenhova ahova kell. https://material.angular.io/components/snack-bar/examples
+DONE - Recept módosítás
+DONE - recept lista supervisorként mindet
+TODO - recept lista saját receptek
+TODO - recept lista favourites
+TODO - recept lista nagy képernyőn rating, kedvenc, opened (sorbarendezéssel)

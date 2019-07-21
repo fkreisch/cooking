@@ -6,11 +6,14 @@ import { HomeComponent } from './base/home/home.component';
 import { LinksAllComponent } from './links/links-all/links-all.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
 import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component';
-
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   {
     path: 'home',
     component: HomeComponent
@@ -33,9 +36,12 @@ const routes: Routes = [
   },
   {
     path: 'recipe/:id',
-    component: RecipeComponent, pathMatch: 'full'
+    component: RecipeComponent,
   },
-
+  {
+    path: 'recipe-edit/:id',
+    component: RecipeEditComponent,
+  },
 ];
 
 @NgModule({

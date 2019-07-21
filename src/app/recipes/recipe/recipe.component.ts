@@ -19,9 +19,6 @@ export class RecipeComponent implements OnInit {
 
   private rate = 0;
 
-  private user: firebase.User;
-  private loggedInUserData: User;
-
   public favourite = false;
   public sendingDate: any;
   public rateaverage = 0;
@@ -31,7 +28,9 @@ export class RecipeComponent implements OnInit {
   public comment: string;
   public comments: Data['comments'];
 
+  private user: firebase.User;
   public loggedInUserId: string;
+  public loggedInUserData: User;
   public selectedRecipeId: any;
 
   public recipe: Recipe;
