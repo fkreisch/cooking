@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { LoginService } from '../../_services/login.service';
 import { UserService } from '../../_services/user.service';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { User } from '../../_interfaces/interface';
 
@@ -12,7 +12,7 @@ import { User } from '../../_interfaces/interface';
   styleUrls: ['./menu.component.scss'],
 })
 
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, AfterViewInit {
 
   isHandset: boolean;
   public user: firebase.User;
@@ -21,7 +21,10 @@ export class MenuComponent implements OnInit {
   public registerForm: FormGroup;
   public hide = true;
 
+  @ViewChild('stickyMenu', null) menuElement: ElementRef;
 
+  sticky = false;
+  elementPosition: any;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -51,10 +54,26 @@ export class MenuComponent implements OnInit {
     this.loginService.getLoggedInUser().subscribe(user => {
       this.user = user;
       if (this.user) {
+        console.log ('LoggedInUserData:', this.user);
         this.readUser(this.user.uid);
       }
     });
   }
+
+  ngAfterViewInit() {
+    this.elementPosition = this.menuElement.nativeElement.offsetTop;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  handleScroll() {
+    const windowScroll = window.pageYOffset;
+    if (windowScroll >= this.elementPosition) {
+      this.sticky = true;
+    } else {
+      this.sticky = false;
+    }
+  }
+
 
   readUser(id: string) {
     this.userService.getUser(id).pipe(take(1)).subscribe(getuser => {
