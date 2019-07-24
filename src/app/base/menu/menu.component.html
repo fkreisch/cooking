@@ -2,11 +2,13 @@
 <div class="menu" *ngIf="(!isHandset)">
     <div class="top">
         <div class="logo">
-            <div class="firstline">
-                <span>rm</span>
-            </div>
-            <div class="secondline">
-                <span>cook</span>
+            <div class="border">
+                <div class="firstline">
+                    <span>rm</span>
+                </div>
+                <div class="secondline">
+                    <span>cook</span>
+                </div>
             </div>
         </div>
     </div>
@@ -19,11 +21,13 @@
                 <span>rmcook</span>
             </div>
             <span class="toolbar-spacer"></span>
-            <ul class="menu" *ngIf="(!isHandset)">
-                <li><a class="first" [routerLink]="['/home']">kezdőoldal</a></li>
-                <li><a [routerLink]="['/recipes']">receptek</a></li>
-                <li><a class="last" href="#" *ngIf="user">az én könyvem</a></li>
-            </ul>
+            <div class="menu" *ngIf="(!isHandset)">
+                <ul>
+                    <li><a [routerLink]="['/home']" class="first">kezdőoldal</a></li>
+                    <li><a [routerLink]="['/recipes']">receptek</a></li>
+                    <li><a class="last" *ngIf="user" [matMenuTriggerFor]="submenu1">az én könyvem</a></li>
+                </ul>
+            </div>
             <div class="user-container">
                 <span class="user" [ngStyle]="{'background-image':'url('+user.photoURL+')'}" [matMenuTriggerFor]="avatarDropDown" *ngIf="user"></span>
                 <span class="user" [matMenuTriggerFor]="avatarDropDown" *ngIf="!user"><span class="login"><i class="fa fa-sign-in icon"></i></span></span>
@@ -31,12 +35,29 @@
         </mat-toolbar>
     </div>
 </div>
+<mat-menu #submenu1="matMenu">
+    <div class="subtoolbar">
+        <span class="toolbar-spacer"></span>
+        <div class="submenu">
+            <ul>
+                <li><a [routerLink]="['/home']">receptjeim</a></li>
+                <li><a [routerLink]="['/recipe-send']" href="#" *ngIf="user">recept írás</a></li>
+            </ul>
+        </div>
+    </div>
+</mat-menu>
+
 <!-- mobile navbar -->
 <div class="mobile-menu" *ngIf="(isHandset)">
     <mat-toolbar class="toolbar">
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
         <div class="logo">
             <span>rmcook</span>
+        </div>
+        <span class="toolbar-spacer"></span>
+        <div class="user-container">
+            <span class="user" [ngStyle]="{'background-image':'url('+user.photoURL+')'}" [matMenuTriggerFor]="avatarDropDown" *ngIf="user"></span>
+            <span class="user" [matMenuTriggerFor]="avatarDropDown" *ngIf="!user"><span class="login"><i class="fa fa-sign-in icon"></i></span></span>
         </div>
     </mat-toolbar>
 </div>
@@ -63,82 +84,6 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-menu #avatarDropDown="matMenu">
-            <mat-card *ngIf="user">
-                <mat-card-header>
-                    <mat-card-title fxLayout="row" fxLayoutAlign="end">{{ loggedInUserData?.name }}</mat-card-title>
-                    <mat-card-subtitle fxLayout="row" fxLayoutAlign="end"><span style="font-size: 1em"><i class="fa fa-envelope"></i></span>&nbsp; {{ loggedInUserData?.email }}</mat-card-subtitle>
-                </mat-card-header>
-            </mat-card>
-            <div>
-                <button fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px" mat-menu-item style="margin-top: 7px" *ngIf="user" (click)="logout()">Kijelentkezés&nbsp;<span style="font-size: 2em"><i class="fa fa-sign-out"></i></span></button>
-            </div>
-            <div *ngIf="!user">
-                <div fxLayout="row" fxLayoutAlign="center" (click)="$event.stopPropagation()">
-                    <div class="login-icon">
-                        <span style="font-size: 6em"><i class="fa fa-user"></i></span>
-                    </div>
-                </div>
-                <div>
-                    <mat-tab-group (click)="$event.stopPropagation()">
-                        <mat-tab label="Bejelentkezés">
-                            <form [formGroup]="loginForm">
-                                <div class="login-form-box" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-                                    <div fxLayout="row">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Email cím" formControlName="email" class="form-control" required>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxLayout="row">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Jelszó" [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control" minlength="6" required>
-                                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                            </button>
-                                            <mat-hint></mat-hint>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div fxLayout="row">
-                                    <button mat-menu-item type="submit" (click)="loginEmail(loginForm.value)" class="btn btn-default" [disabled]="!loginForm.valid"><span fxLayoutAlign="center">Bejelentkezés</span></button>
-                                </div>
-                                <div fxLayout="row" fxLayoutAlign="center center">
-                                    <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-google-plus"></i></span></button>
-                                    <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-facebook"></i></span></button>
-                                    <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-twitter"></i></span></button>
-                                </div>
-                            </form>
-                        </mat-tab>
-                        <mat-tab label="Regisztráció">
-                            <form [formGroup]="registerForm">
-                                <div class="login-form-box" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-                                    <div fxLayout="row">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Név" formControlName="name" class="form-control" minlength="2" required>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxLayout="row">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Email cím" formControlName="email" class="form-control" required>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxLayout="row">
-                                        <mat-form-field>
-                                            <input matInput placeholder="Jelszó" [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control" minlength="6" required>
-                                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
-                                            <mat-hint>Minimum 6 karakter</mat-hint>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div fxLayout="row">
-                                    <button mat-menu-item type="submit" (click)="registerEmail(registerForm.value)" class="btn btn-default" [disabled]="!registerForm.valid"><span fxLayoutAlign="center">Regisztráció</span></button>
-                                </div>
-                            </form>
-                        </mat-tab>
-                    </mat-tab-group>
-                </div>
-            </div>
-        </mat-menu>
 
         <div class="container">
             <div fxLayout fxLayout.xs="column" fxLayoutAlign="center">
@@ -152,3 +97,79 @@
 
     </mat-sidenav-content>
 </mat-sidenav-container>
+<mat-menu #avatarDropDown="matMenu">
+    <mat-card *ngIf="user">
+        <mat-card-header>
+            <mat-card-title fxLayout="row" fxLayoutAlign="end">{{ loggedInUserData?.name }}</mat-card-title>
+            <mat-card-subtitle fxLayout="row" fxLayoutAlign="end"><span style="font-size: 1em"><i class="fa fa-envelope"></i></span>&nbsp; {{ loggedInUserData?.email }}</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+    <div>
+        <button fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px" mat-menu-item style="margin-top: 7px" *ngIf="user" (click)="logout()">Kijelentkezés&nbsp;<span style="font-size: 2em"><i class="fa fa-sign-out"></i></span></button>
+    </div>
+    <div *ngIf="!user">
+        <!-- <div fxLayout="row" fxLayoutAlign="center" (click)="$event.stopPropagation()">
+            <div class="login-icon">
+                <span style="font-size: 6em"><i class="fa fa-user"></i></span>
+            </div>
+        </div> -->
+        <div>
+            <mat-tab-group (click)="$event.stopPropagation()">
+                <mat-tab label="Bejelentkezés">
+                    <form [formGroup]="loginForm">
+                        <div class="login-form-box" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+                            <div fxLayout="row">
+                                <mat-form-field>
+                                    <input matInput placeholder="Email cím" formControlName="email" class="form-control" required>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row">
+                                <mat-form-field>
+                                    <input matInput placeholder="Jelszó" [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control" minlength="6" required>
+                                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                                </button>
+                                    <mat-hint></mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row">
+                            <button mat-menu-item type="submit" (click)="loginEmail(loginForm.value)" class="btn btn-default" [disabled]="!loginForm.valid"><span fxLayoutAlign="center">Bejelentkezés</span></button>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-google-plus"></i></span></button>
+                            <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-facebook"></i></span></button>
+                            <button mat-menu-item (click)="loginGoogle()"><span class="social"><i class="fa fa-twitter"></i></span></button>
+                        </div>
+                    </form>
+                </mat-tab>
+                <mat-tab label="Regisztráció">
+                    <form [formGroup]="registerForm">
+                        <div class="login-form-box" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+                            <div fxLayout="row">
+                                <mat-form-field>
+                                    <input matInput placeholder="Név" formControlName="name" class="form-control" minlength="2" required>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row">
+                                <mat-form-field>
+                                    <input matInput placeholder="Email cím" formControlName="email" class="form-control" required>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row">
+                                <mat-form-field>
+                                    <input matInput placeholder="Jelszó" [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control" minlength="6" required>
+                                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
+                                    <mat-hint>Minimum 6 karakter</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row">
+                            <button mat-menu-item type="submit" (click)="registerEmail(registerForm.value)" class="btn btn-default" [disabled]="!registerForm.valid"><span fxLayoutAlign="center">Regisztráció</span></button>
+                        </div>
+                    </form>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</mat-menu>
