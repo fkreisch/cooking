@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
 import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
 import { HomeComponent } from './base/home/home.component';
-import { LinksAllComponent } from './links/links-all/links-all.component';
+import { UserComponent } from './base/user/user.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
 import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
@@ -19,16 +19,16 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'user',
+    component: UserComponent
+  },
+  {
     path: 'recipes',
     component: RecipesAllComponent
   },
   {
     path: 'recipe-send',
     component: RecipeSendComponent
-  },
-  {
-    path: 'links',
-    component: LinksAllComponent
   },
   {
     path: 'recipe-admin',
@@ -53,7 +53,6 @@ export class AppRoutingModule {
     HomeComponent,
     RecipesAllComponent,
     RecipesAdminComponent,
-    LinksAllComponent,
   ];
 
 }

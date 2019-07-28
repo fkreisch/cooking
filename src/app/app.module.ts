@@ -42,6 +42,7 @@ import {
   MatTabsModule,
   MatStepperModule,
   MatSnackBarModule,
+  MatBottomSheetModule,
 } from '@angular/material';
 // SERVICE
 import { environment } from '../environments/environment';
@@ -56,8 +57,6 @@ import { MenuComponent } from './base/menu/menu.component';
 import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
 import { RecipesAddComponent } from './recipes/recipes-add/recipes-add.component';
 import { RecipesModifyComponent } from './recipes/recipes-modify/recipes-modify.component';
-import { LinksAdminComponent } from './links/links-admin/links-admin.component';
-import { LinksAllComponent } from './links/links-all/links-all.component';
 import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
 import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
@@ -65,6 +64,7 @@ import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-commen
 import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { SnackComponent } from './base/snack/snack.component';
+import { UserComponent } from './base/user/user.component';
 
 @NgModule({
   declarations: [
@@ -74,8 +74,6 @@ import { SnackComponent } from './base/snack/snack.component';
     RecipesAddComponent,
     RecipesModifyComponent,
     HomeComponent,
-    LinksAdminComponent,
-    LinksAllComponent,
     RecipeFilterPipe,
     RecipesAllComponent,
     RecipeComponent,
@@ -83,6 +81,8 @@ import { SnackComponent } from './base/snack/snack.component';
     RecipeSendComponent,
     RecipeEditComponent,
     SnackComponent,
+    UserComponent,
+
   ],
   entryComponents: [
     SnackComponent,
@@ -122,6 +122,7 @@ import { SnackComponent } from './base/snack/snack.component';
     MatTabsModule,
     MatStepperModule,
     MatSnackBarModule,
+    MatBottomSheetModule,
     NgxHmCarouselModule,
   ],
   providers: [

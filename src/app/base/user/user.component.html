@@ -1,0 +1,82 @@
+<div fxLayout="row" fxLayoutAlign="end">
+    <button mat-icon-button (click)="close()"><mat-icon>close</mat-icon></button>
+</div>
+<mat-card>
+    <div fxLayout="column" fxFlex.xs="100%" *ngIf="user">
+        <div class="user" fxLayout="row" fxFlex="100%">
+            <input class="ng-hide" id="mod-avatar" type="file" (change)="uploadFile($event)" />
+            <label matSuffix for="mod-avatar"><div class="picture" [ngStyle]="{'background-image':'url('+user.photoURL+')'}"></div></label>
+            <div class="text">
+                <div class="name">
+                    {{ user.displayName }}
+                </div>
+                <div class="email">
+                    <i class="fa fa-envelope"></i> {{ user.email }}
+                </div>
+                <div class="phone">
+                    <i class="fa fa-phone"></i> ???{{ user.phoneNumber }}
+                </div>
+            </div>
+        </div>
+        <div fxFlex="100%" fxLayoutAlign="end end" class="sign">
+            <button (click)="logout()" mat-flat-button color="#424242" class="text"><span fxLayoutAlign="end"><span class="text">Kijelentkezés</span><span class="button"><i class="fa fa-sign-out icon"></i></span></span></button>
+        </div>
+    </div>
+
+    <div *ngIf="!user">
+        <mat-tab-group>
+            <mat-tab label="Bejelentkezés">
+                <form [formGroup]="loginForm" class="form">
+                    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+                        <div fxLayout="row">
+                            <mat-form-field hideRequiredMarker fxFlex="100%">
+                                <input matInput hideRequiredMarker placeholder="Email cím" formControlName="email" required>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row">
+                            <mat-form-field hideRequiredMarker fxFlex="100%">
+                                <input matInput hideRequiredMarker placeholder="Jelszó" [type]="hide ? 'password' : 'text'" formControlName="password" minlength="6" required>
+                                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><mat-icon class="icon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <div fxFlex="100%" fxLayoutAlign="start end" class="google">
+                        <button type="submit" (click)="loginGoogle()" mat-flat-button color="#424242" class="text"><span fxLayoutAlign="end"><span class="button"><i class="fa fa-google icon"></i></span><span class="text">Google</span></span></button>
+                    </div>
+                    <div fxFlex="100%" fxLayoutAlign="end end" class="sign">
+                        <button type="submit" (click)="loginEmail(loginForm.value)" mat-flat-button color="#424242" class="text" [disabled]="!loginForm.valid"><span fxLayoutAlign="end"><span class="text">Bejelentkezés</span><span class="button"><i class="fa fa-sign-in icon"></i></span></span></button>
+                    </div>
+
+                </div>
+            </mat-tab>
+            <mat-tab label="Regisztráció">
+                <form [formGroup]="registerForm" class="form">
+                    <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+                        <div fxLayout="row">
+                            <mat-form-field hideRequiredMarker fxFlex="100%">
+                                <input matInput placeholder="Név" formControlName="name" minlength="2" required>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row">
+                            <mat-form-field hideRequiredMarker fxFlex="100%">
+                                <input matInput placeholder="Email cím" formControlName="email" required>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row">
+                            <mat-form-field hideRequiredMarker fxFlex="100%">
+                                <input matInput placeholder="Jelszó" [type]="hide ? 'password' : 'text'" formControlName="password" minlength="6" required>
+                                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"><mat-icon class="icon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
+                                <mat-hint>Minimum 6 karakter</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+                <div fxFlex="100%" fxLayoutAlign="end end" class="sign">
+                    <button type="submit" (click)="registerEmail(registerForm.value)" mat-flat-button color="#424242" class="text" [disabled]="!loginForm.valid"><span fxLayoutAlign="end"><span class="text">Regisztráció</span><span class="button"><i class="fa fa-user icon"></i></span></span></button>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</mat-card>
