@@ -26,13 +26,16 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.breakpointObserver
-      .observe([Breakpoints.Handset])
+      .observe([Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
         this.isHandset = state.matches ? true : false;
       });
 
     this.loginService.getLoggedInUser().subscribe(user => {
-      if (!user) { return; }
+      if (!user) {
+        this.user = null;
+        return;
+      }
       this.user = user;
     });
   }

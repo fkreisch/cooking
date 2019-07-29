@@ -257,22 +257,34 @@ mat-icon {
     z-index: 10;
     width: 100%;
     height: 40px;
-    .logo {
-        animation: move-down 1s;
-        display: block !important;
-        font-family: 'Cinzel Decorative', cursive;
-        font-size: 40px;
-        color: #51608c;
+    .logo-container {
+        width: 100%;
+        height: 50px;
+        margin: -4px -100px 0 0;
+        background-color: #303030;
+        border-radius: 0px 0px 0px 20px;
+        .logo {
+            animation: move-down 1s;
+            display: block !important;
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 40px;
+            color: #51608c;
+            margin: 10px 0 0 10px;
+        }
     }
     .user-container {
-        margin-right: -31px;
-        padding-right: 20px;
+        position: relative;
+        background-color: #303030;
+        left: 16px;
         .user {
             cursor: pointer;
-            border: 2px solid #303030;
+            margin: 36px 0 0 -1px;
+            border: 4px solid #212121;
+            background-color: #303030;
             background-size: cover;
             display: block;
             position: relative;
+            left: -16px;
             border-radius: 4px 4px 4px 20px;
             width: 44px;
             height: 44px;
@@ -280,6 +292,7 @@ mat-icon {
             .login {
                 width: 100%;
                 height: 100%;
+                background-color: #303030;
                 border-radius: 4px 4px 4px 20px;
                 .icon {
                     color: #a7a7a7;
