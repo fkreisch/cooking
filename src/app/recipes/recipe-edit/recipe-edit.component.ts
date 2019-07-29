@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { RecipeService } from '../../_services/recipe.service';
 import { LoginService } from '../../_services/login.service';
-import { UserService } from '../../_services/user.service';
-import { User, Recipe } from '../../_interfaces/interface';
+import { Recipe } from '../../_interfaces/interface';
 import { finalize, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -34,7 +33,7 @@ export class RecipeEditComponent implements OnInit {
   downloadURL: Observable<string>;
 
   private user: firebase.User;
-  private loggedInUserData: User;
+  private loggedInUserData: any;
   public loggedInUserId: string;
   public recipe: Recipe;
   public selectedRecipeId: any;
@@ -43,7 +42,6 @@ export class RecipeEditComponent implements OnInit {
     private fb: FormBuilder,
     private recipeService: RecipeService,
     private loginService: LoginService,
-    private userService: UserService,
     private storage: AngularFireStorage,
     private snackBar: MatSnackBar,
     private ngZone: NgZone,
@@ -68,10 +66,7 @@ export class RecipeEditComponent implements OnInit {
       if (!user) { return; }
       this.user = user;
       this.loggedInUserId = user.uid;
-      this.userService.getUser(this.loggedInUserId).subscribe(userdata => {
-        if (!userdata) { return; }
-        this.loggedInUserData = userdata;
-      });
+      this.loggedInUserData = user;
     });
     this.recipeService.getRecipe(this.selectedRecipeId).subscribe(recipe => {
       this.recipe = recipe;

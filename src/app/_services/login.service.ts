@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,7 @@ import { auth } from 'firebase';
 export class LoginService {
 
   constructor(
-    private afAuth: AngularFireAuth, private afs: AngularFirestore) {
-
+    private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
   }
 
   registerEmail(value) {
@@ -47,7 +47,10 @@ export class LoginService {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut().then(() => {
+      this.router.navigate(['']);
+      window.location.reload();
+   });
   }
 
   getLoggedInUser() {

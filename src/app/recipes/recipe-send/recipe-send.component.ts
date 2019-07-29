@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { RecipeService } from '../../_services/recipe.service';
 import { LoginService } from '../../_services/login.service';
-import { UserService } from '../../_services/user.service';
-import { User } from '../../_interfaces/interface';
 import { finalize, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -33,7 +31,7 @@ export class RecipeSendComponent implements OnInit {
   downloadURL: Observable<string>;
 
   private user: firebase.User;
-  private loggedInUserData: User;
+  private loggedInUserData: any;
   public loggedInUserId: string;
 
 
@@ -41,7 +39,6 @@ export class RecipeSendComponent implements OnInit {
     private fb: FormBuilder,
     private recipeService: RecipeService,
     private loginService: LoginService,
-    private userService: UserService,
     private storage: AngularFireStorage,
     private snackBar: MatSnackBar,
     private ngZone: NgZone) { }
@@ -65,18 +62,21 @@ export class RecipeSendComponent implements OnInit {
       if (!user) { return; }
       this.user = user;
       this.loggedInUserId = user.uid;
-      this.userService.getUser(this.loggedInUserId).subscribe(userdata => {
-        if (!userdata) { return; }
-        this.loggedInUserData = userdata;
-        this.FormGroup5 = this.fb.group({
-          share: [false, Validators.required],
-          opened: 0,
-          senderId: this.loggedInUserId,
-          senderPhotoURL: this.loggedInUserData.photoURL,
-          senderName: this.loggedInUserData.name,
-          sendingDate: new Date()
-        });
+      this.loggedInUserData = user;
+      this.FormGroup5 = this.fb.group({
+        share: [false, Validators.required],
+        opened: 0,
+        senderId: this.loggedInUserId,
+        senderPhotoURL: this.loggedInUserData.photoURL,
+        senderName: this.loggedInUserData.name,
+        sendingDate: new Date(),
+        favourites: this.fb.array([]),
+        comments: this.fb.array([]),
+        rate: this.fb.array([]),
+        rateaverage: 0,
+        ratecount: 0
       });
+
     });
   }
 

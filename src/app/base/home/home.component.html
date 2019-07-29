@@ -1,4 +1,27 @@
-<div class="spinner" *ngIf="!avatars">
+<div class="bg1">
+
+    background-color: #212121
+
+    <div class="bg2">
+        background-color: #303030
+        <div class="bg3">
+            background-color: #424242
+        </div>
+    </div>
+    <div class="text1"><span>color: #ffffff</span></div>
+    <div class="text2"><span>color: #a7a7a7</span></div>
+    <div class="text3"><span>color: #51608c</span></div>
+    <div class="text4"><span>color: #f4511e</span></div>
+</div>
+
+
+
+
+
+
+
+<!--
+     <div class="spinner" *ngIf="!avatars">
     <mat-spinner></mat-spinner>
 </div>
 <div *ngIf="avatars">
@@ -11,7 +34,7 @@
 
     <ngx-hm-carousel [(ngModel)]="currentIndex" show-num="auto" [breakpoint]="breakpoint" [autoplay]=true [autoplay-speed]="3000" [between-delay]="100" [infinite]="infinite" [drag-many]="true" [aniTime]="100" [mourse-enable]=true [data]="avatars" class="carousel c-accent"
         *ngIf="avatars">
-        <!-- [autoplay]=true -->
+
         <section ngx-hm-carousel-container class="content">
             <article class="item cursor-pointer" ngx-hm-carousel-item *ngFor="let avatar of avatars; let i = index" [ngClass]="{'visible': currentIndex===i}">
                 <div class="img d-flex justify-content-center align-items-center" (click)="click(avatar.id)" [style.backgroundImage]="'url('+avatar.picture+')'">
@@ -55,3 +78,4 @@
 
     </ngx-hm-carousel>
 </div>
+ -->

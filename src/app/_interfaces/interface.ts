@@ -22,15 +22,9 @@ export interface Recipe {
     senderName: string;
     sendingDate: any;
     share: boolean;
-}
-export interface RecipeId extends Recipe {
-    id: string;
-}
-// RECIPE-DATA
-export interface Data {
-    opened: number;
-    rateaverage: number;
-    ratecount: number;
+    favourites: [{
+        uid: string;
+    }];
     rate: [
         {
             uid: string;
@@ -40,36 +34,27 @@ export interface Data {
     comments: [
         {
             uid: string;
-            name?: string;
-            photoURL?: string;
+            name: string;
+            photoURL: string;
             commentdate: any;
             comment: string;
         }
     ];
+    rateaverage: number;
+    ratecount: number;
+    opened: number;
 }
-export interface DataComments extends Data {
+export interface RecipeId extends Recipe {
     id: string;
 }
+
 export interface Comments {
     uid: string;
-    name?: string;
-    photoURL?: string;
+    name: string;
+    photoURL: string;
     commentdate: Date;
     comment: string;
 }
-// USER
-export interface User {
-    name: string;
-    email: string;
-    lastLogin: Date;
-    photoURL: string;
-    supervisor: boolean;
-    favourites: [{
-        recipeid: string;
-    }];
-}
-export interface UserId extends User {
-    id: string;
-}
+
 
 

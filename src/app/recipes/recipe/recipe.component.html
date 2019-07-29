@@ -96,7 +96,7 @@
                     </p>
                 </div>
             </mat-card>
-            <div class="statbox" *ngIf="recipedata">
+            <div class="statbox">
                 <div class="stars-box" (click)="openSnackBar('Köszönjük, hogy értékelted a receptet!')">
                     <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [showHalfStars]="true" [rating]="rateaverage" (starClickChange)="toggleRate($event)" labelText="({{ratecount}})" labelPosition="right">
                     </star-rating>
