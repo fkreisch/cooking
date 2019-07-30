@@ -3,6 +3,7 @@ import 'hammerjs';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxHmCarouselModule } from 'ngx-hm-carousel';
+import { MatSidenavMenuModule } from 'mat-sidenav-menu';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -44,35 +45,28 @@ import {
   MatSnackBarModule,
   MatBottomSheetModule,
 } from '@angular/material';
+
 // SERVICE
 import { environment } from '../environments/environment';
 import { RecipeService } from './_services/recipe.service';
-import { RecipeDataService } from './_services/recipe-data.service';
 import { LoginService } from './_services/login.service';
-import { UserService } from './_services/user.service';
 
 // COMPONENT
-import { HomeComponent } from './base/home/home.component';
 import { MenuComponent } from './base/menu/menu.component';
-import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
-import { RecipesAddComponent } from './recipes/recipes-add/recipes-add.component';
-import { RecipesModifyComponent } from './recipes/recipes-modify/recipes-modify.component';
-import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
+import { UserComponent } from './base/user/user.component';
+import { HomeComponent } from './base/home/home.component';
 import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
 import { RecipeCommentsComponent } from './recipes/recipe-comments/recipe-comments.component';
 import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
 import { SnackComponent } from './base/snack/snack.component';
-import { UserComponent } from './base/user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    RecipesAdminComponent,
-    RecipesAddComponent,
-    RecipesModifyComponent,
     HomeComponent,
     RecipeFilterPipe,
     RecipesAllComponent,
@@ -82,7 +76,6 @@ import { UserComponent } from './base/user/user.component';
     RecipeEditComponent,
     SnackComponent,
     UserComponent,
-
   ],
   entryComponents: [
     SnackComponent,
@@ -124,12 +117,11 @@ import { UserComponent } from './base/user/user.component';
     MatSnackBarModule,
     MatBottomSheetModule,
     NgxHmCarouselModule,
+    MatSidenavMenuModule,
   ],
   providers: [
     RecipeService,
-    RecipeDataService,
     LoginService,
-    UserService,
   ],
   bootstrap: [AppComponent]
 })

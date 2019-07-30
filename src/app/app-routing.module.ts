@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RecipesAdminComponent } from './recipes/recipes-admin/recipes-admin.component';
 import { RecipesAllComponent } from './recipes/recipes-all/recipes-all.component';
 import { HomeComponent } from './base/home/home.component';
 import { UserComponent } from './base/user/user.component';
@@ -31,10 +30,6 @@ const routes: Routes = [
     component: RecipeSendComponent
   },
   {
-    path: 'recipe-admin',
-    component: RecipesAdminComponent
-  },
-  {
     path: 'recipe/:id',
     component: RecipeComponent,
   },
@@ -52,7 +47,6 @@ export class AppRoutingModule {
   static routableComponents = [
     HomeComponent,
     RecipesAllComponent,
-    RecipesAdminComponent,
   ];
 
 }

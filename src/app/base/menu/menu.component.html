@@ -65,13 +65,15 @@
 </div>
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset) ? 'push' : 'push'" [opened]="false">
-        <div [class]="(isHandset) ? 'nav-spacer-mobile' : 'nav-spacer'"></div>
-        <mat-nav-list (click)="drawer.toggle()" *ngIf="(isHandset)">
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item routerLink="/home">Kezdőoldal</a>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item [routerLink]="['/recipes']">Receptkönyv</a>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item [routerLink]="['/recipe-send']">Recept beküldés</a>
-            <a fxLayout="row" fxLayoutAlign="end" mat-list-item>Linkekteszturl</a>
-        </mat-nav-list>
+
+        <side-nav-menu title="Menü" [sidenav]="drawer">
+            <side-nav-item [routerLink]="['/home']" title="Kezdőoldal"></side-nav-item>
+            <side-nav-item [routerLink]="['/recipes']" title="Receptkönyv"></side-nav-item>
+            <side-nav-x-group title="Az én könyvem">
+                <side-nav-item [routerLink]="['/recipe-send']" title="Receptjeim"></side-nav-item>
+                <side-nav-item [routerLink]="['/recipe-send']" title="Recept írás"></side-nav-item>
+            </side-nav-x-group>
+        </side-nav-menu>
     </mat-sidenav>
     <mat-sidenav-content>
 

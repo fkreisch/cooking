@@ -31,3 +31,6 @@ body {
     align-items: stretch;
     padding-top: 100px;
 }
+
+@import '~mat-sidenav-menu/mat-sidenav-menu-theme.scss';
+@include side-nav-menu-theme($theme);
