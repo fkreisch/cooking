@@ -52,6 +52,10 @@ mat-icon {
     font-size: 16px !important;
 }
 
+::ng-deep .side-nav-item-active {
+    background-color: #303030 !important;
+}
+
 ::ng-deep .mat-expansion-panel-header {
     font-size: 16px !important;
     padding: 0 16px !important;
@@ -59,6 +63,10 @@ mat-icon {
 
 ::ng-deep .mat-expansion-panel {
     box-shadow: none !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
 }
 
 .menu {
@@ -79,6 +87,7 @@ mat-icon {
                 border-radius: 4px 4px 4px 20px;
                 padding: 0 0 4px 12px;
                 width: 124px;
+                // background-color: #212121;
                 .firstline {
                     font-weight: 500;
                     font-size: 70px;

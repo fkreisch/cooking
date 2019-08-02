@@ -1,0 +1,98 @@
+<div class="footer">
+    <div class="top-spacer"></div>
+    <div class="top"></div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
+        <div class="box1-container" fxFlex="40">
+
+            <div class="box1">
+
+                <div class="top" fxLayout="row" fxLayout.sm="column">
+                    <div class="logo" *ngIf="!(isHandset)">
+                        <div fxLayout="collumn">
+                            <div class="picture-container">
+                                <img class="picture" src="../../../assets/img/chef.png" alt="">
+                            </div>
+                        </div>
+                        <div class="border">
+                            <div class="firstline">
+                                <span>rm</span>
+                            </div>
+                            <div class="secondline">
+                                <span>cook</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxloyaut="collumn" class="newsletter">
+                        <form>
+                            <div>
+                                <h3>Mert főzni bárki tud!</h3>
+                                <p>Íratkozz fel a hírlevelünkre, hogy ne maradj le a friss receptekről és az újdonságokról!</p>
+                            </div>
+
+                            <div>
+                                <mat-form-field hideRequiredMarker fxFlex="100%">
+                                    <input matInput placeholder="Email cím" formControlName="newsletter" required>
+                                    <mat-hint align="end"></mat-hint>
+                                </mat-form-field>
+
+                            </div>
+                            <div>
+                                <mat-checkbox>Elfogadom az oldal felhasználási feltételeit</mat-checkbox>
+                            </div>
+                            <div fxLayoutAlign="end end">
+                                <button type="button" mat-flat-button>Feliratkozás</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="60">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100">
+                <div class="box2" fxFlex="50">
+                    <div class="title">
+                        <h3>Kapcsolat</h3>
+                    </div>
+                    <div>
+                        <p><i class="fa fa-map-marker-alt"></i>HUN, Budapest, Valahol utca 4.</p>
+                        <p><i class="fa fa-phone"></i> Telefon: (0036) 333 12 68 347</p>
+                        <p><i class="fa fa-envelope"></i> Email: <a href="mailto:fkreisch@gmail.com">fkreisch@gmail.com</a></p>
+                        <p><i class="fa fa-skype"></i> Skype: online</p>
+                    </div>
+                </div>
+                <div class="box3" fxFlex="50">
+                    <div class="title">
+                        <h3>Linkek</h3>
+                    </div>
+                    <div fxLayout="row">
+                        <div fxFlex>
+                            <p><a href="#">Kezdőoldal</a></p>
+                            <p><a href="#">Receptek</a></p>
+                            <p><a href="#">Rólunk</a></p>
+                            <p><a href="#">Kapcsolat</a></p>
+                        </div>
+                        <div fxFlex>
+                            <p><a href="#">Tippek</a></p>
+                            <p><a href="#">Hiba bejelentés</a></p>
+                            <p><a href="#">Felhasználási feltételek</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box4" fxLayout="row" fxLayout.xs="column">
+                <div class="copyright" fxFlex="50" fxLayoutAlign="center">
+                    © 2019 - Ferenc Kreisch
+                </div>
+                <div class="icons" fxFlex="50" fxLayoutAlign="center">
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                    <a href="#"><i class="fa fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

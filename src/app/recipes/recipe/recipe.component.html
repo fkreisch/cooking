@@ -39,8 +39,8 @@
                     </div>
                 </div>
             </div>
-            <div class="container" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" *ngIf="recipedata">
-                <a [routerLink]="['/recipe-edit', selectedRecipeId]" *ngIf="loggedInUserId === recipe.senderId || loggedInUserData.supervisor">
+            <div class="container" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+                <a [routerLink]="['/recipe-edit', selectedRecipeId]" *ngIf="loggedInUserId === recipe.senderId">
                     <div class="icon">
                         <mat-card>
                             <i class="fa fa-heart fa-edit edit-icon"></i>
@@ -54,8 +54,8 @@
                     </mat-card>
                 </div>
                 <div class="icon">
-                    <mat-card (click)="openSnackBar('Ezt a receptet eddig ennyien nézték meg: ' + recipedata.opened)">
-                        <i class="fa fa-eye opened-icon"></i><span class='orange opened-text'>&#32;{{ recipedata.opened }}</span>
+                    <mat-card (click)="openSnackBar('Ezt a receptet eddig ennyien nézték meg: ' + recipe.opened)">
+                        <i class="fa fa-eye opened-icon"></i><span class='orange opened-text'>&#32;{{ recipe.opened }}</span>
                     </mat-card>
                 </div>
             </div>
@@ -67,17 +67,19 @@
                             <mat-panel-title>HOZZÁSZÓLÁSOK</mat-panel-title>
                             <mat-panel-description></mat-panel-description>
                         </mat-expansion-panel-header>
-                        <div *ngIf="!loggedInUserId">
-                            Hozzászólást csak regisztrált felhasználók írhatnak.
+                        <div class="comments">
+                            <div *ngIf="!loggedInUserId">
+                                Hozzászólást csak regisztrált felhasználók írhatnak.
+                            </div>
+                            <div *ngIf="loggedInUserId">
+                                <mat-form-field appearance="fill" fxFlex="100%">
+                                    <mat-label>Szólj hozzá...</mat-label>
+                                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="" [(ngModel)]="comment"></textarea>
+                                    <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom" *ngIf="comment"><button mat-mini-fab color="basic" (click)="addComment()" class="add"><i class="fa fa-paper-plane"></i></button></span>
+                                </mat-form-field>
+                            </div>
+                            <app-recipe-comments></app-recipe-comments>
                         </div>
-                        <div *ngIf="loggedInUserId">
-                            <mat-form-field appearance="fill" fxFlex="100%">
-                                <mat-label>Szólj hozzá...</mat-label>
-                                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="" [(ngModel)]="comment"></textarea>
-                                <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom" *ngIf="comment"><button mat-mini-fab color="basic" (click)="addComment()" class="add"><i class="fa fa-paper-plane"></i></button></span>
-                            </mat-form-field>
-                        </div>
-                        <app-recipe-comments></app-recipe-comments>
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>

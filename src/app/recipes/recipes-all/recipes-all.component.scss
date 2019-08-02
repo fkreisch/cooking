@@ -1,82 +1,69 @@
-.example-card {
-    margin-top: 20px;
-}
-
-.card {
-    display: block;
-    position: relative;
-    padding: 16px 0 16px 0;
-    display: flex;
-    flex-direction: row;
-}
-
-.avatar {
-    display: block;
-    box-sizing: border-box;
-    background-size: cover;
-    width: 140px;
-    height: 90px;
-    border-radius: 4px;
-    flex-shrink: 0;
-    margin: 12px;
-    top: 0;
-    left: 0;
-    border: 1px solid #868686;
-    border-radius: 4px 20px 4px 4px;
-}
-
-.title {
-    margin-bottom: 12px;
-    font-size: 20px;
-    display: inline-block;
-    font-weight: 500;
-    font-family: Mina;
-    color: white;
-    margin-left: -75px;
-    margin-bottom: 0px;
-    background-color: #303030;
-    border-radius: 4px 4px 4px 20px;
-    border: 1px solid #868686;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.card:hover .title,
-.card.hover .title {
-    background: #212121;
-}
-
-.subtitle {
-    display: block;
-    margin: 6px 0 16px 0;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
-    font-family: Mina;
-    word-wrap: break-word;
-    display: flex;
-    flex-direction: row;
-}
-
-a {
-    text-decoration: none;
-}
-
-.mat-header-row {
-    display: none;
-}
-
 .mat-table {
     background: none;
     margin: 14px 0 0 0;
-}
-
-.mat-cell {
-    display: block;
-    padding: 0;
-}
-
-.mat-row {
-    border-style: none;
+    .mat-header-row {
+        display: none;
+    }
+    .mat-row {
+        border-style: none;
+        .mat-cell {
+            display: block;
+            padding: 0;
+            a {
+                text-decoration: none;
+                .card {
+                    display: block;
+                    position: relative;
+                    padding: 16px 0 16px 0;
+                    display: flex;
+                    flex-direction: row;
+                    .avatar {
+                        display: block;
+                        box-sizing: border-box;
+                        background-size: cover;
+                        width: 140px;
+                        height: 90px;
+                        flex-shrink: 0;
+                        margin: 12px;
+                        top: 0;
+                        left: 0;
+                        border: 1px solid #51608c;
+                        border-radius: 4px 4px 4px 20px;
+                    }
+                    .title {
+                        margin-bottom: 12px;
+                        font-size: 20px;
+                        display: inline-block;
+                        font-weight: 500;
+                        font-family: Mina;
+                        color: white;
+                        margin-left: -75px;
+                        margin-bottom: 0px;
+                        background-color: #303030;
+                        border-radius: 4px 4px 4px 20px;
+                        border: 1px solid #51608c;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                    }
+                    .subtitle {
+                        display: block;
+                        margin: 6px 0 16px 0;
+                        font-size: 14px;
+                        color: rgba(255, 255, 255, 0.7);
+                        font-family: Mina;
+                        word-wrap: break-word;
+                        display: flex;
+                        flex-direction: row;
+                    }
+                }
+            }
+            a :hover {
+                .title {
+                    background: #212121;
+                }
+            }
+        }
+    }
 }
 
 .mat-paginator {

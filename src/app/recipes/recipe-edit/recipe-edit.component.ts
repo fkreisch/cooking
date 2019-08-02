@@ -138,7 +138,7 @@ export class RecipeEditComponent implements OnInit {
       ingredients: this.fb.array([]),
     });
     this.FormGroup5 = this.fb.group({
-      space: ''
+      share: [item.share, Validators.required],
     });
     this.fillSteps(item.steps);
     this.fillIngredients(item.ingredients);
@@ -149,7 +149,8 @@ export class RecipeEditComponent implements OnInit {
       ...this.FormGroup1.value,
       ...this.FormGroup2.value,
       ...this.FormGroup3.value,
-      ...this.FormGroup4.value
+      ...this.FormGroup4.value,
+      ...this.FormGroup5.value
     };
     this.recipeService.updateRecipe(this.selectedRecipeId, sendForm);
     this.openSnackBar('A kiválasztott receptet módosítottuk.');

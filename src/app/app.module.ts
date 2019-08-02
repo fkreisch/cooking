@@ -5,6 +5,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { MatSidenavMenuModule } from 'mat-sidenav-menu';
 
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomReuseStrategy } from './shared/routing';
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -62,6 +66,7 @@ import { RecipeSendComponent } from './recipes/recipe-send/recipe-send.component
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
 import { SnackComponent } from './base/snack/snack.component';
+import { FooterComponent } from './base/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +81,7 @@ import { SnackComponent } from './base/snack/snack.component';
     RecipeEditComponent,
     SnackComponent,
     UserComponent,
+    FooterComponent,
   ],
   entryComponents: [
     SnackComponent,
@@ -120,6 +126,7 @@ import { SnackComponent } from './base/snack/snack.component';
     MatSidenavMenuModule,
   ],
   providers: [
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     RecipeService,
     LoginService,
   ],

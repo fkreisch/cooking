@@ -22,8 +22,9 @@ const routes: Routes = [
     component: UserComponent
   },
   {
-    path: 'recipes',
-    component: RecipesAllComponent
+    path: 'recipes/:pagefilter',
+    component: RecipesAllComponent,
+    data: { shouldReuse: true }
   },
   {
     path: 'recipe-send',
@@ -31,11 +32,11 @@ const routes: Routes = [
   },
   {
     path: 'recipe/:id',
-    component: RecipeComponent,
+    component: RecipeComponent
   },
   {
     path: 'recipe-edit/:id',
-    component: RecipeEditComponent,
+    component: RecipeEditComponent
   },
 ];
 

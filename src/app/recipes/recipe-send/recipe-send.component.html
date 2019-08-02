@@ -47,16 +47,16 @@
         <form [formGroup]="FormGroup2">
             <ng-template matStepLabel></ng-template>
             <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                <mat-form-field hideRequiredMarker fxFlex="30%">
+                <mat-form-field hideRequiredMarker fxFlex="50%">
                     <input matInput type="number" placeholder="Teríték" formControlName="serves">
+                    <mat-form-field tabIndex="-1" class="inline-dropdown" matSuffix hideRequiredMarker [hideRequiredMarker]="true">
+                        <mat-select formControlName="servesfor" matNativeControl required>
+                            <mat-option value="személyre">személyre</mat-option>
+                            <mat-option value="darabhoz">darabhoz</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </mat-form-field>
-                <mat-form-field hideRequiredMarker fxFlex="40%" [hideRequiredMarker]="true">
-                    <mat-select formControlName="servesfor" matNativeControl required>
-                        <mat-option value="személyre">személyre</mat-option>
-                        <mat-option value="darabhoz">darabhoz</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field hideRequiredMarker fxFlex="30%">
+                <mat-form-field hideRequiredMarker fxFlex="50%">
                     <input matInput type="number" placeholder="Elkészítési idő" formControlName="time">
                     <span matSuffix>perc</span>
                 </mat-form-field>
@@ -134,7 +134,7 @@
             <ng-template matStepLabel></ng-template>
             <mat-checkbox formControlName="share">Közzéteszem a receptet</mat-checkbox>
             <div class="page5">
-                A fenti opcióval közzéteheted a receptedet. Amennyiben ezt megteszed, az mindenki számára láthatóvá válik. A késóbbiekben ezt az opciót nem tudod módosítani.
+                A fenti opcióval közzéteheted a receptedet. Amennyiben a receptet közzéteszed, azt később nem áll módodban visszavonni.
             </div>
             <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
                 <div fxFlex="100px" fxLayoutAlign="end">

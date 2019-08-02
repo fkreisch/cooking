@@ -24,7 +24,7 @@
             <div class="menu" *ngIf="(!isHandset)">
                 <ul>
                     <li><a [routerLink]="['/home']" class="first">kezdőoldal</a></li>
-                    <li><a [routerLink]="['/recipes']">receptek</a></li>
+                    <li><a [routerLink]="['/recipes', 'all']">receptek</a></li>
                     <li><a class="last" *ngIf="user" [matMenuTriggerFor]="submenu1">az én könyvem</a></li>
                 </ul>
             </div>
@@ -40,7 +40,7 @@
         <span class="toolbar-spacer"></span>
         <div class="submenu">
             <ul>
-                <li><a [routerLink]="['/home']">receptjeim</a></li>
+                <li><a [routerLink]="['/recipes', 'myrecipes']">receptjeim</a></li>
                 <li><a [routerLink]="['/recipe-send']">recept írás</a></li>
             </ul>
         </div>
@@ -67,11 +67,11 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset) ? 'push' : 'push'" [opened]="false">
 
         <side-nav-menu title="Menü" [sidenav]="drawer">
-            <side-nav-item [routerLink]="['/home']" title="Kezdőoldal"></side-nav-item>
-            <side-nav-item [routerLink]="['/recipes']" title="Receptkönyv"></side-nav-item>
+            <side-nav-item route="/home" title="Kezdőoldal"></side-nav-item>
+            <side-nav-item route="/recipes/all" title="Receptkönyv"></side-nav-item>
             <side-nav-x-group title="Az én könyvem">
-                <side-nav-item [routerLink]="['/recipe-send']" title="Receptjeim"></side-nav-item>
-                <side-nav-item [routerLink]="['/recipe-send']" title="Recept írás"></side-nav-item>
+                <side-nav-item route="/recipes/myrecipes" title="Receptjeim"></side-nav-item>
+                <side-nav-item route="/recipe-send" title="Recept írás"></side-nav-item>
             </side-nav-x-group>
         </side-nav-menu>
     </mat-sidenav>
@@ -89,3 +89,4 @@
 
     </mat-sidenav-content>
 </mat-sidenav-container>
+<app-footer></app-footer>

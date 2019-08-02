@@ -50,16 +50,16 @@
         <form [formGroup]="FormGroup2">
             <ng-template matStepLabel></ng-template>
             <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                <mat-form-field hideRequiredMarker fxFlex="30%">
+                <mat-form-field hideRequiredMarker fxFlex="50%">
                     <input matInput type="number" placeholder="Teríték" formControlName="serves">
+                    <mat-form-field class="inline-dropdown" matSuffix hideRequiredMarker [hideRequiredMarker]="true">
+                        <mat-select formControlName="servesfor" matNativeControl required>
+                            <mat-option value="személyre">személyre</mat-option>
+                            <mat-option value="darabhoz">darabhoz</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </mat-form-field>
-                <mat-form-field hideRequiredMarker fxFlex="40%" [hideRequiredMarker]="true">
-                    <mat-select formControlName="servesfor" matNativeControl required>
-                        <mat-option value="személyre">személyre</mat-option>
-                        <mat-option value="darabhoz">darabhoz</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field hideRequiredMarker fxFlex="30%">
+                <mat-form-field hideRequiredMarker fxFlex="50%">
                     <input matInput type="number" placeholder="Elkészítési idő" formControlName="time">
                     <span matSuffix>perc</span>
                 </mat-form-field>
@@ -112,7 +112,7 @@
                             </mat-form-field>
                             <mat-form-field hideRequiredMarker fxFlex="100%">
                                 <input matInput placeholder="Hozzávaló" formControlName="ingredient" required>
-                                <button tabIndex="-1" matSuffix mat-button (click)="deleteIngredient(ii)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
+                                <button matSuffix mat-button (click)="deleteIngredient(ii)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
                             </mat-form-field>
                         </div>
                         <div fxFlex="40px" class="addbutton">
@@ -135,8 +135,12 @@
         <div class="title">Véglegesítés</div>
         <form [formGroup]="FormGroup5">
             <ng-template matStepLabel></ng-template>
-            <div class="page5">
-                Véglegesítsd a változtatásaidat az elküld gombbal.
+            <mat-checkbox formControlName="share" *ngIf="!recipe.share">Közzéteszem a receptet</mat-checkbox>
+            <div class="page5" *ngIf="!recipe.share">
+                A fenti opcióval közzéteheted a receptedet. Amennyiben a receptet közzéteszed, azt később nem áll módodban visszavonni.
+            </div>
+            <div class="page5" *ngIf="recipe.share">
+                Véglegesítsd a változtatásokat az - elküld - gombbal.
             </div>
             <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
                 <div fxFlex="100px" fxLayoutAlign="end">
