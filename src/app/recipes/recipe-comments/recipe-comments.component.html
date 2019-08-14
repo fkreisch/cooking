@@ -4,28 +4,28 @@
         <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom"><mat-icon>search</mat-icon></span>
     </mat-form-field>
 </div>
-<div class="container mat-elevation-z8">
+<div>
     <mat-table [dataSource]="dataSource" matSort *ngIf="dataSource">
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <div class="container" fxFill fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-                    <div fxLayout="column" fxFlex="100%">
-                        <div fxLayout="row" class="box box-0" fxFlex="100%">
-                            <div class="box box-1">
-                                <div mat-card-avatar class="avatar" [ngStyle]="{'background-image':'url('+row.photoURL+')'}"></div>
+                <div fxFill fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                    <div fxLayout="column" fxFlex="100">
+                        <div fxLayout="row" class="box" fxFlex="100">
+                            <div class="avatar-box">
+                                <div class="avatar" [ngStyle]="{'background-image':'url('+row.photoURL+')'}"></div>
                             </div>
-                            <div fxLayout="column" class="box box-2" fxFlex="100%" fxFlexOrder="3">
-                                <div class="box box-3" fxFlex="100%">
+                            <div fxLayout="column" fxFlex="100" fxFlexOrder="3">
+                                <div class="name" fxFlex="100">
                                     &nbsp;{{row.name}}
                                 </div>
-                                <div class="box box-4" fxFlex="100%">
+                                <div class="date" fxFlex="100">
                                     {{row.commentdate.toDate() | date: 'yyyy.MM.dd - HH:mm'}}
                                 </div>
                             </div>
                         </div>
-                        <div class="box box-5" fxFlex="100%">
-                            <p class="box-5-content">{{row.comment}}</p>
+                        <div class="comment" fxFlex="100">
+                            <p>{{row.comment}}</p>
                         </div>
                     </div>
                 </div>

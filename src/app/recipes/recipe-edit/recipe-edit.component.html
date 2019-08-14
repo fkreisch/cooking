@@ -11,14 +11,14 @@
             <ng-template matStepLabel></ng-template>
             <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%" [hideRequiredMarker]="true">
-                    <input matInput #name maxlength="20" placeholder="Recept neve" formControlName="name" required>
-                    <mat-hint align="end">{{name.value?.length || 0}}/20</mat-hint>
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #name maxlength="64" placeholder="Recept neve" formControlName="name" required></textarea>
+                    <mat-hint align="end">{{name.value?.length || 0}}/64</mat-hint>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%">
-                    <input matInput #short maxlength="50" placeholder="Rövid leírás" formControlName="short">
-                    <mat-hint align="end">{{short.value?.length || 0}}/50</mat-hint>
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #short maxlength="512" placeholder="Rövid leírás" formControlName="short"></textarea>
+                    <mat-hint align="end">{{short.value?.length || 0}}/512</mat-hint>
                 </mat-form-field>
             </div>
             <div>
@@ -28,7 +28,7 @@
             </div>
             <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%">
-                    <input matInput placeholder="Kép helye (URL)" formControlName="picture">
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="Kép helye (URL)" formControlName="picture"></textarea>
                     <input class="ng-hide" id="input-file-id" type="file" (change)="uploadFile($event)" />
                     <label matSuffix for="input-file-id">
                                 <i class="fa fa-upload upload-icon"></i>
@@ -36,13 +36,11 @@
                 </mat-form-field>
             </div>
             <mat-progress-bar mode="determinate" color="accent" value="{{uploadPercent | async}}" *ngIf="uploadPercent"></mat-progress-bar>
-
             <div fxLayout="row" fxLayoutAlign="start" class="pager">
                 <div fxFlex="100%" fxLayoutAlign="end">
                     <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
                 </div>
             </div>
-
         </form>
     </mat-step>
     <mat-step [stepControl]="FormGroup2">
@@ -59,9 +57,35 @@
                         </mat-select>
                     </mat-form-field>
                 </mat-form-field>
+                <div fxFlex="50%"></div>
+            </div>
+            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                <mat-form-field hideRequiredMarker fxFlex="50%">
+                    <input matInput type="number" placeholder="Előkészítési idő" formControlName="preptime">
+                    <span matSuffix>perc</span>
+                </mat-form-field>
                 <mat-form-field hideRequiredMarker fxFlex="50%">
                     <input matInput type="number" placeholder="Elkészítési idő" formControlName="time">
                     <span matSuffix>perc</span>
+                </mat-form-field>
+            </div>
+            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                <mat-form-field hideRequiredMarker fxFlex="50%">
+                    <mat-label>Kategória 1</mat-label>
+                    <mat-select formControlName="cat1" matNativeControl required>
+                        <mat-option value="Egytálétel">Egytálétel</mat-option>
+                        <mat-option value="Leves">Leves</mat-option>
+                        <mat-option value="Desszert">Desszert</mat-option>
+                        <mat-option value="Egyéb">Egyéb</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field hideRequiredMarker fxFlex="50%">
+                    <mat-label>Kategória 2</mat-label>
+                    <mat-select formControlName="cat2" matNativeControl required>
+                        <mat-option value="Húsétel">Húsétel</mat-option>
+                        <mat-option value="Vega">Vega</mat-option>
+                        <mat-option value="Egyéb">Egyéb</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
         </form>

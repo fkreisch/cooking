@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="title">
+        legfrissebbek
+    </div>
+    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-fork.jpg)">
+        <div class="icon-border">
+            <img class="icon" src="../../../assets/img/fork.png" alt="">
+        </div>
+    </div>
+    <div class="subtitle">
+        Egytálételek
+    </div>
+    <div class="content-box">
+        <div class="content" *ngFor="let s of recipes let i=index;">
+            <a [routerLink]="['/recipe', s.id]">
+                <div class="line" *ngIf="s.cat1=='Egytálétel' && i<6">
+                    {{s.name}}
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-spoon.jpg)">
+        <div class="icon-border">
+            <img class="icon" src="../../../assets/img/spoon.png" alt="">
+        </div>
+    </div>
+    <div class="subtitle">
+        Levesek
+    </div>
+    <div class="content-box">
+        <div class="content" *ngFor="let s of recipes let i=index;">
+            <a [routerLink]="['/recipe', s.id]">
+                <div class="line" *ngIf="s.cat1=='Leves' && i<6">
+                    {{s.name}}
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-dessert.jpg)">
+        <div class="icon-border">
+            <img class="icon" src="../../../assets/img/dessert.png" alt="">
+        </div>
+    </div>
+    <div class="subtitle">
+        Desszertek
+    </div>
+    <div class="content-box">
+        <div class="content" *ngFor="let s of recipes let i=index;">
+            <a [routerLink]="['/recipe', s.id]">
+                <div class="line" *ngIf="s.cat1=='Desszert' && i<6">
+                    {{s.name}}
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

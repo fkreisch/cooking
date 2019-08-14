@@ -129,7 +129,10 @@ export class RecipeEditComponent implements OnInit {
     this.FormGroup2 = this.fb.group({
       serves: [item.serves, Validators.required],
       servesfor: [item.servesfor, Validators.required],
+      preptime: [item.preptime, Validators.required],
       time: [item.time, Validators.required],
+      cat1: [item.cat1, Validators.required],
+      cat2: [item.cat2, Validators.required],
     });
     this.FormGroup3 = this.fb.group({
       steps: this.fb.array([]),

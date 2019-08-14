@@ -68,7 +68,7 @@ export class RecipeSendComponent implements OnInit {
         opened: 0,
         senderId: this.loggedInUserId,
         senderPhotoURL: this.loggedInUserData.photoURL,
-        senderName: this.loggedInUserData.name,
+        senderName: this.loggedInUserData.displayName,
         sendingDate: new Date(),
         favourites: this.fb.array([]),
         comments: this.fb.array([]),
@@ -76,7 +76,6 @@ export class RecipeSendComponent implements OnInit {
         rateaverage: 0,
         ratecount: 0
       });
-
     });
   }
 
@@ -118,7 +117,10 @@ export class RecipeSendComponent implements OnInit {
     this.FormGroup2 = this.fb.group({
       serves: ['', Validators.required],
       servesfor: ['személyre', Validators.required],
+      preptime: ['', Validators.required],
       time: ['', Validators.required],
+      cat1: ['', Validators.required],
+      cat2: ['', Validators.required]
     });
     this.FormGroup3 = this.fb.group({
       steps: this.fb.array([]),

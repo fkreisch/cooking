@@ -1,0 +1,12 @@
+::ng-deep .banner {
+    width: 728px;
+    height: 130px;
+    .carousel {
+        border: 2px solid #51608c;
+        border-radius: 4px 20px 4px 4px;
+        height: 126px !important;
+    }
+    .carousel-slide {
+        height: 130px !important;
+    }
+}

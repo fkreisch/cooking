@@ -31,7 +31,6 @@ export class RecipesAllComponent implements OnInit {
 
   ngOnInit() {
     const pageFilter = this.route.snapshot.paramMap.get('pagefilter');
-    console.log(pageFilter);
     this.paginator._intl.itemsPerPageLabel = '';
     if (pageFilter === 'myrecipes') {
       this.loginService.getLoggedInUser().subscribe(user => {

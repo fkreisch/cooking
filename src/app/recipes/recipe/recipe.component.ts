@@ -71,6 +71,10 @@ export class RecipeComponent implements OnInit {
       if (isFavourite.length !== 0) {
         this.favourite = true;
       }
+      const isRated = this.recipe.rate.filter(rr => rr.uid === this.loggedInUserId);
+      if (isRated.length !== 0) {
+        this.rateUser = isRated[0].score;
+      }
       this.ratecount = recipe.ratecount;
       this.rateaverage = recipe.rateaverage;
       this.comments = recipe.comments;

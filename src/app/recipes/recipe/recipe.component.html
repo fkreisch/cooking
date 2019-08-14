@@ -1,110 +1,162 @@
 <div class="spinner" *ngIf="!recipe">
     <mat-spinner></mat-spinner>
 </div>
-<div class="example-card" *ngIf="recipe">
-    <div class="container" fxLayout.xs="column" fxLayoutAlign="right">
-        <div fxFlex="30%"></div>
-        <div fxFlex="70%">
-            <img src="{{recipe.picture}}" class="header-image" alt="" style="width:100%;">
-        </div>
-        <div class="text-block">
-            <p class="mat-h1 name">{{recipe.name}}</p>
-        </div>
-    </div>
-    <p class="mat-h2 short-text">{{recipe.short}}</p>
-    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-        <div fxFlex="70%">
-            <div class="step-box">
-                <p class="mat-h3">{{recipe.long}}</p>
+<div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" *ngIf="recipe">
+    <div class="recipe">
+        <div fxLayout="row" fxLayoutAlign="end start" class="top-box">
+            <a [routerLink]="['/recipe-edit', selectedRecipeId]" *ngIf="loggedInUserId === recipe.senderId">
+                <div class="edit" fxLayoutAlign="center center" fxLayout="column">
+                    <div class="icon"><i class="fa fa-edit"></i></div>
+                    <div>Szerkesztés</div>
+                </div>
+            </a>
+            <div class="favourite" fxLayoutAlign="center center" fxLayout="column" (click)="toggleFavourites()">
+                <div class="icon">
+                    <span class="favourite-yes" *ngIf="favourite === true"><i class="fa fa-heart"></i></span>
+                    <span class="favourite-no" *ngIf="favourite === false"><i class="fa fa-heart"></i></span>
+                </div>
+                <div>Kedvenc</div>
             </div>
-            <div *ngFor="let s of recipe.steps let i=index;">
-                <div class="step-box">
-                    <div class="step">
+            <div class="opened" fxLayoutAlign="center center" fxLayout="column" (click)="openSnackBar('Ezt a receptet eddig ennyien nézték meg: ' + recipe.opened)">
+                <div class="icon"><i class="fa fa-eye"></i></div>
+                <div>Megnyitva</div>
+                <div><span class='text'>{{ recipe.opened }}</span></div>
+            </div>
+        </div>
+        <p class="title">{{recipe.name}}</p>
+        <div class="header-row"></div>
+        <div fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="50">
+                <div class="details">
+                    <p class="short">{{recipe.short}}</p>
+                    <div class="statbox">
+                        <div class="stars-box" (click)="openSnackBar('Köszönjük, hogy értékelted a receptet!')">
+                            <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [showHalfStars]="true" [rating]="rateaverage" (starClickChange)="toggleRate($event)" labelText="({{ratecount}})" labelPosition="right">
+                            </star-rating>
+                            <div class="your-stars">
+                                <star-rating [hoverEnabled]="false" speed="noticable" staticColor="ok" [starType]="'svg'" size="medium" [numOfStars]="rateUser" [rating]="5" labelText="A te értékelésed:" labelPosition="left" [disabled]="true" [readOnly]="true" *ngIf="rateUser">
+                                </star-rating>
+                                <div fxLayoutAlign="center center" *ngIf="!rateUser">Nem értékelted még a receptet</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center" class="time-box">
+                        <div class="col1" fxLayoutAlign="center center" fxLayout="column">
+                            <i class="material-icons">access_time</i>
+                        </div>
+                        <div class="col2" fxLayoutAlign="center center" fxLayout="column">
+                            <div>Előkészítés</div>
+                            <div class="time">{{recipe.preptime}}</div>
+                            <div>perc</div>
+                        </div>
+                        <div class="col2" fxLayoutAlign="center center" fxLayout="column">
+                            <div>Elkészítés</div>
+                            <div class="time">{{recipe.time}}</div>
+                            <div>perc</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="50">
+                <div class="image" [ngStyle]="{'background-image': 'url('+ recipe.picture +')'}">
+                    <div fxLayoutAlign="end center">
+                        <div class="icon-border" *ngIf="recipe.cat1=='Egytálétel'">
+                            <img class="icon" src="../../../assets/img/fork.png" alt="">
+                        </div>
+                        <div class="icon-border" *ngIf="recipe.cat1=='Leves'">
+                            <img class="icon" src="../../../assets/img/spoon.png" alt="">
+                        </div>
+                        <div class="icon-border" *ngIf="recipe.cat1=='Desszert'">
+                            <img class="icon" src="../../../assets/img/dessert.png" alt="">
+                        </div>
+                        <div class="icon-border" *ngIf="recipe.cat2=='Húsétel'">
+                            <img class="icon" src="../../../assets/img/meat.png" alt="">
+                        </div>
+                        <div class="icon-border" *ngIf="recipe.cat2=='Vega'">
+                            <img class="icon" src="../../../assets/img/vega.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="min-images" fxLayout="row">
+                    <div class="min-image" [ngStyle]="{'background-image': 'url('+ recipe.picture +')'}">
+                        <div class="selected"></div>
+                    </div>
+                    <div class="min-image" [ngStyle]="{'background-image': 'url('+ recipe.picture +')'}">
+                        <div class="unselected"></div>
+                    </div>
+                    <div class="min-image-plus" fxLayoutAlign="center center">
+                        <div class="plus">
+                            <i class="fa fa-plus-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-row">
+        </div>
+        <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="24px">
+            <div fxFlex="70" class="step-box">
+                <p>{{recipe.long}}</p>
+                <div class="step" *ngFor="let s of recipe.steps let i=index;">
+                    <div class="count">
                         {{i+1}}
                     </div>
-                    <p class="mat-h3 step-text">{{s.step}}</p>
+                    <p class="text">{{s.step}}</p>
                 </div>
-            </div>
-            <div class="spacer clear-both"></div>
-            <div fxLayout="row" fxLayoutAlign="end center" class="box box-0">
-                <div class="box box-1" fxFlexOrder="2">
-                    <div mat-card-avatar class="avatar" [ngStyle]="{'background-image':'url('+recipe.senderPhotoURL+')'}"></div>
-                </div>
-                <div fxLayout="column" class="box box-2" fxFlex="100%" fxFlexOrder="1">
-                    <div class="box box-3" fxLayoutAlign="end" fxFlex="100%">
-                        &nbsp;{{recipe.senderName}}
+                <div class="spacer"></div>
+                <div fxLayout="row" fxLayoutAlign="end center" class="avatar-box">
+                    <div class="avatar-box-1" fxFlexOrder="2">
+                        <div class="avatar" [ngStyle]="{'background-image':'url('+recipe.senderPhotoURL+')'}"></div>
                     </div>
-                    <div class="box box-4" fxFlex="100%">
-                        {{sendingDate | date: 'yyyy.MM.dd - HH:mm'}}
-                    </div>
-                </div>
-            </div>
-            <div class="container" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
-                <a [routerLink]="['/recipe-edit', selectedRecipeId]" *ngIf="loggedInUserId === recipe.senderId">
-                    <div class="icon">
-                        <mat-card>
-                            <i class="fa fa-heart fa-edit edit-icon"></i>
-                        </mat-card>
-                    </div>
-                </a>
-                <div class="icon">
-                    <mat-card (click)="toggleFavourites()">
-                        <span class="favourite-yes" *ngIf="favourite === true"><i class="fa fa-heart"></i></span>
-                        <span class="favourite-no" *ngIf="favourite === false"><i class="fa fa-heart"></i></span>
-                    </mat-card>
-                </div>
-                <div class="icon">
-                    <mat-card (click)="openSnackBar('Ezt a receptet eddig ennyien nézték meg: ' + recipe.opened)">
-                        <i class="fa fa-eye opened-icon"></i><span class='orange opened-text'>&#32;{{ recipe.opened }}</span>
-                    </mat-card>
-                </div>
-            </div>
-            <div class="spacer"></div>
-            <div>
-                <mat-accordion>
-                    <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>HOZZÁSZÓLÁSOK</mat-panel-title>
-                            <mat-panel-description></mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <div class="comments">
-                            <div *ngIf="!loggedInUserId">
-                                Hozzászólást csak regisztrált felhasználók írhatnak.
-                            </div>
-                            <div *ngIf="loggedInUserId">
-                                <mat-form-field appearance="fill" fxFlex="100%">
-                                    <mat-label>Szólj hozzá...</mat-label>
-                                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="" [(ngModel)]="comment"></textarea>
-                                    <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom" *ngIf="comment"><button mat-mini-fab color="basic" (click)="addComment()" class="add"><i class="fa fa-paper-plane"></i></button></span>
-                                </mat-form-field>
-                            </div>
-                            <app-recipe-comments></app-recipe-comments>
+                    <div fxLayout="column" class="avatar-box-2" fxFlex="100%" fxFlexOrder="1">
+                        <div class="avatar-box-3" fxLayoutAlign="end" fxFlex="100%">
+                            &nbsp;{{recipe.senderName}}
                         </div>
-                    </mat-expansion-panel>
-                </mat-accordion>
+                        <div class="avatar-box-4" fxFlex="100%">
+                            {{sendingDate | date: 'yyyy.MM.dd - HH:mm'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div>
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>HOZZÁSZÓLÁSOK</mat-panel-title>
+                                <mat-panel-description></mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div class="comments">
+                                <div *ngIf="!loggedInUserId">
+                                    Hozzászólást csak regisztrált felhasználók írhatnak.
+                                </div>
+                                <div *ngIf="loggedInUserId">
+                                    <mat-form-field appearance="fill" fxFlex="100%">
+                                        <mat-label>Szólj hozzá...</mat-label>
+                                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="" [(ngModel)]="comment"></textarea>
+                                        <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom" *ngIf="comment"><button mat-mini-fab color="basic" (click)="addComment()" class="add"><i class="fa fa-paper-plane"></i></button></span>
+                                    </mat-form-field>
+                                </div>
+                                <app-recipe-comments></app-recipe-comments>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
             </div>
-        </div>
-        <div fxFlex="30%">
-            <mat-card>
-                <p class="mat-h2">
-                    <span>Hozzávalók&#32;</span>
-                    <span class="mat-h1 orange">{{recipe.serves}}&#160;</span>
-                    <span>{{recipe.servesfor}}</span>
-                </p>
-                <div role="list" *ngFor="let i of recipe.ingredients">
+            <div fxFlex="30%">
+                <div class="ingredients">
                     <p>
-                        <span class='orange'>{{i.quanity}}&#32;</span>
-                        <span>{{i.ingredient}}</span>
+                        <span>Hozzávalók&#32;</span>
+                        <span class="num">{{recipe.serves}}&#160;</span>
+                        <span>{{recipe.servesfor}}</span>
                     </p>
+                    <div role="list" *ngFor="let i of recipe.ingredients">
+                        <p>
+                            <span class='quanity'>{{i.quanity}}&#32;</span>
+                            <span>{{i.ingredient}}</span>
+                        </p>
+                    </div>
                 </div>
-            </mat-card>
-            <div class="statbox">
-                <div class="stars-box" (click)="openSnackBar('Köszönjük, hogy értékelted a receptet!')">
-                    <star-rating [hoverEnabled]="true" speed="noticable" staticColor="ok" [starType]="'svg'" size="large" [showHalfStars]="true" [rating]="rateaverage" (starClickChange)="toggleRate($event)" labelText="({{ratecount}})" labelPosition="right">
-                    </star-rating>
-                </div>
-                <star-rating [hoverEnabled]="false" speed="noticable" staticColor="ok" [starType]="'svg'" size="medium" [numOfStars]="rateUser" [rating]="5" labelText="A te értékelésed:" labelPosition="left" [disabled]="true" [readOnly]="true" *ngIf="rateUser">
-                </star-rating>
+
             </div>
         </div>
     </div>

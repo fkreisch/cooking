@@ -1,13 +1,11 @@
 <div class="footer">
-    <div class="top-spacer"></div>
+    <div class="top-spacer" fxHide.xs></div>
     <div class="top"></div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
         <div class="box1-container" fxFlex="40">
-
             <div class="box1">
-
-                <div class="top" fxLayout="row" fxLayout.sm="column">
-                    <div class="logo" *ngIf="!(isHandset)">
+                <div class="top" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                    <div class="logo">
                         <div fxLayout="collumn">
                             <div class="picture-container">
                                 <img class="picture" src="../../../assets/img/chef.png" alt="">
@@ -22,31 +20,26 @@
                             </div>
                         </div>
                     </div>
-                    <div fxloyaut="collumn" class="newsletter">
-                        <form>
+                    <div fxloyaut="column" class="newsletter">
+                        <form [formGroup]="newsLetterForm">
                             <div>
                                 <h3>Mert főzni bárki tud!</h3>
                                 <p>Íratkozz fel a hírlevelünkre, hogy ne maradj le a friss receptekről és az újdonságokról!</p>
                             </div>
-
                             <div>
                                 <mat-form-field hideRequiredMarker fxFlex="100%">
-                                    <input matInput placeholder="Email cím" formControlName="newsletter" required>
-                                    <mat-hint align="end"></mat-hint>
+                                    <input matInput placeholder="Email cím" formControlName="email" required>
                                 </mat-form-field>
-
                             </div>
                             <div>
-                                <mat-checkbox>Elfogadom az oldal felhasználási feltételeit</mat-checkbox>
+                                <mat-checkbox formControlName="terms" required>Elfogadom az oldal felhasználási feltételeit</mat-checkbox>
                             </div>
                             <div fxLayoutAlign="end end">
-                                <button type="button" mat-flat-button>Feliratkozás</button>
+                                <button type="button" mat-flat-button (click)="subscribeNewsLetter()" [disabled]="!newsLetterForm.valid">Feliratkozás</button>
                             </div>
-
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
         <div fxLayout="column" fxFlex="60">

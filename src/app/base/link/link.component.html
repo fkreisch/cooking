@@ -1,0 +1,11 @@
+<div class="spinner" *ngIf="!avatars">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="banner" *ngIf="avatars">
+    <mat-carousel [autoplay]="true" [color]="'accent'" [hideArrows]="true" [hideIndicators]="true" [interval]="5000" [loop]="true" [maxWidth]="728" [orientation]="'ltr'" [proportion]="25" [slides]="20" [timings]="'1000ms ease-in-out'" [useKeyboard]="true"
+        [useMouseWheel]="false">
+        <mat-carousel-slide *ngFor="let avatar of avatars" [disabled]="false" [hideOverlay]="false" [image]="avatar.picture" [overlayColor]="'#00000040'">
+            <div class="banner" (click)="click(avatar.elink)"></div>
+        </mat-carousel-slide>
+    </mat-carousel>
+</div>

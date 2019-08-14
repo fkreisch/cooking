@@ -1,6 +1,6 @@
 <!-- main navbar -->
 <div class="menu" *ngIf="(!isHandset)">
-    <div class="top">
+    <div fxLayout="row" class="top">
         <div class="logo">
             <div class="border">
                 <div class="firstline">
@@ -10,6 +10,9 @@
                     <span>cook</span>
                 </div>
             </div>
+        </div>
+        <div class="link-container">
+            <app-link></app-link>
         </div>
     </div>
     <div class="bottom" #stickyMenu [class.sticky]="sticky">
@@ -65,7 +68,6 @@
 </div>
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset) ? 'push' : 'push'" [opened]="false">
-
         <side-nav-menu title="Menü" [sidenav]="drawer">
             <side-nav-item route="/home" title="Kezdőoldal"></side-nav-item>
             <side-nav-item route="/recipes/all" title="Receptkönyv"></side-nav-item>
@@ -78,12 +80,18 @@
     <mat-sidenav-content>
 
         <div class="container">
+            <div class="mobile-horizontal-spacer" *ngIf="(isHandset)"></div>
             <div fxLayout fxLayout.xs="column" fxLayoutAlign="center">
-                <div fxFlex="10%"></div>
-                <div fxFlex="80%">
-                    <router-outlet></router-outlet>
+                <div fxFlex="10"></div>
+                <div fxFlex="80" fxLayoutGap="24px">
+                    <div fxFlex="70" fxFlex.xs="100">
+                        <router-outlet></router-outlet>
+                    </div>
+                    <div fxFlex="30" fxFlex.xs="none">
+                        <app-rightcol></app-rightcol>
+                    </div>
                 </div>
-                <div fxFlex="10%"></div>
+                <div fxFlex="10"></div>
             </div>
         </div>
 

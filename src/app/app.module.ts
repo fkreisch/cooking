@@ -2,8 +2,8 @@
 import 'hammerjs';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { MatSidenavMenuModule } from 'mat-sidenav-menu';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './shared/routing';
@@ -18,11 +18,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StarRatingModule } from 'angular-star-rating';
+
 // FIRESTORE
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+
 // MATERIAL
 import {
   MatSelectModule,
@@ -50,6 +52,7 @@ import {
   MatBottomSheetModule,
 } from '@angular/material';
 
+
 // SERVICE
 import { environment } from '../environments/environment';
 import { RecipeService } from './_services/recipe.service';
@@ -67,6 +70,8 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { RecipeFilterPipe } from './recipes/recipe-filter.pipe';
 import { SnackComponent } from './base/snack/snack.component';
 import { FooterComponent } from './base/footer/footer.component';
+import { LinkComponent } from './base/link/link.component';
+import { RightcolComponent } from './base/rightcol/rightcol.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +87,8 @@ import { FooterComponent } from './base/footer/footer.component';
     SnackComponent,
     UserComponent,
     FooterComponent,
+    LinkComponent,
+    RightcolComponent,
   ],
   entryComponents: [
     SnackComponent,
@@ -122,7 +129,7 @@ import { FooterComponent } from './base/footer/footer.component';
     MatStepperModule,
     MatSnackBarModule,
     MatBottomSheetModule,
-    NgxHmCarouselModule,
+    MatCarouselModule,
     MatSidenavMenuModule,
   ],
   providers: [

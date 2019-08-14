@@ -8,7 +8,10 @@ export interface Recipe {
     long: string;
     serves: number;
     servesfor: string;
+    preptime: number;
     time: number;
+    cat1: string;
+    cat2: string;
     picture: string;
     steps: [{
         step: string;
@@ -56,5 +59,11 @@ export interface Comments {
     comment: string;
 }
 
-
-
+export interface Link {
+    elink: string;
+    name: string;
+    picture: string;
+}
+export interface LinkId extends Link {
+    id: string;
+}
