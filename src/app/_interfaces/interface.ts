@@ -12,6 +12,7 @@ export interface Recipe {
     time: number;
     cat1: string;
     cat2: string;
+    cat3: string;
     picture: string;
     steps: [{
         step: string;

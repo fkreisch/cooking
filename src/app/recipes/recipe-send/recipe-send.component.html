@@ -68,22 +68,34 @@
             </div>
             <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
                 <mat-form-field hideRequiredMarker fxFlex="50%">
-                    <mat-label>Kategória 1</mat-label>
+                    <mat-label>Főkategória</mat-label>
                     <mat-select formControlName="cat1" matNativeControl required>
                         <mat-option value="Egytálétel">Egytálétel</mat-option>
                         <mat-option value="Leves">Leves</mat-option>
                         <mat-option value="Desszert">Desszert</mat-option>
+                        <mat-option value="Előétel">Előétel</mat-option>
+                        <mat-option value="Főzelék">Főzelék</mat-option>
                         <mat-option value="Egyéb">Egyéb</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field hideRequiredMarker fxFlex="50%">
-                    <mat-label>Kategória 2</mat-label>
+                    <mat-label>Alapanyag kategória</mat-label>
                     <mat-select formControlName="cat2" matNativeControl required>
                         <mat-option value="Húsétel">Húsétel</mat-option>
-                        <mat-option value="Vega">Vega</mat-option>
+                        <mat-option value="Vega">Hús nélkül</mat-option>
                         <mat-option value="Egyéb">Egyéb</mat-option>
                     </mat-select>
                 </mat-form-field>
+            </div>
+            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                <mat-form-field hideRequiredMarker fxFlex="50%">
+                    <mat-label>Alkategória</mat-label>
+                    <mat-select formControlName="cat3" matNativeControl required>
+                        <mat-option value="Gyorsan elkészíthető">Gyorsan elkészíthető</mat-option>
+                        <mat-option value="Különleges alkalmakra">Különleges alkalmakra</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div fxFlex="50%"></div>
             </div>
         </form>
         <div fxLayout="row" fxLayoutAlign="start" class="pager">

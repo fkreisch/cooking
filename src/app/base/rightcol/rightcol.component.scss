@@ -1,14 +1,18 @@
 .container {
     font-family: Mina;
     .title {
+        color: #a7a7a7;
         font-size: 24px;
-        color: #51608c;
+        margin: 0 0 4px 0;
         text-transform: uppercase;
-        margin: 0 0 -10px 0;
+    }
+    .header-row {
+        position: relative;
+        height: 10px;
+        width: 100%;
         background-color: #212121;
-        border-radius: 4px 20px 4px 4px;
+        border-radius: 5px 5px 0 5px;
         margin: 0 0 12px 0;
-        padding: 6px 0 0 12px;
     }
     .top-image {
         background-size: cover;

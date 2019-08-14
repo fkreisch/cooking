@@ -2,6 +2,7 @@
     <div class="title">
         legfrissebbek
     </div>
+    <div class="header-row"></div>
     <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-fork.jpg)">
         <div class="icon-border">
             <img class="icon" src="../../../assets/img/fork.png" alt="">
@@ -36,18 +37,35 @@
             </a>
         </div>
     </div>
-    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-dessert.jpg)">
+    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-appetizer.jpg)">
         <div class="icon-border">
-            <img class="icon" src="../../../assets/img/dessert.png" alt="">
+            <img class="icon" src="../../../assets/img/appetizer.png" alt="">
         </div>
     </div>
     <div class="subtitle">
-        Desszertek
+        Előételek
     </div>
     <div class="content-box">
         <div class="content" *ngFor="let s of recipes let i=index;">
             <a [routerLink]="['/recipe', s.id]">
-                <div class="line" *ngIf="s.cat1=='Desszert' && i<6">
+                <div class="line" *ngIf="s.cat1=='Előétel' && i<6">
+                    {{s.name}}
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-fozelek.jpg)">
+        <div class="icon-border">
+            <img class="icon" src="../../../assets/img/fozelek.png" alt="">
+        </div>
+    </div>
+    <div class="subtitle">
+        Főzelékek
+    </div>
+    <div class="content-box">
+        <div class="content" *ngFor="let s of recipes let i=index;">
+            <a [routerLink]="['/recipe', s.id]">
+                <div class="line" *ngIf="s.cat1=='Előétel' && i<6">
                     {{s.name}}
                 </div>
             </a>
