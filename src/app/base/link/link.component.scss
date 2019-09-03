@@ -1,12 +1,12 @@
+@import "../../shared/palette.scss";
 ::ng-deep .banner {
-    width: 728px;
-    height: 130px;
+    width: 100%;
+    height: 80px;
     .carousel {
-        border: 2px solid #51608c;
-        border-radius: 4px 20px 4px 4px;
-        height: 126px !important;
+        border-radius: 4px 4px 20px 4px;
+        height: 80px !important;
     }
     .carousel-slide {
-        height: 130px !important;
+        height: 80px !important;
     }
 }

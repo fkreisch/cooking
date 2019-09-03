@@ -1,25 +1,82 @@
-.container {
+@import "../../shared/palette.scss";
+.header-row {
+    height: 10px;
+    width: 100%;
+    background-color: $bg1;
+    margin: 0 0 0 0;
+    border-radius: 5px 5px 0 5px;
+    margin: 0 0 20px 0;
+}
+
+.link-container {
+    position: relative;
+}
+
+.top-box {
+    width: 100%;
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-bottom: 24px;
     font-family: Mina;
+    a {
+        outline: none;
+        text-decoration: none;
+    }
+    .all {
+        border-right: 1px solid $tn2;
+        border-left: 1px solid $tn2;
+        color: $tn2;
+        padding: 0 12px;
+        cursor: pointer;
+        .icon {
+            font-size: 30px;
+            margin: 0 0 -12px 0;
+        }
+        .text {
+            color: $tw1;
+            font-size: 24px;
+        }
+    }
+    .my {
+        padding: 0 12px;
+        border-right: 1px solid $tn2;
+        color: $tn2;
+        cursor: pointer;
+        .icon {
+            font-size: 30px;
+            margin: 0 0 -12px 0;
+        }
+        .text {
+            color: $tw1;
+            font-size: 24px;
+        }
+    }
+    .add {
+        color: $tn2;
+        padding: 0 12px;
+        cursor: pointer;
+        .icon {
+            font-size: 30px;
+            margin: 0 0 -12px 0;
+        }
+    }
+}
+
+.container-news {
+    font-family: Mina;
+    font-size: 12px;
     .title {
-        color: #a7a7a7;
-        font-size: 24px;
+        font-size: calc(16px + 0.5vw);
         margin: 0 0 4px 0;
         text-transform: uppercase;
-    }
-    .header-row {
-        position: relative;
-        height: 10px;
-        width: 100%;
-        background-color: #212121;
-        border-radius: 5px 5px 0 5px;
-        margin: 0 0 12px 0;
     }
     .top-image {
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         width: 100%;
-        height: 100px;
+        height: 50px;
         margin: 12px 0 6px 0;
         border-radius: 4px 4px 20px 4px;
     }
@@ -28,8 +85,8 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background-color: #51608c;
-        border: 3px solid #303030;
+        background-color: $tw2;
+        border: 3px solid $bg2;
         padding: 2px;
         z-index: 1;
         top: 20px;
@@ -41,28 +98,27 @@
         }
     }
     .subtitle {
-        font-size: 24px;
-        color: #51608c;
+        font-size: 16px;
+        color: $tw2;
         text-transform: uppercase;
         margin: -5px 0 6px 50px;
     }
     .content-box {
         margin: -6px 0 24px 0;
         .content {
-            font-size: 16px;
             padding: 0 0 0 12px;
             margin: 2px 0 2px 12px;
-            border-left: 2px solid #51608c;
+            border-left: 2px solid $tw2;
             a {
                 text-decoration: none;
                 position: relative;
-                color: #a7a7a7;
+                color: $tn2;
                 font-weight: 300;
                 font-family: Mina;
                 display: table-cell;
                 vertical-align: bottom;
                 overflow: hidden;
-                background-color: #303030;
+                background-color: $bg2;
                 .line {}
             }
             a:after {
@@ -73,7 +129,7 @@
                 height: 2px;
                 left: 50%;
                 position: absolute;
-                background: #51608c;
+                background: $tw2;
                 transition: width 0.3s ease 0s, left 0.3s ease 0s;
                 width: 0;
             }

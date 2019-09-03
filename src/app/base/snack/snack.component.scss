@@ -1,20 +1,21 @@
+@import "../../shared/palette.scss";
 .bottom-sheet {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 50px;
-    background-color: #212121;
+    background-color: $bg1;
     padding: 10px 10px 10px 20px;
 }
 
 .bottom-sheet div {
     font-family: Mina;
-    color: #a7a7a7;
+    color: $tn2;
 }
 
 button {
     margin-left: 5px;
-    color: #51608c !important;
+    color: $tw2 !important;
 }
 
 ::ng-deep .mat-snack-bar-container {

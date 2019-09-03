@@ -1,9 +1,10 @@
+@import "../../shared/palette.scss";
 ::ng-deep .mat-tab-label {
     min-width: 0px !important;
 }
 
 ::ng-deep .mat-input-element {
-    color: white !important;
+    color: $tn1 !important;
 }
 
 ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
@@ -32,7 +33,7 @@ mat-card {
 }
 
 .icon {
-    color: #a7a7a7;
+    color: $tn2;
 }
 
 .user {
@@ -40,7 +41,7 @@ mat-card {
     .picture {
         cursor: pointer;
         margin: -12px 0 -12px -12px;
-        border: 2px solid #303030;
+        border: 2px solid $bg2;
         background-size: cover;
         display: block;
         position: relative;
@@ -51,7 +52,7 @@ mat-card {
     }
     .text {
         margin: -12px 0 -12px 12px;
-        color: #a7a7a7;
+        color: $tn2;
         .name {
             font-size: 1.5em;
         }
@@ -67,17 +68,17 @@ mat-card {
 .sign {
     .text {
         margin: 6px 0 0 0;
-        color: #a7a7a7;
+        color: $tn2;
     }
     .button {
         width: 42px;
         height: 42px;
-        background-color: #303030;
+        background-color: $bg2;
         margin: 0 -12px 4px 10px;
         text-align: center;
         border-radius: 50% 4px 4px 4px;
         .icon {
-            color: #a7a7a7;
+            color: $tn2;
             font-size: 2em;
             margin: 8px 0 0 2px;
         }
@@ -87,17 +88,17 @@ mat-card {
 .google {
     .text {
         margin: 6px 0 0 0;
-        color: #a7a7a7;
+        color: $tn2;
     }
     .button {
         width: 42px;
         height: 42px;
-        background-color: #303030;
+        background-color: $bg2;
         margin: 0 10px 4px -12px;
         text-align: center;
         border-radius: 4px 50% 4px 4px;
         .icon {
-            color: #a7a7a7;
+            color: $tn2;
             font-size: 2em;
             margin: 8px 0 0 2px;
         }

@@ -1,9 +1,29 @@
-<div class="container">
-    <div class="title">
-        legfrissebbek
-    </div>
+<div fxLayout="row" fxLayoutAlign="start start" class="top-box">
+    <a [routerLink]="['/recipes', 'all']">
+        <div class="all" fxLayoutAlign="center center" fxLayout="column">
+            <div class="icon"><i class="fa fa-book"></i></div>
+            <div>Receptkönyv</div>
+            <div><span class='text'>{{allRecipesCount}}</span></div>
+        </div>
+    </a>
+    <a [routerLink]="['/recipes', 'myrecipes']" *ngIf="loggedInUserId">
+        <div class="my" fxLayoutAlign="center center" fxLayout="column">
+            <div class="icon"><i class="fa fa-address-book"></i></div>
+            <div>Receptjeim</div>
+            <div><span class='text'>{{myRecipesCount}}</span></div>
+        </div>
+    </a>
+    <a [routerLink]="['/recipe-send']" *ngIf="loggedInUserId">
+        <div class="add" fxLayoutAlign="center center" fxLayout="column">
+            <div class="icon"><i class="fa fa-plus-square"></i></div>
+            <div>Új recept</div>
+        </div>
+    </a>
+</div>
+<div class="container-news">
+    <p class="title">Újdonságok</p>
     <div class="header-row"></div>
-    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-fork.jpg)">
+    <div class="top-image" fxLayoutAlign="start end" style="background-image: url(../../../assets/img/r-top-fork.jpg)">
         <div class="icon-border">
             <img class="icon" src="../../../assets/img/fork.png" alt="">
         </div>
@@ -20,7 +40,7 @@
             </a>
         </div>
     </div>
-    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-spoon.jpg)">
+    <div class="top-image" fxLayoutAlign="start end" style="background-image: url(../../../assets/img/r-top-spoon.jpg)">
         <div class="icon-border">
             <img class="icon" src="../../../assets/img/spoon.png" alt="">
         </div>
@@ -37,7 +57,7 @@
             </a>
         </div>
     </div>
-    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-appetizer.jpg)">
+    <div class="top-image" fxLayoutAlign="start end" style="background-image: url(../../../assets/img/r-top-appetizer.jpg)">
         <div class="icon-border">
             <img class="icon" src="../../../assets/img/appetizer.png" alt="">
         </div>
@@ -54,7 +74,7 @@
             </a>
         </div>
     </div>
-    <div class="top-image" fxLayoutAlign="start end" fxloyaut="row" style="background-image: url(../../../assets/img/r-top-fozelek.jpg)">
+    <div class="top-image" fxLayoutAlign="start end" style="background-image: url(../../../assets/img/r-top-fozelek.jpg)">
         <div class="icon-border">
             <img class="icon" src="../../../assets/img/fozelek.png" alt="">
         </div>
@@ -71,4 +91,8 @@
             </a>
         </div>
     </div>
+</div>
+<div class="header-row"></div>
+<div class="link-container">
+    <app-link></app-link>
 </div>

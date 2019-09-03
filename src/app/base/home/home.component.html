@@ -1,89 +1,91 @@
-<div class="bg1">
+<div class="top">
+    <div fxFlex class="cover">
+        <div fxFlex="50" fxFlex.xs="none">
 
-    background-color: #212121
-
-    <div class="bg2">
-        background-color: #303030
-        <div class="text1"><span>color: #ffffff</span></div>
-        <div class="text2"><span>color: #a7a7a7</span></div>
-        <div class="text3"><span>color: #51608c</span></div>
-        <div class="text4"><span>color: #f4511e</span></div>
-        <div class="bg3">
-            background-color: #424242
-            <div class="text1"><span>color: #ffffff</span></div>
-            <div class="text2"><span>color: #a7a7a7</span></div>
-            <div class="text3"><span>color: #51608c</span></div>
-            <div class="text4"><span>color: #f4511e</span></div>
+        </div>
+        <div FxFlex="50" fxFlex.xs="100" fxLayout="column" class="m-container">
+            <div class="box" fxLayout="column" fxLayoutAlign="end center">
+                <div class="logo">
+                    <img src="../../../assets/img/logo.png" alt="">
+                </div>
+                <div class="logo-text">
+                    <span>RMCOOK</span>
+                </div>
+            </div>
+            <div class="box" fxLayout="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center">
+                <div fxLayout class="top-box">
+                    <a [routerLink]="['/recipes', 'all']">
+                        <div class="all" fxLayoutAlign="center center" fxLayout="column">
+                            <div class="icon"><i class="fa fa-book"></i></div>
+                            <div class="sub">RecipeBook</div>
+                            <div class='text'>{{allRecipesCount}}</div>
+                        </div>
+                    </a>
+                    <a [routerLink]="['/recipes', 'myrecipes']">
+                        <div class="my" fxLayoutAlign="center center" fxLayout="column">
+                            <div class="icon"><i class="fa fa-address-book"></i></div>
+                            <div class="sub">My Recipes</div>
+                            <div class='text'>{{myRecipesCount}}</div>
+                        </div>
+                    </a>
+                    <a [routerLink]="['/recipe-send']">
+                        <div class="add" fxLayoutAlign="center center" fxLayout="column">
+                            <div class="icon"><i class="fa fa-plus-square"></i></div>
+                            <div class="sub">New Recipe</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="text1"><span>color: #ffffff</span></div>
-    <div class="text2"><span>color: #a7a7a7</span></div>
-    <div class="text3"><span>color: #51608c</span></div>
-    <div class="text4"><span>color: #f4511e</span></div>
 </div>
-
-
-
-
-
-
-
-<!--
-     <div class="spinner" *ngIf="!avatars">
-    <mat-spinner></mat-spinner>
-</div>
-<div *ngIf="avatars">
-    <div class="heart">
-        <i class="fa fa-heart" matTooltip="Tedd a kedvenceid közé!"></i>
+<!-- <div fxLayout="column" fxLayoutAlign="center center" class="scroll-down">
+        <div class="icon-border">
+            <img class="icon" src="../../../assets/img/fork.png" alt="">
+        </div>
+        <div class="title">
+            one-course dishes
+        </div>
     </div>
-    <div class="heart-title">
-        <span>Kedvencek</span>
-    </div>
+<div class="list-container">
+    <div class="category-title" fxLayout="column" fxLayoutAlign="center center">
 
-    <ngx-hm-carousel [(ngModel)]="currentIndex" show-num="auto" [breakpoint]="breakpoint" [autoplay]=true [autoplay-speed]="3000" [between-delay]="100" [infinite]="infinite" [drag-many]="true" [aniTime]="100" [mourse-enable]=true [data]="avatars" class="carousel c-accent"
-        *ngIf="avatars">
-
-        <section ngx-hm-carousel-container class="content">
-            <article class="item cursor-pointer" ngx-hm-carousel-item *ngFor="let avatar of avatars; let i = index" [ngClass]="{'visible': currentIndex===i}">
-                <div class="img d-flex justify-content-center align-items-center" (click)="click(avatar.id)" [style.backgroundImage]="'url('+avatar.picture+')'">
-                    <div class="title">
-                        <span>{{avatar.name}}</span>
+        <div class="list-box" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100" fxLayoutAlign="center center" fxLayoutGap="25px">
+            <ng-container *ngFor="let s of recipes let i=index;">
+                <div fxFlex="30" fxFlex.xs="100" class="list-item" *ngIf="s.cat1=='Egytálétel' && i<6">
+                    <div class="element">
+                        <div class="image" [ngStyle]="{'background-image': 'url('+ s.picture +')'}">
+                        </div>
+                        <div class="element-title">
+                            {{s.name}}
+                        </div>
+                        <div class="element-short">
+                            {{s.short}}
+                        </div>
                     </div>
                 </div>
-            </article>
-            <ng-template #infiniteContainer></ng-template>
-        </section>
-
-        <ng-template #carouselContent let-avatar let-i="index">
-            <article class="item cursor-pointer" [ngClass]="{'visible': currentIndex===i}">
-                <div class="img d-flex justify-content-center align-items-center" (click)="click(avatar.id)" [style.backgroundImage]="'url('+avatar.picture+')'">
-                    <div class="title">
-                        <span>{{avatar.name}}</span>
-                    </div>
-
+            </ng-container>
+            <div fxFlex="30" fxFlex.xs="100" class="list-item">
+                <div class="element">
+                    Show more
                 </div>
-            </article>
-        </ng-template>
-
-        <ng-template #carouselPrev>
-            <div class="click-area">
-                <i class="material-icons">keyboard_arrow_left</i>
             </div>
-        </ng-template>
-        <ng-template #carouselNext>
-            <div class="click-area">
-                <i class="material-icons">keyboard_arrow_right</i>
-            </div>
-        </ng-template>
-
-        <ng-template #carouselDot let-model>
-            <div class="ball bg-accent" [class.visible]="model.index === model.currentIndex"></div>
-        </ng-template>
-
-        <ng-template #carouselProgress let-progress>
-            <div class="progress"></div>
-        </ng-template>
-
-    </ngx-hm-carousel>
+        </div>
+    </div>
 </div>
- -->
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            One of three columns
+        </div>
+        <div class="col-sm">
+            One of three columns
+        </div>
+        <div class="col-sm">
+            One of three columns
+        </div>
+    </div>
+</div> -->

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { LoginService } from '../../_services/login.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -13,6 +14,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
   isHandset: boolean;
   public user: firebase.User;
   public hide = true;
+  public isHome = false;
 
   @ViewChild('stickyMenu', null) menuElement: ElementRef;
 
@@ -21,7 +23,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private loginService: LoginService) {
+    private loginService: LoginService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -31,6 +34,10 @@ export class MenuComponent implements OnInit, AfterViewInit {
         this.isHandset = state.matches ? true : false;
       });
 
+    const pageFilter = this.route.snapshot.paramMap.get('pagefilter');
+    if (pageFilter === '' || pageFilter === 'home') {
+      this.isHome = true;
+    }
     this.loginService.getLoggedInUser().subscribe(user => {
       if (!user) {
         this.user = null;

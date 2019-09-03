@@ -1,120 +1,196 @@
-// $transition_time:.2s;
-// .carousel {
-//     color: white;
-//     .content {
-//         display: flex;
-//         .item {
-//             width: 100%;
-//             padding: .5em;
-//             display: block;
-//             opacity: 0.5;
-//             transition: opacity 0.295s linear $transition_time;
-//             &.visible {
-//                 opacity: 1;
-//             }
-//             .img {
-//                 width: 100%;
-//                 height: 400px;
-//                 display: block;
-//                 background-size: cover;
-//                 background-position: center;
-//                 border-radius: 4px;
-//             }
-//         }
-//     }
-//     .ball {
-//         width: 16px;
-//         height: 16px;
-//         border-radius: 50%;
-//         background: #303030;
-//         border: 2px solid;
-//         opacity: 0.5;
-//         &.visible {
-//             opacity: 1;
-//         }
-//     }
-//     .progress {
-//         position: absolute;
-//         bottom: 0;
-//         left: 0;
-//         width: 0;
-//         height: 2px;
-//         background: linear-gradient(to right, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.4) 100%);
-//     }
-//     .click-area {
-//         width: 50px;
-//         border-radius: 50%;
-//         background-color: #303030;
-//         margin: 0 -18px 0 -18px;
-//         text-align: center;
-//         color: #a7a7a7;
-//         i {
-//             font-size: 3em;
-//         }
-//     }
-// }
-// .title {
-//     margin-bottom: 12px;
-//     font-size: calc(18px + 0.2vw);
-//     display: block;
-//     font-weight: 500;
-//     font-family: Mina;
-//     color: white;
-//     margin-bottom: 0px;
-//     background-color: #303030;
-//     border-radius: 4px 4px 4px 20px;
-//     padding-left: 10px;
-//     padding-right: 10px;
-//     position: relative;
-//     float: right;
-//     margin: -14px -4px 0 0;
-// }
-// .heart {
-//     font-size: 60px;
-//     color: #ffffff14;
-// }
-// .heart-title {
-//     font-weight: 500;
-//     font-family: Mina;
-//     font-size: 30px;
-//     margin: -60px 0 15px 40px;
-//     color: #a7a7a7;
-// }
-.bg1 {
-    position: relative;
-    background-color: #212121;
-    width: 100%;
-    height: 200px;
-}
-
-.bg2 {
-    position: absolute;
-    right: 0px;
-    background-color: #303030;
-    width: 50%;
-}
-
-.bg3 {
-    position: absolute;
-    top: 80px;
-    left: 250px;
-    background-color: #424242;
-    width: 50%;
-    height: 200px;
-}
-
-.text1 {
-    color: white;
-}
-
-.text2 {
-    color: #a7a7a7;
-}
-
-.text3 {
-    color: #51608c;
-}
-
-.text4 {
-    color: #f4511e;
-}
+        @import "../../shared/palette.scss";
+        @import url('https://fonts.googleapis.com/css?family=Syncopate:700&display=swap');
+        .top {
+            height: 100vh;
+            width: 100%;
+            background-image: url("../../../assets/img/chef-background.jpg");
+            background-position: left;
+            background-size: cover;
+            .cover {
+                height: 100vh;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.5);
+                .m-container {
+                    width: 100%;
+                    height: 100%;
+                    font-family: Mina;
+                    .box {
+                        height: 50vh;
+                        .logo {
+                            width: 231px;
+                            height: 196px
+                        }
+                        .logo-text {
+                            font-family: 'Syncopate', sans-serif;
+                            color: $bg2;
+                            font-size: 44px;
+                            font-weight: 200;
+                            margin: -10px 0 0 0;
+                        }
+                        .top-box {
+                            position: relative;
+                            bottom: 0;
+                            margin: 0;
+                            text-transform: uppercase;
+                            font-size: 10px;
+                            margin-bottom: 10vw;
+                            a {
+                                outline: none;
+                                text-decoration: none;
+                            }
+                            .all {
+                                border-right: 1px solid $bg2;
+                                color: $bg2;
+                                padding: 0 12px;
+                                cursor: pointer;
+                                .icon {
+                                    font-size: calc(30px + 2vw);
+                                    margin: 0 0 -12px 0;
+                                }
+                                .sub {
+                                    font-size: calc(12px + 0.2vw);
+                                }
+                                .text {
+                                    color: $tw1;
+                                    font-size: calc(18px + 0.2vw);
+                                }
+                            }
+                            .my {
+                                padding: 0 12px;
+                                border-right: 1px solid $bg2;
+                                color: $bg2;
+                                cursor: pointer;
+                                .icon {
+                                    font-size: calc(30px + 2vw);
+                                    margin: 0 0 -12px 0;
+                                }
+                                .sub {
+                                    font-size: calc(12px + 0.2vw);
+                                }
+                                .text {
+                                    color: $tw1;
+                                    font-size: calc(18px + 0.2vw);
+                                }
+                            }
+                            .add {
+                                color: $bg2;
+                                padding: 0 12px;
+                                cursor: pointer;
+                                .sub {
+                                    font-size: calc(12px + 0.2vw);
+                                }
+                                .icon {
+                                    font-size: calc(30px + 2vw);
+                                    margin: 0 0 -12px 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        .scroll-down {
+            position: relative;
+            //bottom: 40px;
+            height: 128px;
+            width: 100%;
+            background-color: none;
+            overflow: hidden;
+            .button {
+                background-color: white;
+                width: 80px;
+                height: 80px;
+                border-radius: 50% 50% 50% 50%;
+                color: $bg1;
+                font-size: 30px;
+                padding: 6px;
+            }
+            .icon-border {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                border: 2px solid $tn1;
+                padding: 6px;
+                background-color: $bg2;
+                .icon {
+                    width: 50px;
+                    height: 50px;
+                    margin: 7px;
+                }
+            }
+            .title {
+                font-family: Mina;
+                font-size: 30px;
+                text-transform: uppercase;
+            }
+        }
+        
+        .list-container {
+            // height: 100vh;
+            // width: 100vw;
+            .category-title {
+                .icon-border {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    border: 2px solid $tn1;
+                    padding: 6px;
+                    background-color: $bg2;
+                    .icon {
+                        width: 50px;
+                        height: 50px;
+                        margin: 7px;
+                    }
+                }
+                .title {
+                    font-family: Mina;
+                    font-size: 30px;
+                    text-transform: uppercase;
+                }
+                .icon-border {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    border: 3px solid $tn1;
+                    padding: 6px;
+                    .icon {
+                        width: 50px;
+                        height: 50px;
+                        margin: 7px;
+                    }
+                }
+                .title {
+                    font-family: Mina;
+                    font-size: 30px;
+                    text-transform: uppercase;
+                }
+            }
+            .list-box {
+                margin: 20px 0 0 0;
+                width: 100%;
+                height: 36vh;
+                .list-item {
+                    width: 80%;
+                    height: 100%;
+                    .element {
+                        font-family: Mina;
+                        .image {
+                            background-size: cover;
+                            background-position: center center;
+                            background-repeat: no-repeat;
+                            width: 100%;
+                            height: 100px;
+                            margin: 12px 0 6px 0;
+                            border-radius: 4px 4px 20px 4px;
+                        }
+                        .element-title {
+                            font-size: 22px;
+                        }
+                        .element-short {
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }

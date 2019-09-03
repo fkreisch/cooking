@@ -18,6 +18,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StarRatingModule } from 'angular-star-rating';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // FIRESTORE
 import { AngularFireModule } from '@angular/fire';
@@ -72,6 +73,7 @@ import { SnackComponent } from './base/snack/snack.component';
 import { FooterComponent } from './base/footer/footer.component';
 import { LinkComponent } from './base/link/link.component';
 import { RightcolComponent } from './base/rightcol/rightcol.component';
+import { NavbarComponent } from './base/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,7 @@ import { RightcolComponent } from './base/rightcol/rightcol.component';
     FooterComponent,
     LinkComponent,
     RightcolComponent,
+    NavbarComponent,
   ],
   entryComponents: [
     SnackComponent,
@@ -106,6 +109,7 @@ import { RightcolComponent } from './base/rightcol/rightcol.component';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
+    NgbModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,

@@ -1,7 +1,6 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NgxHmCarouselBreakPointUp } from 'ngx-hm-carousel';
 import { RecipeService } from '../../_services/recipe.service';
+import { LoginService } from '../../_services/login.service';
 import { RecipeId } from '../../_interfaces/interface';
 
 @Component({
@@ -11,40 +10,31 @@ import { RecipeId } from '../../_interfaces/interface';
 })
 export class HomeComponent implements OnInit {
 
-  private recipes: RecipeId[];
+  public allRecipesCount: number;
+  public myRecipesCount: number;
+  public recipes: RecipeId[];
+  private user: firebase.User;
+  public loggedInUserId: string;
+  public loggedInUserData: any;
 
-  currentIndex = 0;
-  speed = 5000;
-  infinite = true;
-  direction = 'right';
-  directionToggle = true;
-  autoplay = true;
-  public avatars: any;
-
-  breakpoint: NgxHmCarouselBreakPointUp[] = [
-    {
-      width: 500,
-      number: 1
-    },
-    {
-      width: 800,
-      number: 2
-    },
-    {
-      width: 1024,
-      number: 4
-    },
-  ];
-
-  constructor(private recipeService: RecipeService, private router: Router) { }
+  constructor(private recipeService: RecipeService, private loginService: LoginService) { }
 
   ngOnInit() {
-    this.recipeService.getRecipes().subscribe(recipes => {
-      this.avatars = recipes;
+    this.loginService.getLoggedInUser().subscribe(user => {
+      this.user = user;
+      if (!this.user) { return; }
+      this.loggedInUserId = user.uid;
+      this.loggedInUserData = user;
+      this.recipeService.getMyRecipes(this.loggedInUserId).subscribe(recipes => {
+        this.myRecipesCount = recipes.length;
+        if (!this.myRecipesCount) { return; }
+      });
+    });
+    this.recipeService.getSharedRecipes().subscribe(recipes => {
+      this.recipes = recipes;
+      this.allRecipesCount = this.recipes.length;
+      if (!this.recipes) { return; }
     });
   }
 
-  click(i) {
-    this.router.navigate([`recipe/${i}`]);
-  }
 }

@@ -1,39 +1,40 @@
+@import "../../shared/palette.scss";
 .footer {
-    color: #a7a7a7;
+    color: $tn2;
     font-family: Mina;
-    background-color: #212121;
+    background-color: $bg1;
     width: 100%;
     .top-spacer {
         width: 100%;
         height: 80px;
-        background-color: #303030;
+        background-color: $bg2;
     }
     .top {
         width: 100%;
         height: 8px;
-        background-color: #212121;
+        background-color: $bg1;
     }
     .box1-container {
         margin-right: 20px;
         position: relative;
         .box1 {
-            background-color: #303030;
+            background-color: $bg2;
             border-radius: 0 20px 0 0;
             padding: 16px;
             position: relative;
             .top {
-                background-color: #303030;
+                background-color: $bg2;
                 position: relative;
                 right: 10px;
                 top: 10px;
                 height: 100%;
                 .newsletter {
                     font-family: Mina;
-                    color: #a7a7a7;
+                    color: $tn2;
                     padding-left: 16px;
                     h3 {
                         margin-bottom: 0;
-                        border-bottom: 1px solid #a7a7a7;
+                        border-bottom: 1px solid $tn2;
                     }
                     button {
                         margin: 20px 0 16px 0;
@@ -42,7 +43,7 @@
                 .logo {
                     display: block;
                     font-family: "Cinzel Decorative", cursive;
-                    color: #51608c;
+                    color: $tw2;
                     margin-left: 13px;
                     text-decoration: none;
                     .picture-container {
@@ -56,11 +57,11 @@
                         }
                     }
                     .border {
-                        border: 2px solid #51608c;
+                        border: 2px solid $tw2;
                         border-radius: 4px 4px 4px 20px;
                         padding: 0 0 4px 12px;
                         width: 124px;
-                        background-color: #212121;
+                        background-color: $bg1;
                         .firstline {
                             font-weight: 500;
                             font-size: 70px;
@@ -75,16 +76,16 @@
         }
     }
     .box2 {
-        background-color: #212121;
+        background-color: $bg1;
         padding: 16px;
         .title {
-            border-bottom: 1px solid #a7a7a7;
+            border-bottom: 1px solid $tn2;
             h3 {
                 margin: 29px 0 0 0;
             }
         }
         a {
-            color: #51608c;
+            color: $tw2;
             text-decoration: none;
             display: inline-block;
             position: relative;
@@ -97,7 +98,7 @@
             height: 2px;
             left: 50%;
             position: absolute;
-            background: #a7a7a7;
+            background: $tn2;
             transition: width 0.3s ease 0s, left 0.3s ease 0s;
             width: 0;
         }
@@ -107,16 +108,16 @@
         }
     }
     .box3 {
-        background-color: #212121;
+        background-color: $bg1;
         padding: 16px;
         .title {
-            border-bottom: 1px solid #a7a7a7;
+            border-bottom: 1px solid $tn2;
             h3 {
                 margin: 29px 0 0 0;
             }
         }
         a {
-            color: #51608c;
+            color: $tw2;
             text-decoration: none;
             display: inline-block;
             position: relative;
@@ -129,7 +130,7 @@
             height: 2px;
             left: 50%;
             position: absolute;
-            background: #a7a7a7;
+            background: $tn2;
             transition: width 0.3s ease 0s, left 0.3s ease 0s;
             width: 0;
         }
@@ -139,7 +140,7 @@
         }
     }
     .box4 {
-        background-color: #303030;
+        background-color: $bg2;
         border-radius: 20px 0 0 0;
         .copyright {
             padding: 12px;
@@ -147,7 +148,7 @@
         .icons {
             a {
                 text-decoration: none;
-                color: #a7a7a7;
+                color: $tn2;
                 font-size: 1.2em;
                 margin: 8px;
             }

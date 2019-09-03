@@ -1,3 +1,4 @@
+@import "../../shared/palette.scss";
 .mat-header-row {
     display: none;
 }
@@ -17,22 +18,22 @@
         .avatar {
             background-size: cover;
             overflow: hidden;
-            border: 2px solid #f4511e;
+            border: 2px solid $tw1;
             width: 32px;
             height: 32px;
             border-radius: 50%;
         }
     }
     .name {
-        border-bottom: 1px solid #f4511e;
+        border-bottom: 1px solid $tw1;
         margin: 8px 0 0 5px;
-        color: #a7a7a7;
+        color: $tn2;
     }
     .date {
         display: block;
         font-size: 10px;
         margin: 0 0 0 auto;
-        color: #f4511e
+        color: $tw1
     }
 }
 

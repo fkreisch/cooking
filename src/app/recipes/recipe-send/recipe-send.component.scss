@@ -1,3 +1,4 @@
+@import "../../shared/palette.scss";
 .font-mina {
     font-family: Mina;
 }
@@ -8,7 +9,7 @@
 
 .upload-icon {
     font-size: 26px;
-    color: #a7a7a7;
+    color: $tn2;
     margin: 0 4px 0 8px;
     cursor: pointer;
 }
@@ -25,10 +26,10 @@
 .click-area {
     width: 42px;
     height: 42px;
-    background-color: #303030;
+    background-color: $bg2;
     margin: 0 10px 0 10px;
     text-align: center;
-    color: #a7a7a7;
+    color: $tn2;
     font-size: 3em;
 }
 
@@ -47,12 +48,12 @@
 
 .left {
     left: -48px;
-    color: #a7a7a7;
+    color: $tn2;
 }
 
 .right {
     right: -48px;
-    color: #a7a7a7;
+    color: $tn2;
 }
 
 .pager-icon-left {
@@ -65,7 +66,7 @@
 
 .title {
     padding: 0 20px;
-    background: #303030;
+    background: $bg2;
     border-radius: 4px 4px 4px 20px;
     margin: -22px -22px 22px -22px;
     display: block;
@@ -97,7 +98,7 @@
 }
 
  ::ng-deep .mat-horizontal-content-container {
-    background: #424242 !important;
+    background: $bg3 !important;
     border-radius: 4px;
     padding: 24px !important;
 }

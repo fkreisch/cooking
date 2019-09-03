@@ -1,0 +1,24 @@
+@import "../../shared/palette.scss";
+.navbar-container {
+    width: 100%;
+    margin: 0;
+    .picture-container {
+        position: relative;
+        height: 80px;
+        width: 80px;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background-color: #a7a7a7;
+        border-radius: 24px;
+        left: -4px;
+        top: -26px;
+        z-index: 1;
+    }
+    .nav-container {
+        height: 50px;
+        background-color: #a7a7a7;
+        flex: 1 1 auto;
+        position: relative;
+        margin: 0 0 0 -26px;
+    }
+}
