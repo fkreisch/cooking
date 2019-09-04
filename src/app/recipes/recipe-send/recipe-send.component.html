@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="font-mina" *ngIf="!loggedInUserId">
     Receptet csak regisztrált felhasználók küldhetnek be.
 </div>
@@ -8,14 +9,14 @@
             <ng-template matStepLabel></ng-template>
             <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%" [hideRequiredMarker]="true">
-                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #name maxlength="64" placeholder="Recept neve" formControlName="name" required></textarea>
-                    <mat-hint align="end">{{name.value?.length || 0}}/64</mat-hint>
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #name maxlength="56" placeholder="Recept neve" formControlName="name" required></textarea>
+                    <mat-hint align="end">{{name.value?.length || 0}}/56</mat-hint>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field hideRequiredMarker fxFlex="100%">
-                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #short maxlength="512" placeholder="Rövid leírás" formControlName="short"></textarea>
-                    <mat-hint align="end">{{short.value?.length || 0}}/512</mat-hint>
+                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #short maxlength="200" placeholder="Rövid leírás" formControlName="short"></textarea>
+                    <mat-hint align="end">{{short.value?.length || 0}}/200</mat-hint>
                 </mat-form-field>
             </div>
             <div>

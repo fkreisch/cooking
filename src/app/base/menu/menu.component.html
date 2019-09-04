@@ -1,13 +1,13 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true" mode="over" [opened]="false" position="end">
-        <div class="row drawer-close-box">
+        <div class="row no-gutters drawer-close-box">
             <span class="toolbar-spacer"></span>
             <a class="drawer-close" (click)="drawer.toggle()">
-                <i class="fa fa-times"></i>
+                <mat-icon>close</mat-icon>
             </a>
         </div>
-        <a [routerLink]="['/user']">
-            <div class="user-container row justify-content-center">
+        <a [routerLink]="['/user']" (click)="drawer.close()">
+            <div class="user-container row no-gutters justify-content-center">
                 <div class="user-picture" [ngStyle]="{'background-image':'url('+user.photoURL+')'}" *ngIf="user">
 
                 </div>
@@ -22,28 +22,28 @@
                 login / register
             </div>
         </a>
-        <div class="row drawer-close-box"></div>
+        <div class="row no-gutters drawer-close-box"></div>
         <div class="box row justify-content-center">
-            <a [routerLink]="['/recipes', 'all']">
+            <a [routerLink]="['/recipes', 'all']" (click)="drawer.close()">
                 <div class="all">
                     <div class="icon row justify-content-center"><i class="fa fa-book"></i></div>
                     <div class="sub row justify-content-center">RecipeBook</div>
                 </div>
             </a>
-            <a [routerLink]="['/recipes', 'myrecipes']">
+            <a [routerLink]="['/recipes', 'myrecipes']" (click)="drawer.close()">
                 <div class="my">
                     <div class="icon row justify-content-center"><i class="fa fa-address-book"></i></div>
                     <div class="sub row justify-content-center">My Recipes</div>
                 </div>
             </a>
-            <a [routerLink]="['/recipe-send']">
+            <a [routerLink]="['/recipe-send']" (click)="drawer.close()">
                 <div class="add">
                     <div class="icon row justify-content-center"><i class="fa fa-plus-square"></i></div>
                     <div class="sub row justify-content-center">New Recipe</div>
                 </div>
             </a>
         </div>
-        <div class="bottom-container row justify-content-center">
+        <div class="bottom-container row justify-content-center" (click)="drawer.close()">
             <div class="spacer-line-bottom">
                 <a [routerLink]="['/home']">
                     <div class="home">
@@ -52,30 +52,24 @@
                     </div>
                 </a>
             </div>
-
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <div class="page-container">
-            <div class="menu">
-                <div class="row top">
+            <div class="no-gutters row menu">
+                <a class="no-gutters top row" [routerLink]="['/home']">
                     <div class="logo-border">
-                        <div class="logo">
-                        </div>
+                        <div class="logo"></div>
                     </div>
-                    <div class="logo-text">
-                        RMCOOK
-                    </div>
-                    <span class="toolbar-spacer"></span>
-                    <a class="drawer-open" (click)="drawer.toggle()">
-                        <mat-icon>menu</mat-icon>
-                    </a>
-                </div>
+                    <div class="logo-text">RMCOOK</div>
+                </a>
+                <span class="toolbar-spacer"></span>
+                <a class="drawer-open" (click)="drawer.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </a>
             </div>
             <router-outlet></router-outlet>
-
         </div>
-
     </mat-sidenav-content>
 </mat-sidenav-container>
 <app-footer></app-footer>

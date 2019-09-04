@@ -1,91 +1,77 @@
 <div class="top">
-    <div fxFlex class="cover">
-        <div fxFlex="50" fxFlex.xs="none">
+    <div class="no-gutters row cover">
+        <div class="no-gutters col-md-6 col-sm-none"></div>
+        <div class="no-gutters col-md-6 col-sm-12 m-container">
+            <div class="no-gutters row align-items-end justify-content-center box">
+                <div class="d-none d-sm-block">
+                    <div class="no-gutters row justify-content-center">
+                        <img src="../../../assets/img/logo.png" alt="">
+                    </div>
+                    <div class="no-gutters row justify-content-center logo-text">
+                        RMCOOK
+                    </div>
 
-        </div>
-        <div FxFlex="50" fxFlex.xs="100" fxLayout="column" class="m-container">
-            <div class="box" fxLayout="column" fxLayoutAlign="end center">
-                <div class="logo">
-                    <img src="../../../assets/img/logo.png" alt="">
-                </div>
-                <div class="logo-text">
-                    <span>RMCOOK</span>
                 </div>
             </div>
-            <div class="box" fxLayout="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center">
-                <div fxLayout class="top-box">
-                    <a [routerLink]="['/recipes', 'all']">
-                        <div class="all" fxLayoutAlign="center center" fxLayout="column">
-                            <div class="icon"><i class="fa fa-book"></i></div>
-                            <div class="sub">RecipeBook</div>
-                            <div class='text'>{{allRecipesCount}}</div>
-                        </div>
-                    </a>
-                    <a [routerLink]="['/recipes', 'myrecipes']">
-                        <div class="my" fxLayoutAlign="center center" fxLayout="column">
-                            <div class="icon"><i class="fa fa-address-book"></i></div>
-                            <div class="sub">My Recipes</div>
-                            <div class='text'>{{myRecipesCount}}</div>
-                        </div>
-                    </a>
-                    <a [routerLink]="['/recipe-send']">
-                        <div class="add" fxLayoutAlign="center center" fxLayout="column">
-                            <div class="icon"><i class="fa fa-plus-square"></i></div>
-                            <div class="sub">New Recipe</div>
-                        </div>
-                    </a>
+            <div class="no-gutters row align-items-end align-items-sm-center justify-content-center box">
+                <div class="no-gutters row col-10 col-lg-8 col-xl-7 justify-content-center top-box">
+                    <div class="no-gutters col-4 all">
+                        <a [routerLink]="['/recipes', 'all']">
+                            <div class="no-gutters row align-items-top justify-content-center icon"><i class="fa fa-book"></i></div>
+                            <div class="no-gutters row align-items-top justify-content-center sub">RecipeBook</div>
+                            <div class='no-gutters row align-items-top justify-content-center text'>{{allRecipesCount}}</div>
+                        </a>
+                    </div>
+                    <div class="no-gutters col-4 my">
+                        <a [routerLink]="['/recipes', 'myrecipes']">
+                            <div class="no-gutters row align-items-top justify-content-center icon"><i class="fa fa-address-book"></i></div>
+                            <div class="no-gutters row align-items-top justify-content-center sub">My Recipes</div>
+                            <div class='no-gutters row align-items-top justify-content-center text'>{{myRecipesCount}}</div>
+                        </a>
+                    </div>
+                    <div class="no-gutters col-4 add">
+                        <a [routerLink]="['/recipe-send']">
+                            <div class="no-gutters row align-items-top justify-content-center icon"><i class="fa fa-plus-square"></i></div>
+                            <div class="no-gutters row align-items-top justify-content-center sub">New Recipe</div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- <div fxLayout="column" fxLayoutAlign="center center" class="scroll-down">
-        <div class="icon-border">
-            <img class="icon" src="../../../assets/img/fork.png" alt="">
+<div class="recipe-list-container">
+    <div>
+        <div class="no-gutters row justify-content-center">
+            <div class="no-gutters row justify-content-center icon-border">
+                <img class="icon" src="../../../assets/img/fork.png" alt="">
+            </div>
         </div>
-        <div class="title">
+        <div class="no-gutters row justify-content-center title">
             one-course dishes
         </div>
     </div>
-<div class="list-container">
-    <div class="category-title" fxLayout="column" fxLayoutAlign="center center">
-
-        <div class="list-box" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100" fxLayoutAlign="center center" fxLayoutGap="25px">
+    <div>
+        <div class="no-gutters row align-items-top justify-content-center">
             <ng-container *ngFor="let s of recipes let i=index;">
-                <div fxFlex="30" fxFlex.xs="100" class="list-item" *ngIf="s.cat1=='Egytálétel' && i<6">
-                    <div class="element">
-                        <div class="image" [ngStyle]="{'background-image': 'url('+ s.picture +')'}">
+                <div class="no-gutters col-12 col-sm-6 col-lg-4 recipe-card-container" *ngIf="s.cat1=='Egytálétel' && i<6">
+                    <a [routerLink]="['/recipe', s.id]">
+                        <div class="recipe-card">
+                            <div class="recipe-image" [ngStyle]="{ 'background-image': 'url('+ s.picture + ')'} "></div>
+                            <div class="recipe-title">{{s.name}}</div>
+                            <div class="recipe-short">{{s.short}}</div>
                         </div>
-                        <div class="element-title">
-                            {{s.name}}
-                        </div>
-                        <div class="element-short">
-                            {{s.short}}
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </ng-container>
-            <div fxFlex="30" fxFlex.xs="100" class="list-item">
-                <div class="element">
-                    Show more
+            <div class="no-gutters col-12 col-sm-6 col-lg-4 more-card-container">
+                <div class="no-gutters row align-items-center justify-content-center more-card">
+                    <div>
+                        <div class="no-gutters row justify-content-center more-title">Show more</div>
+                        <div class="no-gutters row justify-content-center more-category"> one-course dishes</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            One of three columns
-        </div>
-        <div class="col-sm">
-            One of three columns
-        </div>
-        <div class="col-sm">
-            One of three columns
-        </div>
-    </div>
-</div> -->
