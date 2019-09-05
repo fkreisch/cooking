@@ -3,7 +3,7 @@
         <div class="no-gutters col-md-6 col-sm-none"></div>
         <div class="no-gutters col-md-6 col-sm-12 m-container">
             <div class="no-gutters row align-items-end justify-content-center box">
-                <div class="d-none d-sm-block">
+                <div class="d-none d-md-block">
                     <div class="no-gutters row justify-content-center">
                         <img src="../../../assets/img/logo.png" alt="">
                     </div>
@@ -48,13 +48,56 @@
             </div>
         </div>
         <div class="no-gutters row justify-content-center title">
-            one-course dishes
+            one-course dish
+        </div>
+    </div>
+    <div>
+        <div class="no-gutters row align-items-top justify-content-center">
+
+            <ng-container *ngFor="let s of recipes let i=index;">
+                <div class="no-gutters col-12 col-sm-6 col-lg-4 recipe-card-container" *ngIf="s.cat1=='Egytálétel' && i<6">
+                    <a [routerLink]="['/recipe', s.id]">
+                        <div class="recipe-card">
+                            <div class="no-gutters row recipe-card-inside">
+
+                                <div class="no-gutters col-4">
+                                    <div class="recipe-image" [ngStyle]="{ 'background-image': 'url('+ s.picture + ')'} ">
+                                    </div>
+                                </div>
+                                <div class="no-gutters col-8">
+                                    <div class="recipe-title">{{s.name}}</div>
+                                    <div class="recipe-short">{{s.short}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </ng-container>
+
+            <div class="no-gutters col-12 col-sm-6 col-lg-4 more-card-container">
+                <div class="no-gutters row align-items-center justify-content-center more-card">
+                    <div>
+                        <div class="no-gutters row justify-content-center more-title">Show more</div>
+                        <div class="no-gutters row justify-content-center more-category"> one-course dishes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="no-gutters row justify-content-center">
+            <div class="no-gutters row justify-content-center icon-border">
+                <img class="icon" src="../../../assets/img/spoon.png" alt="">
+            </div>
+        </div>
+        <div class="no-gutters row justify-content-center title">
+            soup
         </div>
     </div>
     <div>
         <div class="no-gutters row align-items-top justify-content-center">
             <ng-container *ngFor="let s of recipes let i=index;">
-                <div class="no-gutters col-12 col-sm-6 col-lg-4 recipe-card-container" *ngIf="s.cat1=='Egytálétel' && i<6">
+                <div class="no-gutters col-12 col-sm-6 col-lg-4 recipe-card-container" *ngIf="s.cat1=='Leves' && i<6">
                     <a [routerLink]="['/recipe', s.id]">
                         <div class="recipe-card">
                             <div class="recipe-image" [ngStyle]="{ 'background-image': 'url('+ s.picture + ')'} "></div>
@@ -68,7 +111,106 @@
                 <div class="no-gutters row align-items-center justify-content-center more-card">
                     <div>
                         <div class="no-gutters row justify-content-center more-title">Show more</div>
-                        <div class="no-gutters row justify-content-center more-category"> one-course dishes</div>
+                        <div class="no-gutters row justify-content-center more-category">soups</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="no-gutters row justify-content-center">
+            <div class="no-gutters row justify-content-center icon-border">
+                <img class="icon" src="../../../assets/img/dessert.png" alt="">
+            </div>
+        </div>
+        <div class="no-gutters row justify-content-center title">
+            dessert
+        </div>
+    </div>
+    <div>
+        <div class="no-gutters row align-items-top justify-content-center">
+            <ng-container *ngFor="let s of recipes let i=index;">
+                <div class="no-gutters col-12 col-sm-6 col-lg-4 recipe-card-container" *ngIf="s.cat1=='Desszert' && i<6">
+                    <a [routerLink]="['/recipe', s.id]">
+                        <div class="recipe-card">
+                            <div class="recipe-image" [ngStyle]="{ 'background-image': 'url('+ s.picture + ')'} "></div>
+                            <div class="recipe-title">{{s.name}}</div>
+                            <div class="recipe-short">{{s.short}}</div>
+                        </div>
+                    </a>
+                </div>
+            </ng-container>
+            <div class="no-gutters col-12 col-sm-6 col-lg-4 more-card-container">
+                <div class="no-gutters row align-items-center justify-content-center more-card">
+                    <div>
+                        <div class="no-gutters row justify-content-center more-title">Show more</div>
+                        <div class="no-gutters row justify-content-center more-category">desserts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="no-gutters row justify-content-center">
+            <div class="no-gutters row justify-content-center icon-border">
+                <img class="icon" src="../../../assets/img/appetizer.png" alt="">
+            </div>
+        </div>
+        <div class="no-gutters row justify-content-center title">
+            apperitif
+        </div>
+    </div>
+    <div>
+        <div class="no-gutters row align-items-top justify-content-center">
+            <ng-container *ngFor="let s of recipes let i=index;">
+                <div class="no-gutters col-12 col-sm-6 col-lg-4 recipe-card-container" *ngIf="s.cat1=='Eloetel' && i<6">
+                    <a [routerLink]="['/recipe', s.id]">
+                        <div class="recipe-card">
+                            <div class="recipe-image" [ngStyle]="{ 'background-image': 'url('+ s.picture + ')'} "></div>
+                            <div class="recipe-title">{{s.name}}</div>
+                            <div class="recipe-short">{{s.short}}</div>
+                        </div>
+                    </a>
+                </div>
+            </ng-container>
+            <div class="no-gutters col-12 col-sm-6 col-lg-4 more-card-container">
+                <div class="no-gutters row align-items-center justify-content-center more-card">
+                    <div>
+                        <div class="no-gutters row justify-content-center more-title">Show more</div>
+                        <div class="no-gutters row justify-content-center more-category">apperitifes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="no-gutters row justify-content-center">
+            <div class="no-gutters row justify-content-center icon-border">
+                <img class="icon" src="../../../assets/img/fozelek.png" alt="">
+            </div>
+        </div>
+        <div class="no-gutters row justify-content-center title">
+            stew
+        </div>
+    </div>
+    <div>
+        <div class="no-gutters row align-items-top justify-content-center">
+            <ng-container *ngFor="let s of recipes let i=index;">
+                <div class="no-gutters col-12 col-sm-6 col-lg-4 recipe-card-container" *ngIf="s.cat1=='Fozelek' && i<6">
+                    <a [routerLink]="['/recipe', s.id]">
+                        <div class="recipe-card">
+                            <div class="recipe-image" [ngStyle]="{ 'background-image': 'url('+ s.picture + ')'} "></div>
+                            <div class="recipe-title">{{s.name}}</div>
+                            <div class="recipe-short">{{s.short}}</div>
+                        </div>
+                    </a>
+                </div>
+            </ng-container>
+            <div class="no-gutters col-12 col-sm-6 col-lg-4 more-card-container">
+                <div class="no-gutters row align-items-center justify-content-center more-card">
+                    <div>
+                        <div class="no-gutters row justify-content-center more-title">Show more</div>
+                        <div class="no-gutters row justify-content-center more-category">stewes</div>
                     </div>
                 </div>
             </div>

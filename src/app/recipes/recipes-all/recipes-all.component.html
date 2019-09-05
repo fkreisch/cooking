@@ -2,31 +2,33 @@
 <div class="spinner" *ngIf="!recipes">
     <mat-spinner></mat-spinner>
 </div>
-<div *ngIf="recipes">
-    <span fxFlex="100%"></span>
-    <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Szűrés" fxFlex="100%">
-        <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom"><mat-icon>search</mat-icon></span>
-    </mat-form-field>
-</div>
-<div class="mat-paginator"></div>
-<mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Sorbarendezés név szerint</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            <a [routerLink]="['/recipe', row.id]">
-                <div class="card">
-                    <div class="avatar" [ngStyle]="{'background-image':'url('+row.picture+')'}"></div>
-                    <div>
-                        <div class="title">{{row.name}}</div>
-                        <div class="subtitle">{{row.short}}</div>
+<div class="recipe-container">
+    <div *ngIf="recipes">
+        <span fxFlex="100%"></span>
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Szűrés" fxFlex="100%">
+            <span matSuffix fxLayoutGap="10px" xLayoutAlign="right bottom"><mat-icon>search</mat-icon></span>
+        </mat-form-field>
+    </div>
+    <div class="mat-paginator"></div>
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sorbarendezés név szerint</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <a [routerLink]="['/recipe', row.id]">
+                    <div class="card">
+                        <div class="avatar" [ngStyle]="{'background-image':'url('+row.picture+')'}"></div>
+                        <div>
+                            <div class="title">{{row.name}}</div>
+                            <div class="subtitle">{{row.short}}</div>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;">
-    </mat-row>
-</mat-table>
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </a>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

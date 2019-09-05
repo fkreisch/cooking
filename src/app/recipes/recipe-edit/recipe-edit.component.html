@@ -5,127 +5,104 @@
 <div class="spinner" *ngIf="!recipe && loggedInUserId">
     <mat-spinner></mat-spinner>
 </div>
-<mat-horizontal-stepper labelPosition="bottom" [linear]="false" #stepper *ngIf="loggedInUserId && recipe">
-    <mat-step [stepControl]="FormGroup1">
-        <div class="title">Alap adatok</div>
-        <form [formGroup]="FormGroup1">
-            <ng-template matStepLabel></ng-template>
-            <div>
-                <mat-form-field hideRequiredMarker fxFlex="100%" [hideRequiredMarker]="true">
-                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #name maxlength="56" placeholder="Recept neve" formControlName="name" required></textarea>
-                    <mat-hint align="end">{{name.value?.length || 0}}/56</mat-hint>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field hideRequiredMarker fxFlex="100%">
-                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #short maxlength="200" placeholder="Rövid leírás" formControlName="short"></textarea>
-                    <mat-hint align="end">{{short.value?.length || 0}}/200</mat-hint>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field hideRequiredMarker fxFlex="100%">
-                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="Hosszabb leírás" formControlName="long"></textarea>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field hideRequiredMarker fxFlex="100%">
-                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="Kép helye (URL)" formControlName="picture"></textarea>
-                    <input class="ng-hide" id="input-file-id" type="file" (change)="uploadFile($event)" />
-                    <label matSuffix for="input-file-id">
+<div class="recipe-container">
+    <mat-horizontal-stepper labelPosition="bottom" [linear]="false" #stepper *ngIf="loggedInUserId && recipe">
+        <mat-step [stepControl]="FormGroup1">
+            <div class="title">Alap adatok</div>
+            <form [formGroup]="FormGroup1">
+                <ng-template matStepLabel></ng-template>
+                <div>
+                    <mat-form-field hideRequiredMarker fxFlex="100%" [hideRequiredMarker]="true">
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #name maxlength="56" placeholder="Recept neve" formControlName="name" required></textarea>
+                        <mat-hint align="end">{{name.value?.length || 0}}/56</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field hideRequiredMarker fxFlex="100%">
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" #short maxlength="200" placeholder="Rövid leírás" formControlName="short"></textarea>
+                        <mat-hint align="end">{{short.value?.length || 0}}/200</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field hideRequiredMarker fxFlex="100%">
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="Hosszabb leírás" formControlName="long"></textarea>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field hideRequiredMarker fxFlex="100%">
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="Kép helye (URL)" formControlName="picture"></textarea>
+                        <input class="ng-hide" id="input-file-id" type="file" (change)="uploadFile($event)" />
+                        <label matSuffix for="input-file-id">
                                 <i class="fa fa-upload upload-icon"></i>
                         </label>
-                </mat-form-field>
-            </div>
-            <mat-progress-bar mode="determinate" color="accent" value="{{uploadPercent | async}}" *ngIf="uploadPercent"></mat-progress-bar>
-            <div fxLayout="row" fxLayoutAlign="start" class="pager">
-                <div fxFlex="100%" fxLayoutAlign="end">
-                    <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
+                    </mat-form-field>
                 </div>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="FormGroup2">
-        <div class="title">Kiegészítő adatok</div>
-        <form [formGroup]="FormGroup2">
-            <ng-template matStepLabel></ng-template>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                <mat-form-field hideRequiredMarker fxFlex="50%">
-                    <input matInput type="number" placeholder="Teríték" formControlName="serves">
-                    <mat-form-field class="inline-dropdown" matSuffix hideRequiredMarker [hideRequiredMarker]="true">
-                        <mat-select formControlName="servesfor" matNativeControl required>
-                            <mat-option value="személyre">személyre</mat-option>
-                            <mat-option value="darabhoz">darabhoz</mat-option>
+                <mat-progress-bar mode="determinate" color="accent" value="{{uploadPercent | async}}" *ngIf="uploadPercent"></mat-progress-bar>
+                <div fxLayout="row" fxLayoutAlign="start" class="pager">
+                    <div fxFlex="100%" fxLayoutAlign="end">
+                        <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
+                    </div>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="FormGroup2">
+            <div class="title">Kiegészítő adatok</div>
+            <form [formGroup]="FormGroup2">
+                <ng-template matStepLabel></ng-template>
+                <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                    <mat-form-field hideRequiredMarker fxFlex="50%">
+                        <input matInput type="number" placeholder="Teríték" formControlName="serves">
+                        <mat-form-field class="inline-dropdown" matSuffix hideRequiredMarker [hideRequiredMarker]="true">
+                            <mat-select formControlName="servesfor" matNativeControl required>
+                                <mat-option value="személyre">személyre</mat-option>
+                                <mat-option value="darabhoz">darabhoz</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-form-field>
+                    <div fxFlex="50%"></div>
+                </div>
+                <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                    <mat-form-field hideRequiredMarker fxFlex="50%">
+                        <input matInput type="number" placeholder="Előkészítési idő" formControlName="preptime">
+                        <span matSuffix>perc</span>
+                    </mat-form-field>
+                    <mat-form-field hideRequiredMarker fxFlex="50%">
+                        <input matInput type="number" placeholder="Elkészítési idő" formControlName="time">
+                        <span matSuffix>perc</span>
+                    </mat-form-field>
+                </div>
+                <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                    <mat-form-field hideRequiredMarker fxFlex="50%">
+                        <mat-label>Főkategória</mat-label>
+                        <mat-select formControlName="cat1" matNativeControl required>
+                            <mat-option value="Egytálétel">Egytálétel</mat-option>
+                            <mat-option value="Leves">Leves</mat-option>
+                            <mat-option value="Desszert">Desszert</mat-option>
+                            <mat-option value="Előétel">Előétel</mat-option>
+                            <mat-option value="Főzelék">Főzelék</mat-option>
+                            <mat-option value="Egyéb">Egyéb</mat-option>
                         </mat-select>
                     </mat-form-field>
-                </mat-form-field>
-                <div fxFlex="50%"></div>
-            </div>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                <mat-form-field hideRequiredMarker fxFlex="50%">
-                    <input matInput type="number" placeholder="Előkészítési idő" formControlName="preptime">
-                    <span matSuffix>perc</span>
-                </mat-form-field>
-                <mat-form-field hideRequiredMarker fxFlex="50%">
-                    <input matInput type="number" placeholder="Elkészítési idő" formControlName="time">
-                    <span matSuffix>perc</span>
-                </mat-form-field>
-            </div>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                <mat-form-field hideRequiredMarker fxFlex="50%">
-                    <mat-label>Főkategória</mat-label>
-                    <mat-select formControlName="cat1" matNativeControl required>
-                        <mat-option value="Egytálétel">Egytálétel</mat-option>
-                        <mat-option value="Leves">Leves</mat-option>
-                        <mat-option value="Desszert">Desszert</mat-option>
-                        <mat-option value="Előétel">Előétel</mat-option>
-                        <mat-option value="Főzelék">Főzelék</mat-option>
-                        <mat-option value="Egyéb">Egyéb</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field hideRequiredMarker fxFlex="50%">
-                    <mat-label>Alapanyag kategória</mat-label>
-                    <mat-select formControlName="cat2" matNativeControl required>
-                        <mat-option value="Húsétel">Húsétel</mat-option>
-                        <mat-option value="Vega">Hús nélkül</mat-option>
-                        <mat-option value="Egyéb">Egyéb</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
-                <mat-form-field hideRequiredMarker fxFlex="50%">
-                    <mat-label>Alkategória</mat-label>
-                    <mat-select formControlName="cat3" matNativeControl required>
-                        <mat-option value="Gyorsan elkészíthető">Gyorsan elkészíthető</mat-option>
-                        <mat-option value="Különleges alkalmakra">Különleges alkalmakra</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div fxFlex="50%"></div>
-            </div>
-        </form>
-        <div fxLayout="row" fxLayoutAlign="start" class="pager">
-            <div fxFlex="50%" fxLayoutAlign="start">
-                <button mat-flat-button color="#424242" matStepperPrevious class="left"><span fxLayoutAlign="start"><i class="material-icons click-area click-area-left">keyboard_arrow_left</i><span class="button-label">Előző</span></span></button>
-            </div>
-            <div fxFlex="50%" fxLayoutAlign="end">
-                <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
-            </div>
-        </div>
-    </mat-step>
-    <mat-step [stepControl]="FormGroup3">
-        <div class="title">Elkészítési útmutató</div>
-        <form [formGroup]="FormGroup3">
-            <ng-template matStepLabel></ng-template>
-            <div formArrayName="steps">
-                <div *ngFor="let step of stepForm.controls; let i=index; last as isLast; first as isFirst" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
-                    <mat-form-field hideRequiredMarker fxFlex="100%">
-                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="{{i+1}}. lépés" formControlName="step" required></textarea>
-                        <button tabIndex="-1" matSuffix mat-button (click)="deleteStep(i)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
+                    <mat-form-field hideRequiredMarker fxFlex="50%">
+                        <mat-label>Alapanyag kategória</mat-label>
+                        <mat-select formControlName="cat2" matNativeControl required>
+                            <mat-option value="Húsétel">Húsétel</mat-option>
+                            <mat-option value="Vega">Hús nélkül</mat-option>
+                            <mat-option value="Egyéb">Egyéb</mat-option>
+                        </mat-select>
                     </mat-form-field>
-                    <div fxFlex="40px" class="addbutton">
-                        <button mat-mini-fab color="basic" (click)="addStep()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
-                    </div>
                 </div>
-            </div>
+                <div fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px">
+                    <mat-form-field hideRequiredMarker fxFlex="50%">
+                        <mat-label>Alkategória</mat-label>
+                        <mat-select formControlName="cat3" matNativeControl required>
+                            <mat-option value="Gyorsan elkészíthető">Gyorsan elkészíthető</mat-option>
+                            <mat-option value="Különleges alkalmakra">Különleges alkalmakra</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div fxFlex="50%"></div>
+                </div>
+            </form>
             <div fxLayout="row" fxLayoutAlign="start" class="pager">
                 <div fxFlex="50%" fxLayoutAlign="start">
                     <button mat-flat-button color="#424242" matStepperPrevious class="left"><span fxLayoutAlign="start"><i class="material-icons click-area click-area-left">keyboard_arrow_left</i><span class="button-label">Előző</span></span></button>
@@ -134,66 +111,91 @@
                     <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
                 </div>
             </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="FormGroup4">
-        <div class="title">Hozzávalók listája</div>
-        <form [formGroup]="FormGroup4">
-            <ng-template matStepLabel></ng-template>
-            <div formArrayName="ingredients">
-                <div *ngFor="let ingred of ingredientForm.controls; let ii=index; last as isLast; first as isFirst" [formGroupName]="ii">
-                    <div fxLayout fxLayout.xs="row" fxLayoutAlign="start" fxFlex="100%" fxLayoutGap="10px">
-                        <div fxLayoutGap="10px" fxLayout fxLayout.xs="column" fxFlex="100%">
-                            <mat-form-field hideRequiredMarker fxFlex="100%">
-                                <input matInput placeholder="Mennyiség" formControlName="quanity" required>
-                            </mat-form-field>
-                            <mat-form-field hideRequiredMarker fxFlex="100%">
-                                <input matInput placeholder="Hozzávaló" formControlName="ingredient" required>
-                                <button matSuffix mat-button (click)="deleteIngredient(ii)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
-                            </mat-form-field>
-                        </div>
+        </mat-step>
+        <mat-step [stepControl]="FormGroup3">
+            <div class="title">Elkészítési útmutató</div>
+            <form [formGroup]="FormGroup3">
+                <ng-template matStepLabel></ng-template>
+                <div formArrayName="steps">
+                    <div *ngFor="let step of stepForm.controls; let i=index; last as isLast; first as isFirst" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
+                        <mat-form-field hideRequiredMarker fxFlex="100%">
+                            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" placeholder="{{i+1}}. lépés" formControlName="step" required></textarea>
+                            <button tabIndex="-1" matSuffix mat-button (click)="deleteStep(i)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
+                        </mat-form-field>
                         <div fxFlex="40px" class="addbutton">
-                            <button mat-mini-fab color="basic" (click)="addIngredient()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
+                            <button mat-mini-fab color="basic" (click)="addStep()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="start" class="pager">
-                <div fxFlex="50%" fxLayoutAlign="start">
-                    <button mat-flat-button color="#424242" matStepperPrevious class="left"><span fxLayoutAlign="start"><i class="material-icons click-area click-area-left">keyboard_arrow_left</i><span class="button-label">Előző</span></span></button>
+                <div fxLayout="row" fxLayoutAlign="start" class="pager">
+                    <div fxFlex="50%" fxLayoutAlign="start">
+                        <button mat-flat-button color="#424242" matStepperPrevious class="left"><span fxLayoutAlign="start"><i class="material-icons click-area click-area-left">keyboard_arrow_left</i><span class="button-label">Előző</span></span></button>
+                    </div>
+                    <div fxFlex="50%" fxLayoutAlign="end">
+                        <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
+                    </div>
                 </div>
-                <div fxFlex="50%" fxLayoutAlign="end">
-                    <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="FormGroup4">
+            <div class="title">Hozzávalók listája</div>
+            <form [formGroup]="FormGroup4">
+                <ng-template matStepLabel></ng-template>
+                <div formArrayName="ingredients">
+                    <div *ngFor="let ingred of ingredientForm.controls; let ii=index; last as isLast; first as isFirst" [formGroupName]="ii">
+                        <div fxLayout fxLayout.xs="row" fxLayoutAlign="start" fxFlex="100%" fxLayoutGap="10px">
+                            <div fxLayoutGap="10px" fxLayout fxLayout.xs="column" fxFlex="100%">
+                                <mat-form-field hideRequiredMarker fxFlex="100%">
+                                    <input matInput placeholder="Mennyiség" formControlName="quanity" required>
+                                </mat-form-field>
+                                <mat-form-field hideRequiredMarker fxFlex="100%">
+                                    <input matInput placeholder="Hozzávaló" formControlName="ingredient" required>
+                                    <button matSuffix mat-button (click)="deleteIngredient(ii)" *ngIf="isFirst == false"><mat-icon>delete</mat-icon></button>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="40px" class="addbutton">
+                                <button mat-mini-fab color="basic" (click)="addIngredient()" *ngIf="isLast"><mat-icon>add</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="FormGroup5">
-        <div class="title">Véglegesítés</div>
-        <form [formGroup]="FormGroup5">
-            <ng-template matStepLabel></ng-template>
-            <mat-checkbox formControlName="share" *ngIf="!recipe.share">Közzéteszem a receptet</mat-checkbox>
-            <div class="page5" *ngIf="!recipe.share">
-                A fenti opcióval közzéteheted a receptedet. Amennyiben a receptet közzéteszed, azt később nem áll módodban visszavonni.
-            </div>
-            <div class="page5" *ngIf="recipe.share">
-                Véglegesítsd a változtatásokat az - elküld - gombbal.
-            </div>
-            <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
-                <div fxFlex="100px" fxLayoutAlign="end">
-                    <button mat-flat-button color="basic" (click)="stepper.reset()">Mégsem</button>
+                <div fxLayout="row" fxLayoutAlign="start" class="pager">
+                    <div fxFlex="50%" fxLayoutAlign="start">
+                        <button mat-flat-button color="#424242" matStepperPrevious class="left"><span fxLayoutAlign="start"><i class="material-icons click-area click-area-left">keyboard_arrow_left</i><span class="button-label">Előző</span></span></button>
+                    </div>
+                    <div fxFlex="50%" fxLayoutAlign="end">
+                        <button mat-flat-button color="#424242" matStepperNext class="right"><span fxLayoutAlign="end"><span class="button-label">Következő</span><i class="material-icons click-area click-area-right">keyboard_arrow_right</i></span></button>
+                    </div>
                 </div>
-                <div fxFlex="100px" fxLayoutAlign="end">
-                    <a [routerLink]="['/recipe', selectedRecipeId]">
-                        <button mat-flat-button color="primary" (click)="writeRecipeForm();stepper.reset()" [disabled]="!FormGroup1.valid || !FormGroup2.valid || !FormGroup3.valid || !FormGroup4.valid || !FormGroup5.valid">Elküldés</button>
-                    </a>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="FormGroup5">
+            <div class="title">Véglegesítés</div>
+            <form [formGroup]="FormGroup5">
+                <ng-template matStepLabel></ng-template>
+                <mat-checkbox formControlName="share" *ngIf="!recipe.share">Közzéteszem a receptet</mat-checkbox>
+                <div class="page5" *ngIf="!recipe.share">
+                    A fenti opcióval közzéteheted a receptedet. Amennyiben a receptet közzéteszed, azt később nem áll módodban visszavonni.
                 </div>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="start" class="pager">
-                <div fxFlex="100%" fxLayoutAlign="start">
-                    <button mat-flat-button color="#424242" matStepperPrevious class="left"><span fxLayoutAlign="start"><i class="material-icons click-area click-area-left">keyboard_arrow_left</i><span class="button-label">Előző</span></span></button>
+                <div class="page5" *ngIf="recipe.share">
+                    Véglegesítsd a változtatásokat az - elküld - gombbal.
                 </div>
-            </div>
-        </form>
-    </mat-step>
-</mat-horizontal-stepper>
+                <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+                    <div fxFlex="100px" fxLayoutAlign="end">
+                        <button mat-flat-button color="basic" (click)="stepper.reset()">Mégsem</button>
+                    </div>
+                    <div fxFlex="100px" fxLayoutAlign="end">
+                        <a [routerLink]="['/recipe', selectedRecipeId]">
+                            <button mat-flat-button color="primary" (click)="writeRecipeForm();stepper.reset()" [disabled]="!FormGroup1.valid || !FormGroup2.valid || !FormGroup3.valid || !FormGroup4.valid || !FormGroup5.valid">Elküldés</button>
+                        </a>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start" class="pager">
+                    <div fxFlex="100%" fxLayoutAlign="start">
+                        <button mat-flat-button color="#424242" matStepperPrevious class="left"><span fxLayoutAlign="start"><i class="material-icons click-area click-area-left">keyboard_arrow_left</i><span class="button-label">Előző</span></span></button>
+                    </div>
+                </div>
+            </form>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

@@ -60,7 +60,7 @@ a {
                         font-size: calc(12px + 0.2vw);
                     }
                     .text {
-                        color: $tw1;
+                        color: $tw2;
                         font-size: calc(18px + 0.2vw);
                     }
                 }
@@ -70,28 +70,31 @@ a {
 }
 
 .recipe-list-container {
-    margin: 32px 0 20px 0;
     color: $tn2;
     font-family: Mina;
     .icon-border {
+        margin: 40px 0 0 0;
         width: 76px;
         height: 76px;
         border-radius: 50%;
-        border: 2px solid $tn2;
-        background-color: $bg3;
+        border: 2px solid $tw2;
+        background-color: $bg1;
         padding: 6px;
         .icon {
             width: 50px;
             height: 50px;
             margin: 7px;
+            filter: invert(46%) sepia(10%) saturate(1228%) hue-rotate(187deg) brightness(99%) contrast(86%);
         }
     }
     .title {
         font-size: 30px;
         text-transform: uppercase;
+        margin: 0 0 32px 0;
+        color: $tw2;
     }
     .recipe-card-container {
-        padding: 24px;
+        padding: 12px;
         height: 400px;
         overflow: hidden;
         .recipe-card {
@@ -99,23 +102,39 @@ a {
             color: $tn2;
             border-radius: 4px 4px 20px 4px;
             height: 100%;
-            padding: 12px;
+            // padding: 12px;
             overflow: hidden;
-            .recipe-image {
-                background-size: cover;
-                background-position: center center;
-                background-repeat: no-repeat;
-                width: 100%;
-                height: 100px;
-                margin: 0 0 6px 0;
-                border-radius: 4px 4px 20px 4px;
-            }
-            .recipe-title {
-                font-size: 22px;
-                text-transform: uppercase;
-            }
-            .recipe-short {
-                font-size: 16px;
+            border-bottom: 1px solid $tw2;
+            .recipe-card-inside {
+                height: 100%;
+                .recipe-image {
+                    background-size: cover;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    width: 100%;
+                    height: 100%;
+                    margin: 0 0 6px 0;
+                    border-radius: 4px 4px 0 4px;
+                }
+                .recipe-title {
+                    position: relative;
+                    left: -8vw;
+                    // margin: 0 0 0 -0.8vw;
+                    width: calc(100% + 8vw);
+                    padding: 4px 4px 4px 10px;
+                    border-radius: 0 4px 0 20px;
+                    background-color: $bg0;
+                    color: $tn2;
+                    font-size: 22px;
+                    text-transform: uppercase;
+                    line-height: 1;
+                    border-bottom: 1px solid $tw2;
+                }
+                .recipe-short {
+                    padding: 6px;
+                    font-size: 16px;
+                    text-align: justify;
+                }
             }
         }
     }
